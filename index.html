@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Chemistry 11 — Copy-on-Double-Click</title>
+<style>
+  :root{
+    --bg:#0b1020; --panel:#0f1733; --ink:#e8ecff; --muted:#a9b3d1; --accent:#8bb2ff; --accent2:#6ee7b7;
+    --ring: rgba(139,178,255,.25); --hover: rgba(139,178,255,.08); --copied: rgba(110,231,183,.18);
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  }
+  * { box-sizing:border-box }
+  html,body { height:100% }
+  body{
+    margin:0; color:var(--ink); background: radial-gradient(1200px 800px at 10% -10%, #1b2452 0%, #0b1020 40%, #050815 100%);
+    font-family: var(--sans); line-height:1.5;
+  }
+  .wrap{ max-width: 1100px; margin: clamp(16px,3vw,32px) auto; padding: clamp(16px,3vw,32px); background: color-mix(in oklab, var(--panel) 92%, black 8%);
+         border:1px solid rgba(255,255,255,.06); border-radius:16px; box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);}
+  header h1{ margin:0 0 8px; font-size: clamp(22px, 3.2vw, 36px); letter-spacing:.2px }
+  header p{ margin:.25rem 0 1rem; color:var(--muted) }
+  hr { border:0; height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent); margin: 20px 0;}
+  /* Copyable target styling */
+  [data-copyable]{
+    position:relative; border-radius:10px; padding: .15rem .4rem; margin-left: -.4rem; margin-right: -.4rem;
+    transition: background .12s ease, box-shadow .12s ease, transform .05s ease;
+    cursor: copy;
+  }
+  [data-copyable]:hover{ background: var(--hover); box-shadow: 0 0 0 3px var(--ring); }
+  [data-copyable].copied{ background: var(--copied); outline: 2px solid rgba(110,231,183,.5); }
+  .legend{ font: 12px/1.4 var(--mono); color:var(--muted); margin-top:.5rem }
+  ul{ margin:.2rem 0 .75rem 1.25rem; padding:0 }
+  li{ margin:.15rem 0 }
+  .toast{
+    position: fixed; top: 14px; right: 14px; background: #0a1b12; color:#d5ffe9; border:1px solid rgba(110,231,183,.4);
+    padding:10px 12px; border-radius:10px; font-size:14px; display:none; box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  }
+  .kbd{ font: 11px/1 var(--mono); background: rgba(255,255,255,.08); padding:2px 6px; border-radius:6px; border:1px solid rgba(255,255,255,.14) }
+</style>
+</head>
+<body>
+  <div class="wrap" id="content">
+    <header>
+      <h1 data-copyable>📘 Chemistry 11 — Table of Contents</h1>
+      <p class="legend">Tip: <span class="kbd">Double-click</span> any line to copy it.</p>
+    </header>
+
+    <!-- Generated content will appear here -->
+    <section id="toc-root"></section>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">Copied ✔</div>
+
+<script>
+/** 1) Paste your outline here as a single string. Indentation controls nesting (2 spaces per level). */
+const tocText = `
+- 1 Skills and Processes of Chemistry (page 7)
+  - 1.1 Staying Safe Around Matter (page 7)
+  - 1.2 Laboratory and Reporting Skills (page 8)
+  - 1.3 Measuring and Recording Significant Data (page 38)
+  - 1.4 Analysis of Units and Conversions in Chemistry (page 51)
+- 2 The Nature of Matter (page 66)
+  - 2.1 Properties of Matter (page 66)
+  - 2.2 The Classification of Matter (page 79)
+  - 2.3 Separating the Substances of a Mixture (page 92)
+  - 2.4 A Review of Chemical Nomenclature (page 102)
+- 3 The Mole — The Central Unit of Chemistry (page 114)
+  - 3.1 Relative Atomic Mass (page 114)
+  - 3.2 Introducing the Mole — The Central Unit of Chemistry (page 121)
+  - 3.3 The Wheel Model of Mole Conversions (page 130)
+  - 3.4 Molar Volume (page 138)
+  - 3.5 Composition Analysis — Determining Formulas (page 148)
+  - 3.6 Molar Concentration (page 157)
+- 4 Expressing and Measuring Chemical Change (page 168)
+  - 4.1 Writing and Balancing Chemical Equations — The Magic of Chemistry (page 168)
+  - 4.2 Classifying Chemical Changes and Predicting Products (page 179)
+  - 4.3 Another Way to Classify — Identifying Electron Transfer (Extension) (page 193)
+  - 4.4 Energy Changes Associated with Chemical Change — Endothermicity and Exothermicity (page 204)
+  - 4.5 Calculating with Chemical Change — Stoichiometry (page 213)
+  - 4.6 Stoichiometry in the Real World — Excess/Limiting Amounts, Percentage Yield, and Impurities (page 226)
+- 5 A Closer Look at Matter (page 240)
+  - 5.1 Early Models of the Atom — Dalton to Rutherford (page 240)
+  - 5.2 Quantum Theory and the Bohr Model of the Atom (page 256)
+  - 5.3 Beyond Bohr — The Quantum Mechanical Model of the Atom (Extension) (page 267)
+  - 5.4 Applying Quantum Mechanics to Electrons in Atoms (page 277)
+- 6 Relationships and Patterns in Chemistry (page 292)
+  - 6.1 The Development of the Periodic Table (page 292)
+  - 6.2 Periodic Trends — Regular Changes in Elemental Properties (page 305)
+  - 6.3 Describing Chemical Bonding (page 317)
+  - 6.4 Lewis Structure Diagrams (page 330)
+  - 6.5 The Shape and Behaviour of Molecules (Extension) (page 347)
+- 7 Solution Chemistry (page 370)
+  - 7.1 The Nature of Solutions (page 370)
+  - 7.2 What Dissolves and What Doesn’t — 'Like Dissolves Like' (page 378)
+  - 7.3 Dissociation Equations and Solution Conductivity (page 389)
+  - 7.4 An Introduction to Titrations (page 399)
+- 8 Organic Chemistry (page 408)
+  - 8.1 Simple Hydrocarbons and Isomerism (page 408)
+  - 8.2 Functional Groups (page 423)
+  - 8.3 Reactions of Organic Molecules (page 436)
+`;
+
+/** 2) Parse the text into a tree (2 spaces = one level). */
+function parseTOC(text){
+  const lines = text.split('\n').map(l => l.replace(/\r/g,'')).filter(l => l.trim().startsWith('-'));
+  const root = { children: [] };
+  const stack = [ {node: root, level: -1} ];
+
+  for(const raw of lines){
+    const m = raw.match(/^(\s*)-\s*(.+?)\s*\(page\s*([0-9]+)\)\s*$/i);
+    if(!m) continue;
+    const spaces = m[1].length;
+    const level = Math.floor(spaces/2); // 2 spaces per indent level
+    const title = m[2].trim();
+    const page = parseInt(m[3],10);
+
+    while(stack.length && stack[stack.length-1].level >= level){
+      stack.pop();
+    }
+    const parent = stack[stack.length-1].node;
+    const node = { title, page, children: [] };
+    parent.children.push(node);
+    stack.push({node, level});
+  }
+  return root.children;
+}
+
+/** 3) Render the tree as nested ULs, with each line copyable. */
+function renderTOC(nodes){
+  const ul = document.createElement('ul');
+  for(const n of nodes){
+    const li = document.createElement('li');
+    li.dataset.copyable = '';
+    li.setAttribute('tabindex','0');
+    li.setAttribute('title','Double-click to copy');
+    li.textContent = `${n.title} (page ${n.page})`;
+    if(n.children && n.children.length){
+      li.appendChild(renderTOC(n.children));
+    }
+    ul.appendChild(li);
+  }
+  return ul;
+}
+
+/** 4) Inject into the page. */
+const tocRoot = document.getElementById('toc-root');
+const tree = parseTOC(tocText);
+tocRoot.innerHTML = '<hr />';
+tocRoot.appendChild(renderTOC(tree));
+tocRoot.appendChild(document.createElement('hr'));
+
+/** 5) Copy-on-double-click behavior (your original, with slight generalization). */
+(function(){
+  const container = document.getElementById('content');
+  const toast = document.getElementById('toast');
+
+  container.addEventListener('dblclick', async (ev) => {
+    const target = ev.target.closest('[data-copyable]');
+    if(!target) return;
+    const text = (target.innerText || target.textContent || "").replace(/\s+/g,' ').trim();
+    if(!text) return;
+
+    try{
+      await navigator.clipboard.writeText(text);
+    }catch(e){
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); }catch(_){}
+      ta.remove();
+    }
+
+    target.classList.add('copied');
+    setTimeout(()=> target.classList.remove('copied'), 650);
+    showToast('Copied ✔');
+  }, { passive:true });
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.style.display = 'block';
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(-6px)';
+    requestAnimationFrame(()=>{
+      toast.style.transition = 'opacity .18s ease, transform .18s ease';
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateY(0)';
+    });
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(()=>{
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(-6px)';
+      setTimeout(()=>{ toast.style.display='none'; }, 200);
+    }, 1100);
+  }
+
+  // Keyboard accessibility (Enter to copy)
+  container.addEventListener('keydown', (ev)=>{
+    if(ev.key !== 'Enter') return;
+    const target = ev.target.closest('[data-copyable]');
+    if(!target) return;
+    ev.preventDefault();
+    target.dispatchEvent(new MouseEvent('dblclick', {bubbles:true}));
+  });
+})();
+</script>
+</body>
+</html>
+
