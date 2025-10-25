@@ -38,6 +38,26 @@
     padding:10px 12px; border-radius:10px; font-size:14px; display:none; box-shadow: 0 10px 24px rgba(0,0,0,.35);
   }
   .kbd{ font: 11px/1 var(--mono); background: rgba(255,255,255,.08); padding:2px 6px; border-radius:6px; border:1px solid rgba(255,255,255,.14) }
+  /* --- Chapter 4 expanders & panels --- */
+.toc-line{ position:relative; padding-right:28px }
+.toc-expander{
+  position:absolute; right:0; top:0; bottom:0; display:flex; align-items:center;
+  padding:0 6px; cursor:pointer; user-select:none; border-radius:8px;
+  color:var(--muted); border:1px solid transparent;
+}
+.toc-expander:hover{ background:var(--hover); border-color:rgba(255,255,255,.12); color:var(--ink) }
+.toc-expander .carat{ transition: transform .15s ease }
+.section-panel{
+  margin:.35rem 0 .6rem 0; border:1px solid rgba(255,255,255,.08); border-radius:12px;
+  background:rgba(255,255,255,.04); padding:.7rem .8rem; display:none;
+}
+.section-panel.open{ display:block }
+.section-panel h4{ margin:.1rem 0 .4rem; font-size:15px }
+.section-panel .kbd { margin-left:.25rem }
+.section-panel pre, .section-panel code{ font-family:var(--mono); font-size:12.5px; white-space:pre-wrap }
+.section-panel ul{ margin:.25rem 0 .25rem 1.1rem }
+.section-panel li{ margin:.15rem 0 }
+
 </style>
 </head>
 <body>
@@ -52,9 +72,86 @@
   </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite">Copied ✔</div>
-
 <script>
-/** 1) Paste your outline here as a single string. Indentation controls nesting (2 spaces per level). */
+/** =========  Chapter 4 content (concise tutorial)  ========= */
+const ch4 = {
+  "4.1": `
+    <h4>4.1 Writing & Balancing Chemical Equations</h4>
+    <ul>
+      <li>Include states: <code>(s)</code>, <code>(l)</code>, <code>(g)</code>, <code>(aq)</code>; conserve mass (balance with <em>coefficients</em>, not subscripts).</li>
+      <li>Evidence of change: heat/light, colour change, gas, precipitate.</li>
+    </ul>
+    <pre>Balancing Hints
+• Balance elements that appear once first
+• Leave H and O for last
+• Treat unchanged polyatomic ions as a unit
+• Fractions allowed → clear by multiplying
+• Recount atoms to verify</pre>
+  `,
+  "4.2": `
+    <h4>4.2 Classifying & Predicting Products</h4>
+    <ul>
+      <li>Synthesis: <code>A + B → AB</code> (metal oxide + H₂O → base; non-metal oxide + H₂O → acid)</li>
+      <li>Decomposition: <code>AB → A + B</code> (often endothermic)</li>
+      <li>Single replacement: <code>A + BC → AC + B</code> (check activity series)</li>
+      <li>Double replacement: <code>AB + CD → AD + CB</code> (precipitation, neutralization, gas formation)</li>
+      <li>Neutralization: acid + base → salt + water</li>
+      <li>Combustion (hydrocarbon): <code>+ O₂ → CO₂ + H₂O</code> (exothermic)</li>
+    </ul>
+    <pre>Activity Series (mini)
+Metals: Li &gt; K &gt; Ca &gt; Na &gt; Mg &gt; Al &gt; Zn &gt; Fe &gt; Ni &gt; Sn &gt; Pb &gt; H &gt; Cu &gt; Hg &gt; Ag &gt; Pt &gt; Au
+Halogens: F₂ &gt; Cl₂ &gt; Br₂ &gt; I₂</pre>
+  `,
+  "4.3": `
+    <h4>4.3 Electron Transfer (Redox)</h4>
+    <ul>
+      <li>Metathesis: no e⁻ transfer (many double replacements).</li>
+      <li>Redox: e⁻ transfer (single replacement, combustion, many synth/decomp with elements).</li>
+    </ul>
+    <pre>Oxidation Number Rules
+• Elemental = 0 (Na, O₂, P₄)      • Monatomic ion = charge
+• O = −2 (peroxides −1; OF₂: O = +2) • H = +1 (−1 in metal hydrides)
+• Sum in neutral compound = 0; in ion = charge
+LEO = oxidation (↑ox#), GER = reduction (↓ox#)
+Oxidizing agent is reduced; reducing agent is oxidized.</pre>
+  `,
+  "4.4": `
+    <h4>4.4 Energy Changes — Endo vs Exo</h4>
+    <ul>
+      <li>Breaking bonds absorbs energy; forming bonds releases energy.</li>
+      <li>Endothermic: absorbs heat, <code>ΔH &gt; 0</code>; Exothermic: releases heat, <code>ΔH &lt; 0</code>.</li>
+      <li>Thermochemical equations include energy term; ΔH notation lists it separately.</li>
+    </ul>
+    <pre>Examples
+Endo: 572 kJ + 2 H₂O(l) → 2 H₂(g) + O₂(g)
+Exo:  2 H₂(g) + O₂(g) → 2 H₂O(l) + 572 kJ
+Tip: ΔH scales with the stoichiometric “mole of reaction”.</pre>
+  `,
+  "4.5": `
+    <h4>4.5 Stoichiometry — Calculation Flow</h4>
+    <pre>Workflow
+1) Balance equation (coefficients = mole ratios)
+2) Convert known → moles (molar mass)
+3) Apply mole ratio to target
+4) Convert to asked unit (g, mol, L@STP, etc.)</pre>
+    <ul>
+      <li>Gases @ same T,P: volume ratios = mole ratios; at STP: 1 mol = 22.4 L.</li>
+      <li>Solutions: <code>M = n/V</code>, so <code>n = M·V</code>.</li>
+    </ul>
+  `,
+  "4.6": `
+    <h4>4.6 Real-World Stoichiometry</h4>
+    <pre>Limiting vs Excess
+• Limiting reagent is fully consumed → caps product
+• Find limiter: compute product from each reactant; smaller wins</pre>
+    <pre>Yields & Purity
+• Theoretical yield: stoichiometric max
+• %Yield = (actual / theoretical) × 100%
+• %Purity = (mass of pure / total mass) × 100%</pre>
+  `
+};
+
+/** =========  Keep your original parsing/rendering, add expander hook  ========= */
 const tocText = `
 - 1 Skills and Processes of Chemistry (page 7)
   - 1.1 Staying Safe Around Matter (page 7)
@@ -102,7 +199,6 @@ const tocText = `
   - 8.3 Reactions of Organic Molecules (page 436)
 `;
 
-/** 2) Parse the text into a tree (2 spaces = one level). */
 function parseTOC(text){
   const lines = text.split('\n').map(l => l.replace(/\r/g,'')).filter(l => l.trim().startsWith('-'));
   const root = { children: [] };
@@ -112,22 +208,22 @@ function parseTOC(text){
     const m = raw.match(/^(\s*)-\s*(.+?)\s*\(page\s*([0-9]+)\)\s*$/i);
     if(!m) continue;
     const spaces = m[1].length;
-    const level = Math.floor(spaces/2); // 2 spaces per indent level
+    const level = Math.floor(spaces/2);
     const title = m[2].trim();
     const page = parseInt(m[3],10);
+    // Extract a leading section number like "4" or "4.3" if present
+    const numMatch = title.match(/^([0-9]+(?:\.[0-9]+)*)\b/);
+    const section = numMatch ? numMatch[1] : null;
 
-    while(stack.length && stack[stack.length-1].level >= level){
-      stack.pop();
-    }
+    while(stack.length && stack[stack.length-1].level >= level) stack.pop();
     const parent = stack[stack.length-1].node;
-    const node = { title, page, children: [] };
+    const node = { title, page, section, children: [] };
     parent.children.push(node);
     stack.push({node, level});
   }
   return root.children;
 }
 
-/** 3) Render the tree as nested ULs, with each line copyable. */
 function renderTOC(nodes){
   const ul = document.createElement('ul');
   for(const n of nodes){
@@ -135,7 +231,40 @@ function renderTOC(nodes){
     li.dataset.copyable = '';
     li.setAttribute('tabindex','0');
     li.setAttribute('title','Double-click to copy');
-    li.textContent = `${n.title} (page ${n.page})`;
+
+    // Line container for right-side expander placement
+    const line = document.createElement('div');
+    line.className = 'toc-line';
+    line.textContent = `${n.title} (page ${n.page})`;
+
+    // Add expander for Chapter 4 sections only (4.x)
+    const isCh4 = n.section && /^4(\.|$)/.test(n.section);
+    if(isCh4 && ch4[n.section]){
+      const exp = document.createElement('span');
+      exp.className = 'toc-expander';
+      exp.setAttribute('aria-label', 'Toggle section content');
+      exp.setAttribute('role', 'button');
+      exp.innerHTML = `<span class="carat">▸</span>`;
+      line.appendChild(exp);
+
+      // Content panel
+      const panel = document.createElement('div');
+      panel.className = 'section-panel';
+      panel.innerHTML = ch4[n.section];
+
+      // Toggle behavior
+      exp.addEventListener('click', (ev)=>{
+        ev.stopPropagation();
+        const open = panel.classList.toggle('open');
+        exp.querySelector('.carat').style.transform = open ? 'rotate(90deg)' : 'rotate(0deg)';
+      });
+
+      li.appendChild(line);
+      li.appendChild(panel);
+    } else {
+      li.appendChild(line);
+    }
+
     if(n.children && n.children.length){
       li.appendChild(renderTOC(n.children));
     }
@@ -144,14 +273,14 @@ function renderTOC(nodes){
   return ul;
 }
 
-/** 4) Inject into the page. */
+/** Inject into the page. */
 const tocRoot = document.getElementById('toc-root');
 const tree = parseTOC(tocText);
 tocRoot.innerHTML = '<hr />';
 tocRoot.appendChild(renderTOC(tree));
 tocRoot.appendChild(document.createElement('hr'));
 
-/** 5) Copy-on-double-click behavior (your original, with slight generalization). */
+/** Copy-on-double-click (unchanged behaviour). */
 (function(){
   const container = document.getElementById('content');
   const toast = document.getElementById('toast');
@@ -162,9 +291,8 @@ tocRoot.appendChild(document.createElement('hr'));
     const text = (target.innerText || target.textContent || "").replace(/\s+/g,' ').trim();
     if(!text) return;
 
-    try{
-      await navigator.clipboard.writeText(text);
-    }catch(e){
+    try{ await navigator.clipboard.writeText(text); }
+    catch{
       const ta = document.createElement('textarea');
       ta.value = text; document.body.appendChild(ta); ta.select();
       try{ document.execCommand('copy'); }catch(_){}
@@ -177,24 +305,20 @@ tocRoot.appendChild(document.createElement('hr'));
   }, { passive:true });
 
   function showToast(msg){
-    toast.textContent = msg;
-    toast.style.display = 'block';
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateY(-6px)';
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.style.display = 'block'; t.style.opacity = '0'; t.style.transform = 'translateY(-6px)';
     requestAnimationFrame(()=>{
-      toast.style.transition = 'opacity .18s ease, transform .18s ease';
-      toast.style.opacity = '1';
-      toast.style.transform = 'translateY(0)';
+      t.style.transition = 'opacity .18s ease, transform .18s ease';
+      t.style.opacity = '1'; t.style.transform = 'translateY(0)';
     });
     clearTimeout(showToast._t);
     showToast._t = setTimeout(()=>{
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateY(-6px)';
-      setTimeout(()=>{ toast.style.display='none'; }, 200);
+      t.style.opacity = '0'; t.style.transform = 'translateY(-6px)';
+      setTimeout(()=>{ t.style.display='none'; }, 200);
     }, 1100);
   }
 
-  // Keyboard accessibility (Enter to copy)
+  // Keyboard: Enter copies the line text (not the panel)
   container.addEventListener('keydown', (ev)=>{
     if(ev.key !== 'Enter') return;
     const target = ev.target.closest('[data-copyable]');
@@ -204,6 +328,7 @@ tocRoot.appendChild(document.createElement('hr'));
   });
 })();
 </script>
+
 </body>
 </html>
 
