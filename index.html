@@ -38,26 +38,25 @@
     padding:10px 12px; border-radius:10px; font-size:14px; display:none; box-shadow: 0 10px 24px rgba(0,0,0,.35);
   }
   .kbd{ font: 11px/1 var(--mono); background: rgba(255,255,255,.08); padding:2px 6px; border-radius:6px; border:1px solid rgba(255,255,255,.14) }
-  /* --- Chapter 4 expanders & panels --- */
-.toc-line{ position:relative; padding-right:28px }
-.toc-expander{
-  position:absolute; right:0; top:0; bottom:0; display:flex; align-items:center;
-  padding:0 6px; cursor:pointer; user-select:none; border-radius:8px;
-  color:var(--muted); border:1px solid transparent;
-}
-.toc-expander:hover{ background:var(--hover); border-color:rgba(255,255,255,.12); color:var(--ink) }
-.toc-expander .carat{ transition: transform .15s ease }
-.section-panel{
-  margin:.35rem 0 .6rem 0; border:1px solid rgba(255,255,255,.08); border-radius:12px;
-  background:rgba(255,255,255,.04); padding:.7rem .8rem; display:none;
-}
-.section-panel.open{ display:block }
-.section-panel h4{ margin:.1rem 0 .4rem; font-size:15px }
-.section-panel .kbd { margin-left:.25rem }
-.section-panel pre, .section-panel code{ font-family:var(--mono); font-size:12.5px; white-space:pre-wrap }
-.section-panel ul{ margin:.25rem 0 .25rem 1.1rem }
-.section-panel li{ margin:.15rem 0 }
-
+  /* --- Expanders & panels --- */
+  .toc-line{ position:relative; padding-right:28px }
+  .toc-expander{
+    position:absolute; right:0; top:0; bottom:0; display:flex; align-items:center;
+    padding:0 6px; cursor:pointer; user-select:none; border-radius:8px;
+    color:var(--muted); border:1px solid transparent;
+  }
+  .toc-expander:hover{ background:var(--hover); border-color:rgba(255,255,255,.12); color:var(--ink) }
+  .toc-expander .carat{ transition: transform .15s ease }
+  .section-panel{
+    margin:.35rem 0 .6rem 0; border:1px solid rgba(255,255,255,.08); border-radius:12px;
+    background:rgba(255,255,255,.04); padding:.7rem .8rem; display:none;
+  }
+  .section-panel.open{ display:block }
+  .section-panel h4{ margin:.1rem 0 .4rem; font-size:15px }
+  .section-panel .kbd { margin-left:.25rem }
+  .section-panel pre, .section-panel code{ font-family:var(--mono); font-size:12.5px; white-space:pre-wrap }
+  .section-panel ul{ margin:.25rem 0 .25rem 1.1rem }
+  .section-panel li{ margin:.15rem 0 }
 </style>
 </head>
 <body>
@@ -73,8 +72,9 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite">Copied ✔</div>
 <script>
-/** =========  Chapter 4 content (concise tutorial)  ========= */
-const ch4 = {
+/** =========  Concise tutorials mapped by section number  ========= */
+const sections = {
+  /* ---------------- Chapter 4 (existing) ---------------- */
   "4.1": `
     <h4>4.1 Writing & Balancing Chemical Equations</h4>
     <ul>
@@ -148,10 +148,66 @@ Tip: ΔH scales with the stoichiometric “mole of reaction”.</pre>
 • Theoretical yield: stoichiometric max
 • %Yield = (actual / theoretical) × 100%
 • %Purity = (mass of pure / total mass) × 100%</pre>
+  `,
+
+  /* ---------------- Chapter 5 (new) ---------------- */
+  "5.1": `
+    <h4>5.1 Early Models of the Atom — Dalton to Rutherford</h4>
+    <ul>
+      <li><strong>Democritus → “atomos”</strong> (indivisible); Aristotle’s 4 elements delayed atomic theory ~2000 yrs.</li>
+      <li><strong>Boyle:</strong> quantitative experiments; element as “unmingled body.”</li>
+      <li><strong>Dalton:</strong> atoms, identical by element, combine in fixed ratios; indivisible (now known partly wrong).</li>
+      <li><strong>Thomson (CRT):</strong> discovered <em>electron</em>, <em>plum-pudding</em> model.</li>
+      <li><strong>Rutherford (gold foil):</strong> tiny dense positive <em>nucleus</em>; atom mostly empty space; later <em>neutron</em> (Chadwick).</li>
+    </ul>
+    <pre>Vocabulary & Notation
+Z (atomic #) = protons
+A (mass #) = protons + neutrons
+Isotopes: same Z, different N
+Ions: cations (lost e⁻), anions (gained e⁻)</pre>
+  `,
+  "5.2": `
+    <h4>5.2 Quantum Theory and the Bohr Model of the Atom</h4>
+    <ul>
+      <li><strong>Problem:</strong> orbiting charges should radiate → atom collapse (classical physics).</li>
+      <li><strong>Planck:</strong> energy quantized, <code>E = hν</code>; <strong>Einstein:</strong> photons (photoelectric effect).</li>
+      <li><strong>Bohr:</strong> allowed energy levels (<code>n=1,2,...</code>); no radiation in allowed orbit; ΔE emitted/absorbed as photon.</li>
+      <li>Explains H emission lines (Lyman UV, Balmer visible, Paschen IR).</li>
+    </ul>
+    <pre>Useful relations
+ΔE = hν = hc/λ
+Hydrogen line (simplified): 1/λ = (R_H)(1/n_f² − 1/n_i²)
+Example: n=4 → 2 ≈ 486 nm (blue-green)</pre>
+  `,
+  "5.3": `
+    <h4>5.3 Beyond Bohr — The Quantum Mechanical Model (Extension)</h4>
+    <ul>
+      <li><strong>de Broglie:</strong> matter waves, <code>λ = h/(mv)</code> → standing waves explain quantized levels.</li>
+      <li><strong>Davisson–Germer:</strong> electron diffraction confirms wave nature.</li>
+      <li><strong>Heisenberg:</strong> uncertainty principle, <code>(mΔv)(Δx) ≥ h/2π</code>.</li>
+      <li><strong>Schrödinger:</strong> wave equation; <code>|ψ|²</code> gives probability density → <em>orbitals</em> (not orbits).</li>
+    </ul>
+    <pre>Takeaways
+• Electrons show particle–wave duality
+• Only probabilities (not exact paths)
+• Quantization emerges from standing waves</pre>
+  `,
+  "5.4": `
+    <h4>5.4 Applying Quantum Mechanics to Electrons in Atoms</h4>
+    <ul>
+      <li><strong>Quantum #s:</strong> <code>n</code> (size/level), <code>ℓ</code> (shape: s,p,d,f), <code>m_ℓ</code> (orientation), <code>m_s</code> (spin ±½).</li>
+      <li><strong>Rules:</strong> Pauli (max 2 e⁻ / orbital, opposite spin); Aufbau (fill lowest energy first); Hund (maximize unpaired, parallel spins).</li>
+      <li><strong>Degeneracy:</strong> H: all subshells of a level equal; multi-e⁻ atoms: s &lt; p &lt; d &lt; f (with 4s before 3d).</li>
+    </ul>
+    <pre>Notation
+Full: 1s² 2s² 2p⁶ 3s² 3p⁶ ...
+Core: [Ne] 3s² 3p⁵
+Ions: remove/add from outermost (highest energy) first
+Counts per level: max e⁻ = 2n² (level n)</pre>
   `
 };
 
-/** =========  Keep your original parsing/rendering, add expander hook  ========= */
+/** =========  TOC text ========= */
 const tocText = `
 - 1 Skills and Processes of Chemistry (page 7)
   - 1.1 Staying Safe Around Matter (page 7)
@@ -199,6 +255,7 @@ const tocText = `
   - 8.3 Reactions of Organic Molecules (page 436)
 `;
 
+/** =========  Parser & renderer ========= */
 function parseTOC(text){
   const lines = text.split('\n').map(l => l.replace(/\r/g,'')).filter(l => l.trim().startsWith('-'));
   const root = { children: [] };
@@ -211,7 +268,6 @@ function parseTOC(text){
     const level = Math.floor(spaces/2);
     const title = m[2].trim();
     const page = parseInt(m[3],10);
-    // Extract a leading section number like "4" or "4.3" if present
     const numMatch = title.match(/^([0-9]+(?:\.[0-9]+)*)\b/);
     const section = numMatch ? numMatch[1] : null;
 
@@ -232,14 +288,12 @@ function renderTOC(nodes){
     li.setAttribute('tabindex','0');
     li.setAttribute('title','Double-click to copy');
 
-    // Line container for right-side expander placement
     const line = document.createElement('div');
     line.className = 'toc-line';
     line.textContent = `${n.title} (page ${n.page})`;
 
-    // Add expander for Chapter 4 sections only (4.x)
-    const isCh4 = n.section && /^4(\.|$)/.test(n.section);
-    if(isCh4 && ch4[n.section]){
+    // Add expander whenever we have content for that section (4.x or 5.x etc.)
+    if(n.section && sections[n.section]){
       const exp = document.createElement('span');
       exp.className = 'toc-expander';
       exp.setAttribute('aria-label', 'Toggle section content');
@@ -247,12 +301,10 @@ function renderTOC(nodes){
       exp.innerHTML = `<span class="carat">▸</span>`;
       line.appendChild(exp);
 
-      // Content panel
       const panel = document.createElement('div');
       panel.className = 'section-panel';
-      panel.innerHTML = ch4[n.section];
+      panel.innerHTML = sections[n.section];
 
-      // Toggle behavior
       exp.addEventListener('click', (ev)=>{
         ev.stopPropagation();
         const open = panel.classList.toggle('open');
@@ -283,7 +335,6 @@ tocRoot.appendChild(document.createElement('hr'));
 /** Copy-on-double-click (unchanged behaviour). */
 (function(){
   const container = document.getElementById('content');
-  const toast = document.getElementById('toast');
 
   container.addEventListener('dblclick', async (ev) => {
     const target = ev.target.closest('[data-copyable]');
