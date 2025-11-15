@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chem 11 – Chapter 5 Multi-Grain Map (A Closer Look at Matter)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1020;
+      --bg-card: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56,189,248,0.14);
+      --accent-strong: rgba(56,189,248,0.35);
+      --text: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-subtle: rgba(148,163,184,0.35);
+      --radius-lg: 0.9rem;
+      --radius-xl: 1.2rem;
+      --shadow-soft: 0 18px 45px rgba(15,23,42,0.65);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: radial-gradient(circle at top, #0b1120 0, #020617 42%, #000 100%);
+      color: var(--text);
+      font-family: var(--sans);
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .app-shell {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 20px;
+      gap: 18px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: linear-gradient(145deg, #020617, #020617 40%, #020617 70%, #020617);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: sticky;
+      top: 20px;
+      align-self: flex-start;
+    }
+
+    .sidebar-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .sidebar-title {
+      font-size: 0.98rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    .sidebar-main {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .sidebar-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.5);
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      margin-top: 2px;
+    }
+
+    .sidebar-pill span {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+    }
+
+    .nav-section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-soft);
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav-item {
+      border-radius: 0.7rem;
+      padding: 7px 9px;
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+    }
+
+    .nav-item:hover {
+      background: rgba(15,23,42,0.95);
+      border-color: rgba(148,163,184,0.7);
+      transform: translateY(-1px);
+    }
+
+    .nav-item.active {
+      border-color: var(--accent);
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.25), rgba(15,23,42,0.95));
+      color: var(--text);
+    }
+
+    .nav-item-title {
+      font-weight: 500;
+    }
+
+    .nav-item-sub {
+      font-size: 0.72rem;
+      opacity: 0.85;
+    }
+
+    .legend {
+      margin-top: 12px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(51,65,85,0.8);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.74rem;
+      color: var(--text-soft);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-strong);
+    }
+
+    .legend-dot.roots { background: rgba(52,211,153,0.16); border-color: rgba(52,211,153,0.7); }
+    .legend-dot.trunk { background: rgba(96,165,250,0.16); border-color: rgba(96,165,250,0.7); }
+    .legend-dot.branches { background: rgba(192,132,252,0.16); border-color: rgba(192,132,252,0.7); }
+    .legend-dot.leaves { background: rgba(251,191,36,0.16); border-color: rgba(251,191,36,0.7); }
+    .legend-dot.fruit { background: rgba(248,113,113,0.16); border-color: rgba(248,113,113,0.7); }
+
+    .sidebar-footnote {
+      margin-top: 8px;
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      opacity: 0.85;
+    }
+
+    /* Main */
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .page-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .page-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      max-width: 420px;
+    }
+
+    .copy-hint {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-family: var(--mono);
+      opacity: 0.9;
+    }
+
+    /* Cards & sections */
+    .section-container {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .section-container.active {
+      display: flex;
+    }
+
+    .chapter-label {
+      font-size: 0.86rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      opacity: 0.9;
+    }
+
+    .chapter-heading {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 2px;
+      margin-bottom: 4px;
+    }
+
+    .chapter-tagline {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(15,23,42,1), rgba(15,23,42,0.9));
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(51,65,85,0.9);
+      box-shadow: var(--shadow-soft);
+      padding: 10px 11px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      border: 1px solid transparent;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      pointer-events: none;
+    }
+
+    .card.roots::before { border-color: rgba(52,211,153,0.6); }
+    .card.trunk::before { border-color: rgba(96,165,250,0.6); }
+    .card.branches::before { border-color: rgba(192,132,252,0.6); }
+    .card.leaves::before { border-color: rgba(251,191,36,0.6); }
+    .card.fruit::before { border-color: rgba(248,113,113,0.6); }
+
+    .card:hover::before {
+      opacity: 0.9;
+    }
+
+    .card-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-pill {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      font-family: var(--mono);
+      color: var(--text-soft);
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .card-subtitle {
+      font-size: 0.76rem;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    .card-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .card-list li {
+      position: relative;
+      padding-left: 15px;
+      line-height: 1.35;
+      cursor: pointer;
+    }
+
+    .card-list li::before {
+      content: "›";
+      position: absolute;
+      left: 1px;
+      top: 0;
+      font-size: 0.7rem;
+      color: var(--accent);
+      opacity: 0.7;
+    }
+
+    .card-note {
+      font-size: 0.74rem;
+      color: var(--text-soft);
+      margin-top: 6px;
+      border-top: 1px dashed rgba(55,65,81,0.9);
+      padding-top: 4px;
+    }
+
+    .copyable {
+      transition: background 0.05s ease, border-color 0.05s ease;
+      border-radius: 6px;
+      border: 1px dashed transparent;
+      padding: 1px 3px;
+    }
+
+    .copyable.copied {
+      background: rgba(56,189,248,0.07);
+      border-color: rgba(56,189,248,0.7);
+    }
+
+    .copy-toast {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      background: rgba(15,23,42,0.97);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.78rem;
+      color: var(--text);
+      border: 1px solid rgba(56,189,248,0.65);
+      display: none;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 12px 30px rgba(15,23,42,0.9);
+      z-index: 40;
+    }
+
+    .copy-toast.show {
+      display: inline-flex;
+    }
+
+    .copy-toast span {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+    }
+
+    @media (max-width: 900px) {
+      .app-shell {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .legend {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-title">Chem 11 &middot; Chapter 5 Map</div>
+        <div class="sidebar-main">A Closer Look at Matter</div>
+        <div class="sidebar-pill">
+          Multi-Grain
+          <span>Roots → Fruit</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-label">Sections</div>
+        <div class="nav-list">
+          <button class="nav-item active" data-target="sec-51">
+            <div class="nav-item-title">5.1 Early Models</div>
+            <div class="nav-item-sub">Dalton → Thomson → Rutherford</div>
+          </button>
+          <button class="nav-item" data-target="sec-52">
+            <div class="nav-item-title">5.2 Bohr & Quantum Theory</div>
+            <div class="nav-item-sub">Quantized energy & H spectrum</div>
+          </button>
+          <button class="nav-item" data-target="sec-53">
+            <div class="nav-item-title">5.3 Quantum Mechanical Model</div>
+            <div class="nav-item-sub">de Broglie, Heisenberg, Schrödinger</div>
+          </button>
+          <button class="nav-item" data-target="sec-54">
+            <div class="nav-item-title">5.4 Electrons in Atoms</div>
+            <div class="nav-item-sub">QNs, orbitals, configs & ions</div>
+          </button>
+        </div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item">
+          <span class="legend-dot roots"></span> Roots
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot trunk"></span> Trunk
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot branches"></span> Branches
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot leaves"></span> Leaves
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot fruit"></span> Fruit
+        </div>
+      </div>
+
+      <div class="sidebar-footnote">
+        Double-click any bullet to copy it into your notes.
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="page-header">
+        <div>
+          <div class="page-title">Chapter 5 – A Closer Look at Matter</div>
+          <div class="page-subtitle">
+            Quantum story of the atom from Dalton’s solid spheres to probabilistic orbitals,
+            organized as a learning tree: roots → trunk → branches → leaves → fruit.
+          </div>
+        </div>
+        <div class="copy-hint">Tip: dbl-click bullets to copy ✂️</div>
+      </header>
+
+      <!-- 5.1 SECTION -->
+      <section id="sec-51" class="section-container active">
+        <div>
+          <div class="chapter-label">5.1</div>
+          <div class="chapter-heading">Early Models of the Atom — Dalton to Rutherford</div>
+          <div class="chapter-tagline">
+            From indivisible “atomos” to electrons and a tiny massive nucleus.
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <!-- ROOTS -->
+          <article class="card roots">
+            <div class="card-label">
+              <span class="card-pill">R</span> Roots — Phenomena & First Ideas
+            </div>
+            <div class="card-title">Why atoms were proposed at all</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Fixed mass ratios in reactions (Lavoisier, Proust) suggest matter is built from
+                discrete units that combine in whole-number ratios.
+              </li>
+              <li class="copyable">
+                Democritus’ “atomos” (uncuttable particles) vs Aristotle’s continuous four elements
+                (earth, air, fire, water).
+              </li>
+              <li class="copyable">
+                Alchemists fail to turn base metals into gold, but develop real techniques
+                (distillation, acid preparation, ore processing).
+              </li>
+              <li class="copyable">
+                Boyle rejects Aristotle’s four elements and defines “element” experimentally,
+                pushing chemistry toward quantitative science.
+              </li>
+            </ul>
+          </article>
+
+          <!-- TRUNK -->
+          <article class="card trunk">
+            <div class="card-label">
+              <span class="card-pill">T</span> Trunk — Core Models
+            </div>
+            <div class="card-title">Dalton, Thomson, Rutherford</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Dalton: atoms are indivisible particles; atoms of the same element are identical;
+                compounds are fixed atom ratios; reactions rearrange atoms.
+              </li>
+              <li class="copyable">
+                Thomson: cathode rays are tiny negative particles (electrons) present in all atoms;
+                “plum pudding” model = electrons in a diffuse positive sphere.
+              </li>
+              <li class="copyable">
+                Rutherford: gold foil experiment shows atoms are mostly empty space with a tiny,
+                dense, positive nucleus containing most of the mass.
+              </li>
+              <li class="copyable">
+                Chadwick: discovers neutrons in the nucleus → explains missing mass without charge.
+              </li>
+            </ul>
+          </article>
+
+          <!-- BRANCHES -->
+          <article class="card branches">
+            <div class="card-label">
+              <span class="card-pill">B</span> Branches — Important Sub-concepts
+            </div>
+            <div class="card-title">Subatomic particles & isotopes</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Protons: 1+ charge, ~1 amu, in nucleus; define atomic number Z and element identity.
+              </li>
+              <li class="copyable">
+                Neutrons: 0 charge, ~1 amu, in nucleus; change mass number A without changing element.
+              </li>
+              <li class="copyable">
+                Electrons: −1 charge, tiny mass; outside nucleus; control bonding and chemistry.
+              </li>
+              <li class="copyable">
+                Isotopes: same Z, different A (different number of neutrons); nearly identical chemistry.
+              </li>
+              <li class="copyable">
+                Mass spectrometry: separates isotopes by mass/charge and lets us calculate average
+                atomic mass from abundances.
+              </li>
+            </ul>
+          </article>
+
+          <!-- LEAVES -->
+          <article class="card leaves">
+            <div class="card-label">
+              <span class="card-pill">L</span> Leaves — Facts & Skills
+            </div>
+            <div class="card-title">Numbers & notation</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Atomic number Z = # of protons = nuclear charge; mass number A = # of protons + neutrons.
+              </li>
+              <li class="copyable">
+                Neutron number N = A − Z; ions: # electrons = Z − charge (cation) or Z + |charge| (anion).
+              </li>
+              <li class="copyable">
+                Isotope notation: <sup>A</sup><sub>Z</sub>X, e.g. <sup>14</sup><sub>6</sub>C or with charge for ions,
+                e.g. <sup>27</sup><sub>13</sub>Al³⁺.
+              </li>
+              <li class="copyable">
+                Average atomic mass = Σ(mass isotope × fractional abundance) over all naturally
+                occurring isotopes.
+              </li>
+            </ul>
+          </article>
+
+          <!-- FRUIT -->
+          <article class="card fruit">
+            <div class="card-label">
+              <span class="card-pill">F</span> Fruit — Big Takeaways
+            </div>
+            <div class="card-title">What 5.1 really proves</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Atoms are not indivisible billiard balls; they have internal structure: nucleus + electrons.
+              </li>
+              <li class="copyable">
+                The identity of an element is locked by proton number, not mass or charge.
+              </li>
+              <li class="copyable">
+                Nearly all atomic mass is in the nucleus, but nearly all atomic volume is empty
+                space occupied by electrons.
+              </li>
+              <li class="copyable">
+                Modern atomic structure is built on experiments with rays and particles, not on
+                philosophical speculation.
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- 5.2 SECTION -->
+      <section id="sec-52" class="section-container">
+        <div>
+          <div class="chapter-label">5.2</div>
+          <div class="chapter-heading">Quantum Theory & the Bohr Model of the Atom</div>
+          <div class="chapter-tagline">
+            Quantized energy levels rescue Rutherford’s collapsing atom and explain bright-line spectra.
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <!-- ROOTS -->
+          <article class="card roots">
+            <div class="card-label">
+              <span class="card-pill">R</span> Roots — Phenomena
+            </div>
+            <div class="card-title">Why classical physics failed</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Blackbody radiation: heated solids emit a non-classical spectrum; classical theory predicts
+                “ultraviolet catastrophe”.
+              </li>
+              <li class="copyable">
+                Photoelectric effect: no electrons emitted below a threshold frequency, regardless of
+                light intensity.
+              </li>
+              <li class="copyable">
+                Hydrogen emission spectrum: discrete coloured lines (red, blue-green, blue, violet) instead
+                of a continuous rainbow.
+              </li>
+              <li class="copyable">
+                Classical prediction: accelerating electrons in Rutherford orbits should radiate energy and
+                spiral into the nucleus → atoms would collapse, which they don’t.
+              </li>
+            </ul>
+          </article>
+
+          <!-- TRUNK -->
+          <article class="card trunk">
+            <div class="card-label">
+              <span class="card-pill">T</span> Trunk — Core Theory
+            </div>
+            <div class="card-title">Planck, Einstein & Bohr</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Planck: energy is quantized; E = hv; objects can only absorb/emit energy in whole-number
+                packets (quanta).
+              </li>
+              <li class="copyable">
+                Einstein: uses quanta to explain the photoelectric effect → light comes in photons with
+                energy hv.
+              </li>
+              <li class="copyable">
+                Bohr: electrons occupy fixed energy levels (orbits) around the nucleus; each level has
+                a quantum number n.
+              </li>
+              <li class="copyable">
+                Bohr: electrons do not radiate energy in allowed orbits; they emit/absorb photons only
+                when jumping between levels (ΔE = hv).
+              </li>
+            </ul>
+          </article>
+
+          <!-- BRANCHES -->
+          <article class="card branches">
+            <div class="card-label">
+              <span class="card-pill">B</span> Branches — Sub-concepts
+            </div>
+            <div class="card-title">Hydrogen spectrum & series</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Emission: electrons absorb energy, jump to higher n, then fall back and emit photons
+                with specific energies.
+              </li>
+              <li class="copyable">
+                Balmer series: transitions ending at n = 2 give visible lines (red, blue-green, blue, violet).
+              </li>
+              <li class="copyable">
+                Lyman series: transitions ending at n = 1 give UV lines; Paschen series: transitions ending
+                at n = 3 give IR lines.
+              </li>
+              <li class="copyable">
+                Only certain transitions are allowed → only certain wavelengths appear → bright-line
+                spectrum instead of a full rainbow.
+              </li>
+            </ul>
+            <div class="card-note copyable">
+              Rydberg/Balmer equations and Bohr’s energy formula all encode the same idea:
+              energy levels are discrete, not continuous.
+            </div>
+          </article>
+
+          <!-- LEAVES -->
+          <article class="card leaves">
+            <div class="card-label">
+              <span class="card-pill">L</span> Leaves — Facts & Tools
+            </div>
+            <div class="card-title">Numbers & equations</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Planck’s equation: E = hv; v = c/λ → E = hc/λ for a photon.
+              </li>
+              <li class="copyable">
+                Energy-level differences in H: ΔE = b (1/n² − 1/n'²) with b ≈ 2.18 × 10⁻¹⁸ J.
+              </li>
+              <li class="copyable">
+                Wavelength of emitted light: 1/λ = (b/hc) (1/n² − 1/n'²) with (b/hc) ≈ 1.097 × 10⁷ m⁻¹.
+              </li>
+              <li class="copyable">
+                Example: n' = 4 → n = 2 transition in H gives λ ≈ 486 nm (blue-green line).
+              </li>
+            </ul>
+          </article>
+
+          <!-- FRUIT -->
+          <article class="card fruit">
+            <div class="card-label">
+              <span class="card-pill">F</span> Fruit — Big Takeaways
+            </div>
+            <div class="card-title">What 5.2 really proves</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Energy in atoms is fundamentally quantized: electrons can only occupy certain energy
+                levels and make jumps of specific size.
+              </li>
+              <li class="copyable">
+                Bohr’s model saves Rutherford’s nuclear atom by forbidding continuous energy loss
+                from allowed orbits.
+              </li>
+              <li class="copyable">
+                Emission/absorption spectra are direct experimental fingerprints of electron
+                energy levels.
+              </li>
+              <li class="copyable">
+                Bohr’s theory is a crucial stepping stone: excellent for H-like atoms, but too simple
+                for multi-electron atoms → need full quantum mechanics.
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- 5.3 SECTION -->
+      <section id="sec-53" class="section-container">
+        <div>
+          <div class="chapter-label">5.3</div>
+          <div class="chapter-heading">Beyond Bohr — Quantum Mechanical Model</div>
+          <div class="chapter-tagline">
+            Electrons as waves, uncertainty in their motion, and orbitals as probability clouds.
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <!-- ROOTS -->
+          <article class="card roots">
+            <div class="card-label">
+              <span class="card-pill">R</span> Roots — Phenomena
+            </div>
+            <div class="card-title">Why Bohr wasn’t enough</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Bohr works well for hydrogen but fails to predict spectra for multi-electron atoms.
+              </li>
+              <li class="copyable">
+                Bohr assumes quantized energy levels but cannot explain <em>why</em> they exist from deeper
+                principles.
+              </li>
+              <li class="copyable">
+                Experiments show electrons produce diffraction and interference patterns like waves
+                (Davisson–Germer experiment).
+              </li>
+              <li class="copyable">
+                Precision measurements reveal fine details in spectra and behaviour that require
+                a more complete model.
+              </li>
+            </ul>
+          </article>
+
+          <!-- TRUNK -->
+          <article class="card trunk">
+            <div class="card-label">
+              <span class="card-pill">T</span> Trunk — Core Theory
+            </div>
+            <div class="card-title">de Broglie, Heisenberg, Schrödinger</div>
+            <ul class="card-list">
+              <li class="copyable">
+                de Broglie: particles have wave nature; λ = h/mv → wave-particle duality.
+              </li>
+              <li class="copyable">
+                Standing wave condition: only orbits that fit an integer number of wavelengths are
+                allowed → explains quantized energies.
+              </li>
+              <li class="copyable">
+                Heisenberg uncertainty principle: impossible to know both exact position and exact
+                momentum of a particle at the same time.
+              </li>
+              <li class="copyable">
+                Schrödinger wave equation: describes electrons by wave functions ψ; ψ² gives
+                probability density → orbitals.
+              </li>
+            </ul>
+          </article>
+
+          <!-- BRANCHES -->
+          <article class="card branches">
+            <div class="card-label">
+              <span class="card-pill">B</span> Branches — Sub-concepts
+            </div>
+            <div class="card-title">Wave behaviour & probability</div>
+            <ul class="card-list">
+              <li class="copyable">
+                For macroscopic objects (baseballs, cars), λ is so tiny it’s unobservable → classical
+                particle behaviour is fine.
+              </li>
+              <li class="copyable">
+                For electrons, λ is comparable to atomic size → wave behaviour dominates and must
+                be included.
+              </li>
+              <li class="copyable">
+                Orbitals are 3D probability clouds, not little circular paths; they show where an
+                electron is most likely to be found.
+              </li>
+              <li class="copyable">
+                Quantum mechanics replaces “where is the electron exactly?” with
+                “what is the probability of finding it here?”.
+              </li>
+            </ul>
+          </article>
+
+          <!-- LEAVES -->
+          <article class="card leaves">
+            <div class="card-label">
+              <span class="card-pill">L</span> Leaves — Facts & Tools
+            </div>
+            <div class="card-title">Equations & principles</div>
+            <ul class="card-list">
+              <li class="copyable">
+                de Broglie wavelength: λ = h/mv — bigger mass → smaller λ; smaller mass → bigger λ.
+              </li>
+              <li class="copyable">
+                Uncertainty: Δx·Δp ≥ h/4π (or m·Δv·Δx ≥ h/2π); more certainty in one quantity means
+                less in the other.
+              </li>
+              <li class="copyable">
+                ψ: wave function; ψ²: probability density of finding an electron in a region of space.
+              </li>
+              <li class="copyable">
+                Electrons cannot be localized particles with well-defined paths around the nucleus
+                in the classical sense.
+              </li>
+            </ul>
+          </article>
+
+          <!-- FRUIT -->
+          <article class="card fruit">
+            <div class="card-label">
+              <span class="card-pill">F</span> Fruit — Big Takeaways
+            </div>
+            <div class="card-title">What 5.3 really proves</div>
+            <ul class="card-list">
+              <li class="copyable">
+                At atomic scale, the sharp line between “particle” and “wave” disappears → electrons
+                are both.
+              </li>
+              <li class="copyable">
+                Quantization arises naturally from wave conditions and boundary restrictions,
+                not from ad-hoc rules.
+              </li>
+              <li class="copyable">
+                Uncertainty and probability are built into the fabric of matter; they are not just due to
+                bad instruments.
+              </li>
+              <li class="copyable">
+                The quantum mechanical model is the foundation for all later topics: orbitals,
+                bonding, molecular shapes, spectroscopy, and more.
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- 5.4 SECTION -->
+      <section id="sec-54" class="section-container">
+        <div>
+          <div class="chapter-label">5.4</div>
+          <div class="chapter-heading">Applying Quantum Mechanics to Electrons in Atoms</div>
+          <div class="chapter-tagline">
+            Quantum numbers, orbital shapes, electron configurations, and how they control chemical behaviour.
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <!-- ROOTS -->
+          <article class="card roots">
+            <div class="card-label">
+              <span class="card-pill">R</span> Roots — Conceptual Base
+            </div>
+            <div class="card-title">From H-atom to many-electron atoms</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Hydrogen shows discrete energy levels with clear spectral lines → orbitals are real
+                physical states.
+              </li>
+              <li class="copyable">
+                Multi-electron atoms must obey the same quantum rules, but electron–electron
+                repulsion alters orbital energies.
+              </li>
+              <li class="copyable">
+                We need a systematic way to label orbitals and electrons → quantum numbers.
+              </li>
+              <li class="copyable">
+                Observed periodic patterns (periodic table) suggest structured filling of energy levels
+                and sublevels.
+              </li>
+            </ul>
+          </article>
+
+          <!-- TRUNK -->
+          <article class="card trunk">
+            <div class="card-label">
+              <span class="card-pill">T</span> Trunk — Core Structure
+            </div>
+            <div class="card-title">Quantum numbers & orbitals</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Principal quantum number n: energy level and orbital size (1, 2, 3…).
+              </li>
+              <li class="copyable">
+                Angular momentum quantum number ℓ: orbital shape (0 = s, 1 = p, 2 = d, 3 = f).
+              </li>
+              <li class="copyable">
+                Magnetic quantum number mℓ: orientation of an orbital in space (−ℓ … +ℓ).
+              </li>
+              <li class="copyable">
+                Spin quantum number ms: electron spin (+½ or −½), giving two electrons per orbital
+                with opposite spins.
+              </li>
+            </ul>
+          </article>
+
+          <!-- BRANCHES -->
+          <article class="card branches">
+            <div class="card-label">
+              <span class="card-pill">B</span> Branches — Sub-concepts
+            </div>
+            <div class="card-title">Shapes, filling order & rules</div>
+            <ul class="card-list">
+              <li class="copyable">
+                s orbitals: spherical; 1 per level. p: dumbbells; 3 per level. d: 5 complex shapes. f: 7
+                even more complex shapes.
+              </li>
+              <li class="copyable">
+                For hydrogen, all orbitals with the same n are degenerate; for multi-electron atoms,
+                sublevels split (2s ≠ 2p, etc.).
+              </li>
+              <li class="copyable">
+                Aufbau principle: electrons fill the lowest-energy orbitals available first.
+              </li>
+              <li class="copyable">
+                Pauli exclusion principle: no two electrons in an atom can have the same set of
+                four quantum numbers; max 2 electrons per orbital.
+              </li>
+              <li class="copyable">
+                Hund’s rule: in degenerate orbitals, electrons occupy them singly with parallel spins
+                before pairing.
+              </li>
+              <li class="copyable">
+                Practical filling order: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, 5s, 4d, 5p, 6s… (diagonal diagram).
+              </li>
+            </ul>
+          </article>
+
+          <!-- LEAVES -->
+          <article class="card leaves">
+            <div class="card-label">
+              <span class="card-pill">L</span> Leaves — Skills & Details
+            </div>
+            <div class="card-title">Electron configurations & ions</div>
+            <ul class="card-list">
+              <li class="copyable">
+                Configuration notation: nℓ<sup>number of electrons</sup>, e.g. 1s² 2s² 2p⁶ 3s² 3p⁶.
+              </li>
+              <li class="copyable">
+                Core notation uses noble gas in brackets, e.g. [Ne] 3s² 3p³ for phosphorus.
+              </li>
+              <li class="copyable">
+                Cations: remove electrons from highest-energy orbitals first (usually 4s before 3d for
+                transition metals).
+              </li>
+              <li class="copyable">
+                Anions: add electrons to the next available orbital following the filling order.
+              </li>
+              <li class="copyable">
+                Isoelectronic species have the same electron configuration (e.g. O²⁻, F⁻, Ne, Na⁺, Mg²⁺).
+              </li>
+            </ul>
+          </article>
+
+          <!-- FRUIT -->
+          <article class="card fruit">
+            <div class="card-label">
+              <span class="card-pill">F</span> Fruit — Big Takeaways
+            </div>
+            <div class="card-title">Why 5.4 matters for chemistry</div>
+            <ul class="card-list">
+              <li class="copyable">
+                The periodic table is basically a visual map of orbital filling patterns (s-block, p-block,
+                d-block, f-block).
+              </li>
+              <li class="copyable">
+                Valence electrons (outermost s and p, plus relevant d in transition metals) control bonding,
+                ion formation, and reactivity.
+              </li>
+              <li class="copyable">
+                Trends in atomic radius, ionization energy, and electronegativity all flow from how orbitals
+                are filled and shielded.
+              </li>
+              <li class="copyable">
+                Once you can “see” electron configurations and orbitals, explaining bonding, shapes, and
+                reactivity becomes much easier and more systematic.
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="copy-toast" id="copyToast">
+    <span>✓</span>
+    Copied to clipboard
+  </div>
+
+  <script>
+    // Sidebar navigation switching
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('.section-container');
+
+    navItems.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        navItems.forEach(b => b.classList.remove('active'));
+        sections.forEach(sec => sec.classList.remove('active'));
+
+        btn.classList.add('active');
+        const target = document.getElementById(targetId);
+        if (target) target.classList.add('active');
+      });
+    });
+
+    // Double-click to copy
+    const copyables = document.querySelectorAll('.copyable');
+    const toast = document.getElementById('copyToast');
+    let toastTimeout = null;
+
+    function showToast() {
+      if (!toast) return;
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 1200);
+    }
+
+    copyables.forEach(el => {
+      el.addEventListener('dblclick', () => {
+        const text = el.innerText.trim();
+        if (!navigator.clipboard) {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.setAttribute('readonly', '');
+          textarea.style.position = 'absolute';
+          textarea.style.left = '-9999px';
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+        } else {
+          navigator.clipboard.writeText(text).catch(() => {});
+        }
+
+        el.classList.add('copied');
+        showToast();
+        setTimeout(() => el.classList.remove('copied'), 400);
+      });
+    });
+  </script>
+</body>
+</html>
+
