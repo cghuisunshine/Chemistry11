@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chem 11 – Solution Chemistry Interactive Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1020;
+      --card: #12172a;
+      --accent: #4f8dff;
+      --accent-soft: rgba(79, 141, 255, 0.15);
+      --accent-strong: rgba(79, 141, 255, 0.4);
+      --text: #f5f5ff;
+      --muted: #a7b1d0;
+      --danger: #ff6b81;
+      --success: #4fd1c5;
+      --border-radius-xl: 18px;
+      --transition-fast: 0.15s ease;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      --font-mono: "Menlo", "Consolas", "SF Mono", ui-monospace, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top left, #1a2848, #050816 52%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 16px;
+      max-width: 1280px;
+      width: 100%;
+    }
+
+    @media (max-width: 840px) {
+      .app {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .panel {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.02), transparent);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+    }
+
+    /* Sidebar */
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+    }
+
+    h1.title {
+      font-size: 18px;
+      font-weight: 650;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
+
+    .search-box {
+      margin: 10px 0 14px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 8px 30px 8px 30px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: radial-gradient(circle at 0% 0%, #222b49, #060816);
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+      transition: border var(--transition-fast), box-shadow var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .search-box input::placeholder {
+      color: #67729a;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(79, 141, 255, 0.6);
+      background: #040616;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #67729a;
+      pointer-events: none;
+    }
+
+    .clear-search {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      border: none;
+      background: transparent;
+      color: #8088af;
+      cursor: pointer;
+      display: none;
+    }
+
+    .clear-search.visible {
+      display: inline;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .legend span {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+    }
+
+    .legend .roots {
+      border-color: var(--accent-strong);
+      background: rgba(79, 141, 255, 0.12);
+      color: #e1e8ff;
+    }
+
+    .legend .trunk {
+      border-color: rgba(79, 209, 197, 0.65);
+      background: rgba(79, 209, 197, 0.14);
+      color: #d9fffb;
+    }
+
+    .legend .leaves {
+      border-color: rgba(255, 174, 94, 0.7);
+      background: rgba(255, 174, 94, 0.15);
+      color: #ffe8c7;
+    }
+
+    .sidebar-list {
+      margin-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 8px;
+    }
+
+    .sidebar-section {
+      margin-bottom: 8px;
+    }
+
+    .sidebar-section-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9fa9cf;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8px;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #d7defc;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background var(--transition-fast), border var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .sidebar-link:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.12);
+      transform: translateX(1px);
+    }
+
+    .sidebar-link span.code {
+      font-size: 11px;
+      color: var(--muted);
+      padding: 1px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-left: 6px;
+    }
+
+    .sidebar-link.active {
+      border-color: var(--accent);
+      background: rgba(79, 141, 255, 0.12);
+    }
+
+    /* Main */
+    .main-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .main-header h2 {
+      font-size: 20px;
+      font-weight: 650;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+    }
+
+    .map-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #29335b, var(--card));
+      border-radius: var(--border-radius-xl);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 12px 10px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-tag {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cfd7ff;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .card h3 {
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .node {
+      margin-top: 6px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+
+    .node-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 9px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .node-header-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .node-pill {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-strong);
+      box-shadow: 0 0 0 3px rgba(79, 141, 255, 0.18);
+    }
+
+    .node-header-label {
+      font-weight: 500;
+    }
+
+    .node-chevron {
+      font-size: 11px;
+      color: var(--muted);
+      transition: transform var(--transition-fast);
+    }
+
+    .node[data-level="roots"] .node-pill {
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(79, 141, 255, 0.15);
+    }
+
+    .node[data-level="trunk"] .node-pill {
+      background: var(--success);
+      box-shadow: 0 0 0 3px rgba(79, 209, 197, 0.18);
+    }
+
+    .node[data-level="leaves"] .node-pill {
+      background: #ffaf56;
+      box-shadow: 0 0 0 3px rgba(255, 175, 86, 0.18);
+    }
+
+    .node-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease, padding 0.2s ease;
+      padding: 0 10px 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .node.open .node-body {
+      padding: 4px 10px 8px;
+    }
+
+    .node.open .node-body-inner {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .node-body-inner {
+      opacity: 0;
+      transform: translateY(-3px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .node.open .node-chevron {
+      transform: rotate(90deg);
+    }
+
+    .node-list {
+      margin-top: 3px;
+      padding-left: 14px;
+    }
+
+    .node-list li {
+      margin-bottom: 2px;
+    }
+
+    .code-snippet {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background: rgba(0, 0, 0, 0.55);
+      border-radius: 8px;
+      padding: 4px 6px;
+      margin: 4px 0;
+      position: relative;
+      line-height: 1.4;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .copy-btn {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      color: #9ca7d0;
+      font-size: 13px;
+      cursor: pointer;
+      padding: 0 2px;
+      opacity: 0.8;
+      transition: opacity var(--transition-fast), transform var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .copy-btn:hover {
+      opacity: 1;
+      transform: translateY(-50%) scale(1.05);
+      color: #e3e7ff;
+    }
+
+    .note {
+      font-size: 11px;
+      margin-top: 3px;
+      color: #9fa9cf;
+    }
+
+    .highlight {
+      color: #f9e79f;
+      font-weight: 500;
+    }
+
+    .status-bar {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #8c96be;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .status-dot-muted {
+      background: #67729a;
+    }
+
+    .hidden-by-filter {
+      display: none !important;
+    }
+
+    .search-hit-highlight {
+      background: rgba(255, 241, 158, 0.18);
+      border-radius: 4px;
+      padding: 0 1px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="panel">
+      <div class="sidebar-header">
+        <div>
+          <div class="badge">Chem 11 – Unit 7</div>
+          <h1 class="title">Solution Chemistry</h1>
+        </div>
+      </div>
+      <div class="subtitle">
+        Interactive concept map for solubility, “like dissolves like”, dissociation & titrations.
+        Click sections to jump; expand nodes to review.
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Filter concepts (e.g. molar solubility, titration)..."
+        />
+        <button id="clear-search" class="clear-search">✕</button>
+      </div>
+
+      <div class="legend">
+        <span class="roots">Roots = core ideas</span>
+        <span class="trunk">Trunk = formulas & rules</span>
+        <span class="leaves">Leaves = examples & tips</span>
+      </div>
+
+      <div class="sidebar-list">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Chapter sections</div>
+          <div
+            class="sidebar-link"
+            data-scroll-target="sec-71"
+          >
+            <span>7.1 Nature of Solutions</span>
+            <span class="code">solutions</span>
+          </div>
+          <div
+            class="sidebar-link"
+            data-scroll-target="sec-72"
+          >
+            <span>7.2 Like Dissolves Like</span>
+            <span class="code">IMF</span>
+          </div>
+          <div
+            class="sidebar-link"
+            data-scroll-target="sec-73"
+          >
+            <span>7.3 Dissociation & Conductivity</span>
+            <span class="code">ions</span>
+          </div>
+          <div
+            class="sidebar-link"
+            data-scroll-target="sec-74"
+          >
+            <span>7.4 Titrations</span>
+            <span class="code">acid–base</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <div class="status-pill">
+          <span class="status-dot"></span> All nodes initially expanded
+        </div>
+        <div class="status-pill">
+          <span class="status-dot status-dot-muted"></span> Use search to focus a topic
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="panel">
+      <div class="main-header">
+        <h2>Concept Map</h2>
+        <div class="pill-row">
+          <div class="pill">Double-click formulas to copy</div>
+          <div class="pill">Click headers to collapse/expand nodes</div>
+        </div>
+      </div>
+
+      <section class="map-grid">
+
+        <!-- 7.1 -->
+        <article class="card" id="sec-71" data-tags="solutions solubility molar solubility saturated unsaturated supersaturated">
+          <div class="card-tag">7.1</div>
+          <h3>Nature of Solutions</h3>
+          <div class="card-subtitle">
+            What solutions are, how solute & solvent behave, and how to interpret solubility.
+          </div>
+
+          <!-- Roots -->
+          <div class="node" data-level="roots" data-tags="solution solute solvent homogeneous mixture miscible immiscible">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Core definitions</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <ul class="node-list">
+                  <li><span class="highlight">Solution</span> – a homogeneous mixture with a single phase (looks uniform throughout).</li>
+                  <li><span class="highlight">Solute</span> – substance being dissolved (usually smaller amount).</li>
+                  <li><span class="highlight">Solvent</span> – substance doing the dissolving (usually larger amount).</li>
+                  <li><span class="highlight">Miscible</span> – components mix in any proportion (e.g. ethanol + water).</li>
+                  <li><span class="highlight">Immiscible</span> – components do not mix (e.g. oil + water).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trunk -->
+          <div class="node" data-level="trunk" data-tags="solubility molar solubility grams per litre units">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Solubility vs molar solubility</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <p>
+                  <span class="highlight">Solubility</span> describes how much solute dissolves in a given amount of solvent at a given temperature.
+                </p>
+                <p style="margin-top:4px;">
+                  <span class="highlight">Molar solubility</span> answers a more specific question:
+                  <em>“How many moles of this substance can dissolve in 1 litre of water before the solution becomes saturated?”</em>
+                </p>
+
+                <div class="code-snippet" data-copy="molar solubility = (grams of solute per litre) / (molar mass)">
+                  molar solubility = (grams of solute per litre) / (molar mass)
+                  <button class="copy-btn" title="Copy formula">📋</button>
+                </div>
+
+                <p class="note">
+                  We convert grams → moles so we compare substances by number of particles, not by mass.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Leaves -->
+          <div class="node" data-level="leaves" data-tags="example CaSO4 calculation grams to moles">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Example: CaSO₄ molar solubility</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <ol class="node-list">
+                  <li>Given: solubility = <strong>1.1 g/L</strong>.</li>
+                  <li>Molar mass of CaSO₄ ≈ <strong>136.1 g/mol</strong>.</li>
+                  <li>Convert to moles per litre (molar solubility):</li>
+                </ol>
+                <div class="code-snippet" data-copy="1.1 g/L ÷ 136.1 g/mol ≈ 8.1 × 10^-3 mol/L">
+                  1.1 g/L ÷ 136.1 g/mol ≈ 8.1 × 10⁻³ mol/L
+                  <button class="copy-btn" title="Copy calculation">📋</button>
+                </div>
+                <p class="note">
+                  Interpretation: <strong>only 0.0081 moles</strong> of CaSO₄ can dissolve per litre → low solubility.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Saturation -->
+          <div class="node" data-level="leaves" data-tags="saturated unsaturated supersaturated">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Saturated, unsaturated, supersaturated</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <ul class="node-list">
+                  <li><span class="highlight">Unsaturated</span> – more solute can dissolve.</li>
+                  <li><span class="highlight">Saturated</span> – maximum dissolved; solid remains undissolved.</li>
+                  <li><span class="highlight">Supersaturated</span> – more dissolved than normal; unstable and can crystallize suddenly.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7.2 -->
+        <article class="card" id="sec-72" data-tags="like dissolves like intermolecular forces ion-dipole hydrogen bonding dispersion polar nonpolar">
+          <div class="card-tag">7.2</div>
+          <h3>“Like Dissolves Like”</h3>
+          <div class="card-subtitle">
+            How intermolecular forces control which solutes dissolve in which solvents.
+          </div>
+
+          <!-- Roots -->
+          <div class="node" data-level="roots" data-tags="intermolecular forces ion dipole hydrogen bonding dipole-dipole dispersion">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Forces to remember</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <ul class="node-list">
+                  <li><span class="highlight">Ion–dipole</span> – between ions and polar molecules (e.g. Na⁺ with H₂O).</li>
+                  <li><span class="highlight">Hydrogen bonding</span> – strong attraction between H–O, H–N, or H–F and lone pairs.</li>
+                  <li><span class="highlight">Dipole–dipole</span> – between polar molecules.</li>
+                  <li><span class="highlight">London dispersion</span> – weak forces between all molecules, dominant in nonpolar ones.</li>
+                </ul>
+                <p class="note">
+                  Rule: solutions form when new solute–solvent attractions are similar in type & strength to the original attractions.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trunk: cases -->
+          <div class="node" data-level="trunk" data-tags="ionic in water NaCl aqueous ion dipole hydration">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Case 1 – Ionic solute + water</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <ul class="node-list">
+                  <li>In NaCl(s), Na⁺ and Cl⁻ are held by strong ionic forces.</li>
+                  <li>Water is polar and forms hydrogen bonds with itself.</li>
+                  <li>When NaCl dissolves, water forms <span class="highlight">ion–dipole</span> attractions to both Na⁺ and Cl⁻ (hydration).</li>
+                </ul>
+                <p class="note">
+                  If ion–dipole forces are strong enough to overcome the ionic lattice, the salt is soluble.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="node" data-level="trunk" data-tags="polar solute polar solvent ethanol water hydrogen bonding sugar solubility">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Case 2 – Polar solute + polar solvent</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <ul class="node-list">
+                  <li>Ethanol (C₂H₅OH) and water both have <span class="highlight">–OH</span> groups → hydrogen bonding.</li>
+                  <li>They are <strong>miscible</strong> – mix in all proportions.</li>
+                  <li>Sugar has many –OH groups → even more hydrogen bonding with water → very soluble.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="node" data-level="trunk" data-tags="nonpolar solute nonpolar solvent iodine CCl4 dispersion">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Case 3 – Nonpolar solute + nonpolar solvent</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <ul class="node-list">
+                  <li>Iodine (I₂) and CCl₄ are both nonpolar.</li>
+                  <li>The only attractions are <span class="highlight">London dispersion</span> forces.</li>
+                  <li>“Like dissolves like” → iodine dissolves in CCl₄ but not in water.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Leaves: vitamins & soap -->
+          <div class="node" data-level="leaves" data-tags="vitamin A vitamin C fat-soluble water-soluble">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Vitamins A &amp; C</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <ul class="node-list">
+                  <li><span class="highlight">Vitamin A</span> – long nonpolar hydrocarbon chain, only tiny polar end → dissolves in fat (nonpolar), stored in body.</li>
+                  <li><span class="highlight">Vitamin C</span> – many –OH groups → highly polar → water soluble, not stored in fat.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="node" data-level="leaves" data-tags="soap micelle hydrophilic hydrophobic emulsifying">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Soap & micelles</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <ul class="node-list">
+                  <li>Soap ion has a <strong>polar head</strong> (ionic) and a <strong>nonpolar tail</strong> (hydrocarbon).</li>
+                  <li>Tails dissolve grease; heads interact with water → form <span class="highlight">micelles</span>.</li>
+                  <li>Micelles allow oily dirt to be rinsed away by water.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7.3 -->
+        <article class="card" id="sec-73" data-tags="dilution dissociation ionization conductivity electrolyte nonelectrolyte">
+          <div class="card-tag">7.3</div>
+          <h3>Dissociation & Conductivity</h3>
+          <div class="card-subtitle">
+            How ions form in solution, how to calculate their concentrations, and why solutions conduct electricity.
+          </div>
+
+          <!-- Roots -->
+          <div class="node" data-level="roots" data-tags="dilution moles volume M1V1 M2V2 concentration">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Dilution basics</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <p>When we add water to a solution, the number of moles of solute stays the same; only the volume changes.</p>
+                <div class="code-snippet" data-copy="M1 × V1 = M2 × V2">
+                  M₁ × V₁ = M₂ × V₂
+                  <button class="copy-btn" title="Copy formula">📋</button>
+                </div>
+                <p class="note">
+                  Use this to find the new concentration or required volume for dilutions.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dissociation -->
+          <div class="node" data-level="trunk" data-tags="dissociation equation NaCl CaCl2 ions in solution hydration">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Dissociation equations</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <p>When an ionic compound dissolves, it separates into ions. We show this with a dissociation (or ionization) equation:</p>
+                <div class="code-snippet" data-copy="NaCl(aq) → Na⁺(aq) + Cl⁻(aq)">
+                  NaCl(aq) → Na⁺(aq) + Cl⁻(aq)
+                  <button class="copy-btn" title="Copy equation">📋</button>
+                </div>
+                <div class="code-snippet" data-copy="CaCl₂(aq) → Ca²⁺(aq) + 2 Cl⁻(aq)">
+                  CaCl₂(aq) → Ca²⁺(aq) + 2 Cl⁻(aq)
+                  <button class="copy-btn" title="Copy equation">📋</button>
+                </div>
+                <p class="note">
+                  Always check both atom balance and charge balance.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="node" data-level="trunk" data-tags="ion concentration ratio example CaCl2">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Ion concentrations from M</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <p>From the dissociation coefficients, we get mole ratios for ions.</p>
+                <ul class="node-list">
+                  <li>If CaCl₂ is 1.0 M:</li>
+                </ul>
+                <div class="code-snippet" data-copy="[Ca²⁺] = 1.0 M,  [Cl⁻] = 2.0 M">
+                  [Ca²⁺] = 1.0 M,  [Cl⁻] = 2.0 M
+                  <button class="copy-btn" title="Copy result">📋</button>
+                </div>
+                <p class="note">
+                  Multiply the solution molarity by the coefficient of each ion in the dissociation equation.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Conductivity -->
+          <div class="node" data-level="leaves" data-tags="conductivity electrolyte strong weak nonelectrolyte acids bases salts">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Electrical conductivity of solutions</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <ul class="node-list">
+                  <li>Electric current in solution is carried by <span class="highlight">moving ions</span>.</li>
+                  <li><strong>Strong electrolytes</strong>: many ions → high conductivity (soluble salts, strong acids, strong bases).</li>
+                  <li><strong>Weak electrolytes</strong>: few ions (weak acids like CH₃COOH, weak base NH₃).</li>
+                  <li><strong>Nonelectrolytes</strong>: no ions → do not conduct (e.g. sugar solutions).</li>
+                </ul>
+                <p class="note">
+                  More ions in solution ⇒ brighter light bulb in a conductivity test.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7.4 -->
+        <article class="card" id="sec-74" data-tags="titration acid base neutralization standard solution equivalence point endpoint">
+          <div class="card-tag">7.4</div>
+          <h3>Intro to Titrations</h3>
+          <div class="card-subtitle">
+            Using neutralization to find unknown concentrations of acids or bases.
+          </div>
+
+          <!-- Roots -->
+          <div class="node" data-level="roots" data-tags="neutralization reaction acid base salt water">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Neutralization idea</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <p>In an acid–base titration, neutralization occurs:</p>
+                <div class="code-snippet" data-copy="acid + base → salt + water">
+                  acid + base → salt + water
+                  <button class="copy-btn" title="Copy pattern">📋</button>
+                </div>
+                <p class="note">
+                  At the equivalence point: moles of H⁺ from the acid equal moles of OH⁻ from the base.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trunk: steps -->
+          <div class="node" data-level="trunk" data-tags="titration steps standard solution equivalence calculation">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Standard steps in a titration calculation</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <ol class="node-list">
+                  <li>Write and balance the neutralization equation.</li>
+                  <li>Compute moles of the known solution:
+                    <div class="code-snippet" data-copy="n = M × V">
+                      n = M × V
+                      <button class="copy-btn" title="Copy formula">📋</button>
+                    </div>
+                  </li>
+                  <li>Use the mole ratio from the balanced equation to find moles of the unknown.</li>
+                  <li>Find the unknown concentration:
+                    <div class="code-snippet" data-copy="M = n / V">
+                      M = n / V
+                      <button class="copy-btn" title="Copy formula">📋</button>
+                    </div>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <!-- Equipment -->
+          <div class="node" data-level="trunk" data-tags="burette pipette Erlenmeyer indicator equivalence endpoint">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Apparatus & key terms</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <ul class="node-list">
+                  <li><span class="highlight">Burette</span> – holds the standard solution (known M).</li>
+                  <li><span class="highlight">Pipette</span> – measures a precise volume of the unknown solution.</li>
+                  <li><span class="highlight">Erlenmeyer flask</span> – where the reaction happens; contains unknown + indicator.</li>
+                  <li><span class="highlight">Equivalence point</span> – moles H⁺ = moles OH⁻.</li>
+                  <li><span class="highlight">Endpoint</span> – indicator changes color (used as experimental signal of equivalence).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Leaves: example -->
+          <div class="node" data-level="leaves" data-tags="example HCl NaOH titration calculation">
+            <div class="node-header">
+              <div class="node-header-left">
+                <div class="node-pill"></div>
+                <span class="node-header-label">Example: finding [HCl]</span>
+              </div>
+              <span class="node-chevron">▶</span>
+            </div>
+            <div class="node-body">
+              <div class="node-body-inner">
+                <ol class="node-list">
+                  <li>Reaction:
+                    <div class="code-snippet" data-copy="HCl(aq) + NaOH(aq) → NaCl(aq) + H₂O(l)">
+                      HCl(aq) + NaOH(aq) → NaCl(aq) + H₂O(l)
+                      <button class="copy-btn" title="Copy equation">📋</button>
+                    </div>
+                  </li>
+                  <li>Volumes & M:
+                    <ul class="node-list">
+                      <li>V(HCl) = 10.00 mL</li>
+                      <li>V(NaOH) = 18.25 mL, M(NaOH) = 0.100 M</li>
+                    </ul>
+                  </li>
+                  <li>Find moles NaOH:  
+                    n(NaOH) = 0.100 × 0.01825 = 1.825 × 10⁻³ mol</li>
+                  <li>From 1:1 ratio, n(HCl) = 1.825 × 10⁻³ mol.</li>
+                  <li>Find [HCl]:  
+                    [HCl] = n / V = 1.825 × 10⁻³ / 0.01000 ≈ 0.183 M</li>
+                </ol>
+                <p class="note">
+                  Strategy for any titration: known volume & M of one side → moles → mole ratio → unknown concentration.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Expand all nodes initially and set max-heights
+    document.querySelectorAll(".node").forEach((node) => {
+      const body = node.querySelector(".node-body");
+      const inner = node.querySelector(".node-body-inner");
+      node.classList.add("open");
+      if (body && inner) {
+        body.style.maxHeight = inner.offsetHeight + 20 + "px";
+      }
+    });
+
+    // Toggle nodes on header click
+    document.querySelectorAll(".node-header").forEach((header) => {
+      header.addEventListener("click", () => {
+        const node = header.closest(".node");
+        const body = node.querySelector(".node-body");
+        const inner = node.querySelector(".node-body-inner");
+        const isOpen = node.classList.contains("open");
+
+        if (!body || !inner) return;
+
+        if (isOpen) {
+          body.style.maxHeight = "0px";
+          node.classList.remove("open");
+        } else {
+          body.style.maxHeight = inner.offsetHeight + 20 + "px";
+          node.classList.add("open");
+        }
+      });
+    });
+
+    // Sidebar scroll links
+    document.querySelectorAll(".sidebar-link").forEach((link) => {
+      link.addEventListener("click", () => {
+        const targetId = link.getAttribute("data-scroll-target");
+        const target = document.getElementById(targetId);
+        if (target) {
+          window.scrollTo({
+            top: target.getBoundingClientRect().top + window.scrollY - 20,
+            behavior: "smooth",
+          });
+        }
+        document
+          .querySelectorAll(".sidebar-link")
+          .forEach((l) => l.classList.remove("active"));
+        link.classList.add("active");
+      });
+    });
+
+    // Copy buttons
+    document.querySelectorAll(".copy-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const snippet = btn.closest(".code-snippet");
+        const text = snippet.getAttribute("data-copy") || snippet.innerText.trim();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            const original = btn.textContent;
+            btn.textContent = "✓";
+            setTimeout(() => {
+              btn.textContent = original;
+            }, 900);
+          });
+        } else {
+          // Fallback
+          const textarea = document.createElement("textarea");
+          textarea.value = text;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textarea);
+          const original = btn.textContent;
+          btn.textContent = "✓";
+          setTimeout(() => {
+            btn.textContent = original;
+          }, 900);
+        }
+      });
+    });
+
+    // Simple search/filter
+    const searchInput = document.getElementById("search-input");
+    const clearBtn = document.getElementById("clear-search");
+    const cards = document.querySelectorAll(".card");
+
+    function clearHighlights() {
+      document
+        .querySelectorAll(".search-hit-highlight")
+        .forEach((span) => {
+          const parent = span.parentNode;
+          parent.replaceChild(document.createTextNode(span.textContent), span);
+          parent.normalize();
+        });
+    }
+
+    function highlightMatches(element, query) {
+      if (!query) return;
+      const walk = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);
+      const regex = new RegExp(query, "ig");
+      const textNodes = [];
+      let node;
+      while ((node = walk.nextNode())) {
+        if (regex.test(node.nodeValue)) {
+          textNodes.push(node);
+        }
+      }
+      textNodes.forEach((textNode) => {
+        const parent = textNode.parentNode;
+        const frag = document.createDocumentFragment();
+        let lastIndex = 0;
+        textNode.nodeValue.replace(regex, (match, index) => {
+          if (index > lastIndex) {
+            frag.appendChild(
+              document.createTextNode(textNode.nodeValue.slice(lastIndex, index))
+            );
+          }
+          const span = document.createElement("span");
+          span.className = "search-hit-highlight";
+          span.textContent = match;
+          frag.appendChild(span);
+          lastIndex = index + match.length;
+        });
+        if (lastIndex < textNode.nodeValue.length) {
+          frag.appendChild(
+            document.createTextNode(textNode.nodeValue.slice(lastIndex))
+          );
+        }
+        parent.replaceChild(frag, textNode);
+      });
+    }
+
+    function applyFilter(query) {
+      const q = query.trim().toLowerCase();
+      clearHighlights();
+
+      if (!q) {
+        cards.forEach((card) => {
+          card.classList.remove("hidden-by-filter");
+          highlightMatches(card, "");
+          // Expand nodes back
+          card.querySelectorAll(".node").forEach((node) => {
+            const body = node.querySelector(".node-body");
+            const inner = node.querySelector(".node-body-inner");
+            if (body && inner) {
+              node.classList.add("open");
+              body.style.maxHeight = inner.offsetHeight + 20 + "px";
+            }
+          });
+        });
+        return;
+      }
+
+      cards.forEach((card) => {
+        const tags = (card.getAttribute("data-tags") || "").toLowerCase();
+        const textContent = card.innerText.toLowerCase();
+        const matches = tags.includes(q) || textContent.includes(q);
+        if (matches) {
+          card.classList.remove("hidden-by-filter");
+          highlightMatches(card, q);
+
+          // Expand all nodes in matching card so user sees hits
+          card.querySelectorAll(".node").forEach((node) => {
+            const body = node.querySelector(".node-body");
+            const inner = node.querySelector(".node-body-inner");
+            if (body && inner) {
+              node.classList.add("open");
+              body.style.maxHeight = inner.offsetHeight + 20 + "px";
+            }
+          });
+        } else {
+          card.classList.add("hidden-by-filter");
+        }
+      });
+    }
+
+    searchInput.addEventListener("input", () => {
+      const value = searchInput.value;
+      clearBtn.classList.toggle("visible", value.length > 0);
+      applyFilter(value);
+    });
+
+    clearBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      clearBtn.classList.remove("visible");
+      applyFilter("");
+      searchInput.focus();
+    });
+  </script>
+</body>
+</html>
+
