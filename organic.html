@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Organic Chemistry – Chapter 8 Concept Map</title>
+<style>
+/* ===== GLOBAL DARK THEME ===== */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  background: #0f1115;
+  color: #f1f1f1;
+  display: flex;
+}
+
+/* ===== SIDEBAR ===== */
+#sidebar {
+  width: 270px;
+  background: #181b22;
+  padding: 20px;
+  border-right: 1px solid #303540;
+  position: fixed;
+  inset: 0 auto 0 0;
+  overflow-y: auto;
+}
+#sidebar h1 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+  color: #61a8ff;
+}
+#sidebar h2 {
+  margin: 18px 0 8px;
+  font-size: 1rem;
+  color: #e0e0e0;
+}
+#search {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #303540;
+  background: #10131a;
+  color: #f1f1f1;
+  margin-bottom: 12px;
+}
+.section-link {
+  display: block;
+  padding: 4px 0;
+  color: #9dc7ff;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.section-link:hover {
+  text-decoration: underline;
+}
+
+/* ===== MAIN CONTENT ===== */
+#content {
+  margin-left: 270px;
+  padding: 20px 24px 60px;
+  width: calc(100% - 270px);
+}
+.intro-card {
+  background: #171a20;
+  padding: 16px 18px;
+  border-radius: 10px;
+  border: 1px solid #303540;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+}
+.intro-card h2 {
+  margin-top: 0;
+  color: #61a8ff;
+}
+
+/* ===== SECTION CARDS ===== */
+.card {
+  background: #171a20;
+  padding: 18px 20px;
+  margin-bottom: 22px;
+  border-radius: 10px;
+  border: 1px solid #303540;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+}
+.card h2 {
+  margin-top: 0;
+  color: #61a8ff;
+}
+.card h3 {
+  margin-top: 8px;
+  color: #ffda79;
+}
+
+/* ===== COLLAPSIBLE NODES ===== */
+.node {
+  margin: 12px 0;
+  border-radius: 8px;
+  border: 1px solid #303540;
+  overflow: hidden;
+}
+.node-header {
+  background: #212632;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.98rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.node-header span.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.node-header small {
+  font-weight: normal;
+  color: #b0b4c0;
+}
+.node-content {
+  padding: 10px 12px 10px;
+  display: none;
+  background: #141820;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ===== COPY BUTTONS ===== */
+.copy-btn {
+  background: #222735;
+  border: 1px solid #3d4356;
+  color: #f1f1f1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 6px;
+  font-size: 0.8rem;
+}
+.copy-btn:hover {
+  background: #31384b;
+}
+
+/* ===== INLINE CODE ===== */
+code {
+  background: #202531;
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* ===== LIST STYLING ===== */
+ul {
+  margin: 6px 0 6px 20px;
+  padding: 0;
+}
+ol {
+  margin: 6px 0 6px 20px;
+  padding: 0;
+}
+.highlight {
+  color: #ffb86c;
+  font-weight: 600;
+}
+.formula {
+  font-family: "Menlo", "Consolas", monospace;
+}
+
+/* Responsive tweak */
+@media (max-width: 900px) {
+  #sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #303540;
+  }
+  #content {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ========== SIDEBAR ========== -->
+<div id="sidebar">
+  <h1>Organic Chem – Ch. 8</h1>
+  <input id="search" placeholder="Search keywords (e.g. ester, alkane, HDPE)..." />
+
+  <h2>Sections</h2>
+  <a class="section-link" href="#s8-1">8.1 Simple Hydrocarbons & Isomerism</a>
+  <a class="section-link" href="#s8-2">8.2 Functional Groups</a>
+  <a class="section-link" href="#s8-3">8.3 Reactions & Polymers</a>
+</div>
+
+<!-- ========== MAIN CONTENT ========== -->
+<div id="content">
+
+  <!-- INTRO -->
+  <div class="intro-card">
+    <h2>Chapter 8 – Organic Chemistry Overview</h2>
+    <p>
+      This interactive map summarizes the full tutorial for Chapter 8. Each major section
+      is a card (8.1, 8.2, 8.3). Within each card:
+    </p>
+    <ul>
+      <li><span class="highlight">Roots 🌱</span> = core ideas, definitions, and big-picture meaning.</li>
+      <li><span class="highlight">Trunk 🌳</span> = formulas, naming rules, patterns, and conditions.</li>
+      <li><span class="highlight">Leaves 🍃</span> = examples, tips, common mistakes, and applications.</li>
+    </ul>
+    <p>
+      Click any node header to expand/collapse it. Use the search box in the sidebar to filter
+      which section cards are visible.
+    </p>
+  </div>
+
+  <!-- ====================== 8.1 ====================== -->
+  <div class="card" id="s8-1">
+    <h2>8.1 Simple Hydrocarbons and Isomerism</h2>
+    <h3>Carbon, Organic Compounds, and Hydrocarbons</h3>
+
+    <!-- ROOTS 8.1.1 -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🌱 Roots — What makes a compound “organic”?</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <p>
+          <strong>Organic compounds</strong> are molecules that contain carbon atoms, usually bonded to
+          other carbons and to hydrogen. They may also include elements such as nitrogen, oxygen,
+          sulphur, phosphorus, or halogens.
+        </p>
+        <p>
+          Not every carbon-containing compound is considered organic. Important exceptions include:
+        </p>
+        <ul>
+          <li>Carbonates (e.g. <code>Na₂CO₃</code>)</li>
+          <li>Carbides</li>
+          <li>Oxides of carbon (<code>CO</code>, <code>CO₂</code>)</li>
+        </ul>
+        <p>
+          A special subset of organic compounds are <strong>hydrocarbons</strong> – compounds made only
+          of carbon and hydrogen.
+        </p>
+        <p>
+          Carbon has <strong>four valence electrons</strong>, so each carbon atom can form four covalent
+          bonds. This allows carbon to create:
+        </p>
+        <ul>
+          <li>Long chains (straight or branched)</li>
+          <li>Rings and cage-like structures</li>
+          <li>Single, double, and triple bonds</li>
+        </ul>
+        <p>
+          This bonding flexibility explains why there are <em>millions</em> of organic compounds.
+        </p>
+      </div>
+    </div>
+
+    <!-- TRUNK 8.1 Representations -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🌳 Trunk — Structural, condensed, and skeleton formulas</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <p>Organic molecules can be represented in several ways:</p>
+        <ul>
+          <li><strong>Structural formula</strong> – shows all atoms and bonds explicitly.</li>
+          <li><strong>Condensed structural formula</strong> – groups atoms by carbon, e.g. <code>CH₃–CH₂–CH₃</code>.</li>
+          <li><strong>Skeleton (line) formula</strong> – only lines for bonds; carbon atoms are implied at line ends and bends, and H on C is omitted.</li>
+        </ul>
+        <p>
+          Example: butane (<code>C₄H₁₀</code>) can be written as:
+        </p>
+        <ul>
+          <li>Structural: shows each C with the correct number of H.</li>
+          <li>Condensed: <code class="formula">CH₃–CH₂–CH₂–CH₃</code></li>
+          <li>Skeleton: a zig-zag chain of four line segments.</li>
+        </ul>
+        <p>
+          In any structural form, each carbon must have four bonds (to H or other atoms).
+        </p>
+      </div>
+    </div>
+
+    <!-- ROOTS 8.1 hydrocarbon types -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🌱 Roots — Families of hydrocarbons</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <p>Hydrocarbons are grouped into five main families:</p>
+        <ul>
+          <li><strong>Alkanes</strong> – only single bonds; saturated.</li>
+          <li><strong>Cycloalkanes</strong> – single bonds in a ring; saturated.</li>
+          <li><strong>Alkenes</strong> – one or more C=C double bonds; unsaturated.</li>
+          <li><strong>Alkynes</strong> – one or more C≡C triple bonds; unsaturated.</li>
+          <li><strong>Aromatic hydrocarbons</strong> – contain benzene rings with delocalized electrons.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TRUNK 8.1 Alkanes & naming -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🌳 Trunk — Alkanes: formulas, prefixes, and naming rules</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <p>
+          <strong>Alkanes</strong> are saturated hydrocarbons with only single bonds. General formula:
+        </p>
+        <p class="formula">
+          C<sub>n</sub>H<sub>2n+2</sub>
+          <button class="copy-btn" data-copy="CnH2n+2">📋</button>
+        </p>
+        <p>
+          Straight-chain alkanes use Greek prefixes for the number of carbons:
+        </p>
+        <ul>
+          <li>1: meth- (methane)</li>
+          <li>2: eth- (ethane)</li>
+          <li>3: prop- (propane)</li>
+          <li>4: but- (butane)</li>
+          <li>5–10: pent-, hex-, hept-, oct-, non-, dec-</li>
+        </ul>
+        <p>
+          <strong>Naming branched alkanes</strong>:
+        </p>
+        <ol>
+          <li>Find the <em>longest continuous</em> carbon chain → this is the parent (e.g. hexane).</li>
+          <li>Number the chain from the end closest to the first branch.</li>
+          <li>
+            Name branches as <strong>alkyl groups</strong> (methyl, ethyl, propyl...). Use
+            <em>di-, tri-, tetra-</em> for repeated identical branches.
+          </li>
+          <li>
+            Write the name: addresses (numbers) + branch names (alphabetical) + parent name.
+            Numbers are separated by commas; numbers and words by hyphens.
+          </li>
+        </ol>
+        <p>
+          Important detail: when alphabetizing branches, ignore di-/tri- and use the base name
+          (e.g. “ethyl” vs “methyl”).
+        </p>
+      </div>
+    </div>
+
+    <!-- LEAVES 8.1 Branched & isomer example -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🍃 Leaves — Naming & isomer examples</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <p><strong>Example 1 – Naming a branched alkane</strong></p>
+        <p>
+          Suppose the longest chain has 6 carbons (hexane), and there is an ethyl branch on carbon 3, and
+          methyl branches on carbons 2 and 3. The correct name is:
+        </p>
+        <p class="formula">
+          3-ethyl-2,3-dimethylhexane
+        </p>
+        <p>
+          The numbers tell you exactly where the branches attach.
+        </p>
+        <hr>
+        <p><strong>Example 2 – Structural isomers of C₅H₁₂</strong></p>
+        <ul>
+          <li>pentane (straight chain of 5 C)</li>
+          <li>2-methylbutane (4 in a row + one CH₃ branch)</li>
+          <li>2,2-dimethylpropane (3 in a row + two CH₃ branches on the middle C)</li>
+        </ul>
+        <p>
+          All three have the same molecular formula C₅H₁₂, but different connectivity. That difference is what
+          makes them <strong>structural isomers</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- TRUNK 8.1 Cycloalkanes & geometric isomers -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🌳 Trunk — Cycloalkanes, alkenes, alkynes, and aromatic benzene</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <h4>Cycloalkanes</h4>
+        <p>
+          Formed when carbon atoms make a ring with only single bonds. General formula:
+        </p>
+        <p class="formula">
+          C<sub>n</sub>H<sub>2n</sub>
+          <button class="copy-btn" data-copy="CnH2n">📋</button>
+        </p>
+        <p>Naming is similar to alkanes, but with the prefix <strong>cyclo-</strong>.</p>
+        <ul>
+          <li>Ring with more carbons is usually the parent chain.</li>
+          <li>Number carbons around the ring to give branches the lowest possible set of numbers.</li>
+          <li>If the ring is a side group, call it a cycloalkyl branch (e.g. cyclobutyl).</li>
+        </ul>
+
+        <h4>Alkenes</h4>
+        <p>
+          Alkenes are hydrocarbons with at least one C=C double bond and are <strong>unsaturated</strong>,
+          meaning more atoms can be added at that site.
+        </p>
+        <p>General formula (for one double bond, acyclic):</p>
+        <p class="formula">
+          C<sub>n</sub>H<sub>2n</sub>
+        </p>
+        <p>
+          The parent chain must include the double bond. Name ends with <strong>-ene</strong>, and the
+          double-bond position is given the lowest possible number.
+        </p>
+        <p>
+          Because rotation around a double bond is restricted, alkenes can form
+          <strong>geometric (cis/trans) isomers</strong>:
+        </p>
+        <ul>
+          <li><strong>cis-</strong>: key groups on the same side of the double bond.</li>
+          <li><strong>trans-</strong>: key groups on opposite sides.</li>
+        </ul>
+
+        <h4>Alkynes</h4>
+        <p>
+          Alkynes contain at least one C≡C triple bond, are unsaturated, and have the general formula:
+        </p>
+        <p class="formula">
+          C<sub>n</sub>H<sub>2n−2</sub>
+          <button class="copy-btn" data-copy="CnH2n-2">📋</button>
+        </p>
+        <p>
+          The parent chain must include the triple bond; name ends with <strong>-yne</strong>, and the triple
+          bond is given the lowest possible number.
+        </p>
+
+        <h4>Aromatic hydrocarbons (benzene)</h4>
+        <p>
+          Benzene is a six-carbon ring with alternating single and double bonds in the Lewis structures, but in
+          reality the electrons are <strong>delocalized</strong> around the ring.
+        </p>
+        <p>
+          This is shown using resonance structures or as a hexagon with a circle inside. Substituted benzenes are
+          named by treating the ring like a parent chain or sometimes like a branch (phenyl).
+        </p>
+        <p>
+          For disubstituted benzenes:
+        </p>
+        <ul>
+          <li>1,2- = <strong>ortho- (o-)</strong></li>
+          <li>1,3- = <strong>meta- (m-)</strong></li>
+          <li>1,4- = <strong>para- (p-)</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- LEAVES 8.1 Common tips -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🍃 Leaves — Quick tips & pitfalls for 8.1</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <ul>
+          <li>Always choose the longest possible carbon chain as the parent, even if it bends.</li>
+          <li>Number from the side that hits a branch (or double/triple bond) earliest.</li>
+          <li>Alkanes and cycloalkanes are saturated; alkenes and alkynes are unsaturated.</li>
+          <li>Cycloalkanes and alkenes can share the same formula (<code>CₙH₂ₙ</code>), so you must look at the structure.</li>
+          <li>Geometric isomerism (cis/trans) only makes sense when a double bond or ring stops free rotation.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================== 8.2 ====================== -->
+  <div class="card" id="s8-2">
+    <h2>8.2 Functional Groups</h2>
+    <h3>Patterns That Control Reactivity</h3>
+
+    <!-- ROOTS 8.2 -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🌱 Roots — What is a functional group?</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <p>
+          A <strong>functional group</strong> is a specific atom, group of atoms, or pattern of bonds in
+          an organic molecule that largely determines how that molecule reacts.
+        </p>
+        <p>
+          Chemists often use <strong>R</strong> to represent the “rest” of the molecule – a hydrocarbon
+          fragment attached to the functional group. If there are two different fragments, they can be
+          labeled R and R′.
+        </p>
+        <p>
+          Different molecules that share the same functional group (for example, different alcohols) tend
+          to react in similar ways, even though the rest of the structure may differ.
+        </p>
+      </div>
+    </div>
+
+    <!-- TRUNK 8.2 table-like explanation -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🌳 Trunk — Catalogue of functional groups (structures & meaning)</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <p>Below are the key functional groups from this chapter, with what they look like and what they do.</p>
+
+        <h4>Alkyl halides – <code>R–X</code></h4>
+        <ul>
+          <li>X = F, Cl, Br, I (a halogen).</li>
+          <li>Named like branched alkanes, with halogen prefixes: fluoro-, chloro-, bromo-, iodo-.</li>
+          <li>Example: 2-bromo-4-chloropentane.</li>
+        </ul>
+
+        <h4>Alcohols – <code>R–OH</code></h4>
+        <ul>
+          <li>Contain a <strong>hydroxyl (–OH)</strong> group attached to carbon (not to a metal).</li>
+          <li>Different from hydroxide ion (<code>OH⁻</code>) in ionic bases.</li>
+          <li><strong>Naming rules:</strong></li>
+          <ul>
+            <li>Parent chain includes the carbon with –OH.</li>
+            <li>Number the chain so –OH gets the lowest possible number.</li>
+            <li>Replace the alkane “-e” ending with <strong>-ol</strong> (e.g. hexane → hexan-1-ol).</li>
+          </ul>
+          <li>Examples: ethanol, 3-methyl-1-butanol, 2-propanol (isopropanol).</li>
+        </ul>
+
+        <h4>Ethers – <code>R–O–R′</code></h4>
+        <ul>
+          <li>Two hydrocarbon fragments connected by an oxygen atom.</li>
+          <li>Common in solvents and older anesthetics (e.g., diethyl ether).</li>
+          <li>In this course, you mainly need to <em>recognize</em> this pattern, not name it systematically.</li>
+        </ul>
+
+        <h4>Aldehydes – <code>R–CHO</code></h4>
+        <ul>
+          <li>Contain a <strong>carbonyl group</strong> (C=O) at the end of a carbon chain.</li>
+          <li>General pattern: <code>R–C(=O)–H</code>.</li>
+          <li>Examples: methanal (formaldehyde), benzaldehyde.</li>
+        </ul>
+
+        <h4>Ketones – <code>R–CO–R′</code></h4>
+        <ul>
+          <li>Also contain a carbonyl group, but it is in the <em>middle</em> of the chain (between two carbons).</li>
+          <li>General pattern: <code>R–C(=O)–R′</code>.</li>
+          <li>Example: propanone (acetone), 2-butanone.</li>
+        </ul>
+
+        <h4>Carboxylic acids – <code>R–COOH</code></h4>
+        <ul>
+          <li>Contain a <strong>carboxyl group</strong>: one carbonyl plus one hydroxyl on the same carbon.</li>
+          <li>General pattern: <code>R–C(=O)–OH</code>.</li>
+          <li>Weak acids often used as food preservatives (e.g. ethanoic acid in vinegar).</li>
+        </ul>
+
+        <h4>Esters – <code>R–COO–R′</code></h4>
+        <ul>
+          <li>Look like an acid and an alcohol “stitched together”: <code>R–C(=O)–O–R′</code>.</li>
+          <li>Commonly have fruity or pleasant odors; used in flavorings and fragrances.</li>
+          <li>Formed when a carboxylic acid reacts with an alcohol (see esterification in 8.3).</li>
+        </ul>
+
+        <h4>Amines – <code>R–NH₂</code>, <code>R₂NH</code>, or <code>R₃N</code></h4>
+        <ul>
+          <li>Organic compounds containing nitrogen attached to carbon.</li>
+          <li>Often weak bases; used in dyes and pharmaceuticals.</li>
+        </ul>
+
+        <h4>Amides – <code>R–CONH₂</code> (or substituted)</h4>
+        <ul>
+          <li>Contain nitrogen attached to a carbonyl carbon.</li>
+          <li>Important in plastics (nylon) and in biology: peptide bonds between amino acids are amide bonds.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- LEAVES 8.2 Examples & comparisons -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🍃 Leaves — Comparisons, examples, and recognition tips</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <p><strong>Carbonyl-containing groups</strong></p>
+        <ul>
+          <li>Aldehydes and ketones each have C=O but differ in <em>position</em> (end vs middle).</li>
+          <li>Carboxylic acids and esters both contain C=O and a single-bonded O, but acids have <code>–OH</code> while esters have <code>–O–R′</code>.</li>
+          <li>Amides also have a carbonyl, but attached directly to nitrogen.</li>
+        </ul>
+        <p><strong>“Only single-bonded oxygen” vs “includes double-bonded oxygen”</strong></p>
+        <ul>
+          <li>Only single-bonded O: alcohols, ethers.</li>
+          <li>At least one double bond to O: aldehydes, ketones, carboxylic acids, esters, amides.</li>
+        </ul>
+        <p><strong>Example recognitions</strong></p>
+        <ul>
+          <li>Ethanol (in beverages and fuels) is an alcohol: <code>CH₃–CH₂–OH</code>.</li>
+          <li>Acetone (nail polish remover) is a ketone: <code>(CH₃)₂C=O</code>.</li>
+          <li>Ethanoic (acetic) acid is a carboxylic acid: <code>CH₃COOH</code>.</li>
+          <li>Ethyl ethanoate is an ester with a fruity smell.</li>
+          <li>Peptide bonds in proteins are amide bonds linking amino acids.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================== 8.3 ====================== -->
+  <div class="card" id="s8-3">
+    <h2>8.3 Reactions of Organic Molecules</h2>
+    <h3>Combustion, Substitution, Addition, Elimination & Polymers</h3>
+
+    <!-- ROOTS 8.3 reaction types -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🌱 Roots — Big reaction families in organic chemistry</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <p>
+          Organic molecules undergo several common types of reactions. For this course, focus on:
+        </p>
+        <ul>
+          <li><strong>Combustion</strong> – burning in oxygen.</li>
+          <li><strong>Substitution</strong> – one group replaces another on a saturated carbon or benzene ring.</li>
+          <li><strong>Addition</strong> – atoms add across a multiple bond (C=C or C≡C).</li>
+          <li><strong>Elimination</strong> – atoms are removed, creating a multiple bond.</li>
+          <li><strong>Esterification</strong> – acid + alcohol → ester + water (a specific elimination).</li>
+          <li><strong>Polymerization</strong> – many small molecules (monomers) join to form giant molecules (polymers).</li>
+        </ul>
+        <p>
+          These reaction types explain how fuels burn, how plastics are made, and how many biological
+          molecules form and break down.
+        </p>
+      </div>
+    </div>
+
+    <!-- TRUNK 8.3 Combustion -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🌳 Trunk — Combustion (complete vs incomplete)</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <p><strong>Complete combustion</strong> of a hydrocarbon:</p>
+        <p class="formula">
+          hydrocarbon + O₂ → CO₂ + H₂O + energy
+        </p>
+        <p>
+          Example: octane (one component of gasoline)
+        </p>
+        <p class="formula">
+          2 C₈H₁₈ + 25 O₂ → 16 CO₂ + 18 H₂O + energy
+        </p>
+        <p>
+          This requires plenty of oxygen and gives a clean flame. It is a type of
+          <strong>oxidation</strong> and is exothermic (releases heat).
+        </p>
+        <hr>
+        <p><strong>Incomplete combustion</strong> occurs when oxygen is limited.</p>
+        <p>Products include:</p>
+        <ul>
+          <li>Carbon monoxide (<code>CO</code>) – poisonous, colorless, odorless gas.</li>
+          <li>Solid carbon (soot) – black smoke or deposits.</li>
+          <li>Water.</li>
+        </ul>
+        <p>
+          Example with methane:
+        </p>
+        <ul>
+          <li>Complete: <code>CH₄ + 2 O₂ → CO₂ + 2 H₂O + energy</code></li>
+          <li>Incomplete: <code>CH₄ + O₂ → C (s) + 2 H₂O + energy</code> or <code>2 CH₄ + 3 O₂ → 2 CO + 4 H₂O + energy</code></li>
+        </ul>
+        <p>
+          Carbon monoxide is especially dangerous in enclosed spaces, hence the use of CO detectors.
+        </p>
+      </div>
+    </div>
+
+    <!-- TRUNK 8.3 substitution/addition/elimination -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🌳 Trunk — Substitution, addition, and elimination reactions</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <h4>Substitution reactions</h4>
+        <p>
+          In a substitution reaction, one atom or group on an organic molecule is replaced by another.
+        </p>
+        <ul>
+          <li>Typical of <strong>alkanes</strong> and <strong>aromatic compounds</strong>.</li>
+          <li>Overall number of atoms attached to the carbon skeleton stays the same.</li>
+        </ul>
+        <p><strong>Example:</strong> methane + chlorine in UV light</p>
+        <p class="formula">
+          CH₄ + Cl₂ → CH₃Cl + HCl
+        </p>
+        <p>
+          One hydrogen on methane is replaced by chlorine, forming chloromethane. The reaction can continue to
+          give dichloromethane, trichloromethane, etc.
+        </p>
+
+        <h4>Addition reactions</h4>
+        <p>
+          Addition reactions happen at <strong>multiple bonds</strong>. Atoms are added across a C=C or C≡C
+          bond, reducing the number of bonds between carbons (e.g. double → single).
+        </p>
+        <ul>
+          <li>Unsaturated → more saturated.</li>
+          <li>Typical of alkenes and alkynes.</li>
+        </ul>
+        <p>General pattern:</p>
+        <p class="formula">
+          C=C + X–Y → –C–C– with X on one carbon and Y on the other
+        </p>
+        <p><strong>Special names:</strong></p>
+        <ul>
+          <li><strong>Halogenation</strong> – add X₂ (e.g. Br₂, Cl₂).</li>
+          <li><strong>Hydration</strong> – add water across C=C to make an alcohol.</li>
+          <li><strong>Hydrogenation</strong> – add H₂ across the double or triple bond.</li>
+        </ul>
+        <p>
+          Example (hydrogenation): ethene + hydrogen → ethane
+        </p>
+        <p class="formula">
+          C₂H₄ + H₂ → C₂H₆
+        </p>
+
+        <h4>Elimination reactions</h4>
+        <p>
+          Elimination reactions are essentially the opposite of addition: a small molecule such as
+          water (H₂O) or hydrogen halide (HX) is removed, and a C=C double bond is formed.
+        </p>
+        <p>General pattern:</p>
+        <p class="formula">
+          –C–C– (with suitable groups) → C=C + small molecule
+        </p>
+        <p>
+          If water is the small molecule removed, the reaction is called a
+          <strong>dehydration</strong> or <strong>condensation</strong> reaction.
+        </p>
+        <p>
+          <strong>Key observation:</strong> in an addition reaction, each involved carbon ends up bonded to
+          <em>more</em> atoms; in an elimination reaction, each involved carbon ends up bonded to
+          <em>fewer</em> atoms.
+        </p>
+      </div>
+    </div>
+
+    <!-- TRUNK 8.3 esterification -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🌳 Trunk — Esterification: acid + alcohol → ester + water</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <p>
+          <strong>Esterification</strong> is a specific type of condensation/elimination reaction where a
+          <strong>carboxylic acid</strong> reacts with an <strong>alcohol</strong>.
+        </p>
+        <p>General pattern:</p>
+        <p class="formula">
+          carboxylic acid + alcohol → ester + H₂O
+        </p>
+        <p>
+          Mechanism-wise, the <code>–OH</code> from the carboxyl group and an <code>H</code> from the alcohol
+          combine to form water, and the remaining fragments join through an ester linkage
+          (<code>–C(=O)–O–</code>).
+        </p>
+        <p><strong>Naming esters</strong></p>
+        <ul>
+          <li>Take the name of the alcohol, replace <strong>-ol</strong> with <strong>-yl</strong>.</li>
+          <li>Take the name of the carboxylic acid, replace <strong>-oic acid</strong> with <strong>-oate</strong>.</li>
+          <li>Put them together: <em>alcohol part first</em>, then acid part.</li>
+        </ul>
+        <p><strong>Example:</strong> ethanol + butanoic acid → ethyl butanoate + water</p>
+        <p class="formula">
+          C₂H₅OH + C₃H₇COOH → C₃H₇COO–C₂H₅ + H₂O
+        </p>
+        <p>
+          Ethyl butanoate has the smell of pineapples and is used as a flavoring agent.
+        </p>
+      </div>
+    </div>
+
+    <!-- TRUNK 8.3 polymers -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🌳 Trunk — Addition & condensation polymerization</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <p>
+          A <strong>polymer</strong> is a giant molecule made by joining many smaller molecules called
+          <strong>monomers</strong>. Natural examples include proteins, starch, and DNA; synthetic examples
+          include polyethylene, PVC, and nylon.
+        </p>
+        <p>
+          When the polymer is made from just one type of monomer, it is a <strong>homopolymer</strong>. When
+          more than one type of monomer is used, it is a <strong>copolymer</strong>.
+        </p>
+
+        <h4>Addition polymerization</h4>
+        <p>
+          In <strong>addition polymerization</strong>, monomers with double bonds (like alkenes) react so those
+          double bonds open up and link together, with no small molecules lost.
+        </p>
+        <p>
+          Example: polyethene (polyethylene) from ethene:
+        </p>
+        <p class="formula">
+          n CH₂=CH₂ → –(CH₂–CH₂)–<sub>n</sub>
+        </p>
+        <p>
+          The repeating unit is <code>–CH₂–CH₂–</code>, and <code>n</code> is a very large number. The same idea
+          applies to PVC, polystyrene, Teflon, and others.
+        </p>
+
+        <h4>HDPE vs LDPE</h4>
+        <ul>
+          <li><strong>HDPE (high-density polyethylene)</strong> – mostly linear chains with few branches; chains pack closely → stronger, stiffer plastic (e.g. milk jugs, pipes).</li>
+          <li><strong>LDPE (low-density polyethylene)</strong> – many side branches; chains cannot pack tightly → softer, more flexible (e.g. plastic wrap, garbage bags).</li>
+        </ul>
+
+        <h4>Condensation polymerization</h4>
+        <p>
+          In <strong>condensation polymerization</strong>, monomers react and each time they link, a small molecule
+          (such as water) is eliminated.
+        </p>
+        <p>Examples:</p>
+        <ul>
+          <li><strong>Nylon-66</strong> – formed from a diamine and a dicarboxylic acid, eliminating water at each new bond.</li>
+          <li><strong>Proteins</strong> – formed when amino acids join by peptide (amide) bonds, releasing water each time.</li>
+        </ul>
+        <p>
+          In a protein chain, each peptide bond connects the carboxyl group of one amino acid to the amino group
+          of the next, forming a long polypeptide.
+        </p>
+      </div>
+    </div>
+
+    <!-- LEAVES 8.3 tips -->
+    <div class="node">
+      <div class="node-header">
+        <span class="label">🍃 Leaves — Reaction classification tips & examples</span>
+        <span>click to expand</span>
+      </div>
+      <div class="node-content">
+        <ul>
+          <li>If the number of atoms attached to each carbon <em>increases</em>, you are probably seeing an <strong>addition</strong] reaction at a multiple bond.</li>
+          <li>If one group replaces another but the total number of bonds on carbon stays the same, it is a <strong>substitution</strong> reaction.</li>
+          <li>If a small molecule like H₂O or HX is removed and a C=C appears, it is an <strong>elimination</strong> (often called dehydration when water is removed).</li>
+          <li>Combustion always involves O₂ as a reactant and produces CO₂ and H₂O (plus possibly CO and C in incomplete cases).</li>
+          <li>Look for <code>R–COO–R′</code> to recognize esters and for repeated backbone units (in brackets with <code>n</code>) to recognize polymers.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end content -->
+
+<script>
+// ===== COLLAPSIBLE BEHAVIOR =====
+document.querySelectorAll('.node-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const content = header.nextElementSibling;
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+  });
+});
+
+// ===== COPY BUTTONS =====
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const text = btn.getAttribute('data-copy') || '';
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.textContent;
+      btn.textContent = '✓';
+      setTimeout(() => { btn.textContent = original; }, 800);
+    });
+  });
+});
+
+// ===== SEARCH FILTER =====
+document.getElementById('search').addEventListener('input', function () {
+  const term = this.value.toLowerCase();
+  document.querySelectorAll('.card').forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.style.display = text.includes(term) ? 'block' : 'none';
+  });
+});
+</script>
+
+</body>
+</html>
+
