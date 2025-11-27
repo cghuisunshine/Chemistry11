@@ -40,6 +40,8 @@
   .kbd{ font: 11px/1 var(--mono); background: rgba(255,255,255,.08); padding:2px 6px; border-radius:6px; border:1px solid rgba(255,255,255,.14) }
   /* --- Expanders & panels --- */
   .toc-line{ position:relative; padding-right:28px }
+  .toc-line a { color: var(--accent); text-decoration: none; margin-left: 4px; }
+  .toc-line a:hover { text-decoration: underline; }
   .toc-expander{
     position:absolute; right:0; top:0; bottom:0; display:flex; align-items:center;
     padding:0 6px; cursor:pointer; user-select:none; border-radius:8px;
@@ -290,7 +292,18 @@ function renderTOC(nodes){
 
     const line = document.createElement('div');
     line.className = 'toc-line';
-    line.textContent = `${n.title} (page ${n.page})`;
+    
+    // Add link for section 7
+    if(n.title.startsWith('7 Solution Chemistry')) {
+      line.textContent = `${n.title} (page ${n.page}) `;
+      const link = document.createElement('a');
+      link.href = 'solution.html';
+      link.textContent = '🔗';
+      link.title = 'Open Solution Chemistry Interactive Map';
+      line.appendChild(link);
+    } else {
+      line.textContent = `${n.title} (page ${n.page})`;
+    }
 
     // Add expander whenever we have content for that section (4.x or 5.x etc.)
     if(n.section && sections[n.section]){
