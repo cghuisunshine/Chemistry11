@@ -293,13 +293,20 @@ function renderTOC(nodes){
     const line = document.createElement('div');
     line.className = 'toc-line';
     
-    // Add link for section 7
+    // Add links for sections 7 and 8
     if(n.title.startsWith('7 Solution Chemistry')) {
       line.textContent = `${n.title} (page ${n.page}) `;
       const link = document.createElement('a');
       link.href = 'solution.html';
       link.textContent = '🔗';
       link.title = 'Open Solution Chemistry Interactive Map';
+      line.appendChild(link);
+    } else if(n.title.startsWith('8 Organic Chemistry')) {
+      line.textContent = `${n.title} (page ${n.page}) `;
+      const link = document.createElement('a');
+      link.href = 'organic.html';
+      link.textContent = '🔗';
+      link.title = 'Open Organic Chemistry Interactive Map';
       line.appendChild(link);
     } else {
       line.textContent = `${n.title} (page ${n.page})`;
