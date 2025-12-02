@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chem 11 – Chapter 6 Patterns in Chemistry Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-elevated: #020617;
+      --card: #020617;
+      --card-soft: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --accent-strong: rgba(56, 189, 248, 0.3);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: #1f2937;
+      --danger: #fb7185;
+      --radius-lg: 14px;
+      --radius-xl: 20px;
+      --shadow-soft: 0 20px 40px rgba(15, 23, 42, 0.8);
+      --transition-fast: 0.18s ease-out;
+      --transition-normal: 0.24s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 50%, #000 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .page-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, rgba(15,23,42,0.96), rgba(3,7,18,0.98));
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      overflow: hidden;
+    }
+
+    header.hero {
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 55%),
+        radial-gradient(circle at top right, rgba(139,92,246,0.18), transparent 55%);
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .hero-pill {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      background: rgba(15,23,42,0.7);
+      border-radius: 999px;
+      padding: 3px 10px;
+      border: 1px solid rgba(56,189,248,0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-pill span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(56,189,248,0.7);
+    }
+
+    .hero-main {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .hero-title-block h1 {
+      font-size: clamp(1.35rem, 2.1vw, 1.8rem);
+      font-weight: 650;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-title-block p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-top: 4px;
+    }
+
+    .hero-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    .hero-meta strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-meta span.block {
+      display: block;
+    }
+
+    .layout {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar {
+      border-top: 1px solid var(--border-subtle);
+      padding: 14px 16px 8px;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(2,6,23,0.98));
+    }
+
+    .sidebar-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+    }
+
+    .sidebar-title span.icon {
+      font-size: 0.9rem;
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 7px 28px 7px 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.55);
+      background: rgba(15,23,42,0.92);
+      color: var(--text-main);
+      font-size: 0.8rem;
+      outline: none;
+      transition: border-color var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .search-box input::placeholder {
+      color: #6b7280;
+    }
+
+    .search-icon,
+    .clear-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.85rem;
+      color: #6b7280;
+      pointer-events: none;
+    }
+
+    .search-icon {
+      left: 9px;
+    }
+
+    .clear-icon {
+      right: 8px;
+      pointer-events: auto;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56,189,248,0.35);
+      background: rgba(15,23,42,1);
+    }
+
+    .search-box.has-text .clear-icon {
+      opacity: 0.9;
+    }
+
+    .section-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+
+    .section-link {
+      font-size: 0.76rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        transform 0.08s ease-out;
+      white-space: nowrap;
+    }
+
+    .section-link:hover {
+      background: rgba(24,33,53,1);
+      border-color: var(--accent-soft);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .section-link.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .sidebar-note {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .content {
+      padding: 12px 16px 18px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .section-card {
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.08), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(8,47,73,0.55), rgba(15,23,42,0.98));
+      padding: 14px 14px 12px;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+    }
+
+    .section-card.filtered-out {
+      display: none;
+    }
+
+    .section-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(56,189,248,0.5);
+      box-shadow: 0 14px 40px rgba(15,23,42,0.9);
+    }
+
+    .section-badge {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.92);
+      border: 1px solid rgba(148,163,184,0.4);
+      color: var(--text-muted);
+    }
+
+    .section-header {
+      margin-bottom: 6px;
+    }
+
+    .section-header h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .section-header h2 span.label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 1px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.4);
+      color: var(--accent);
+      background: rgba(15,23,42,0.9);
+    }
+
+    .section-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .nodes {
+      margin-top: 6px;
+      display: grid;
+      grid-template-columns: minmax(0,1fr);
+      gap: 6px;
+    }
+
+    .node {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(30,64,175,0.7);
+      background: rgba(15,23,42,0.96);
+      overflow: hidden;
+      transition: border-color var(--transition-fast), background var(--transition-fast), transform 0.12s ease-out;
+    }
+
+    .node-header {
+      padding: 6px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      cursor: pointer;
+      user-select: none;
+      background: radial-gradient(circle at top left, rgba(37,99,235,0.28), rgba(15,23,42,0.96));
+    }
+
+    .node-header-main {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .node-kind-pill {
+      font-size: 0.7rem;
+      padding: 1px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.45);
+      color: var(--text-muted);
+      background: rgba(15,23,42,0.96);
+    }
+
+    .node-kind-pill.roots {
+      border-color: rgba(52,211,153,0.7);
+      color: #6ee7b7;
+    }
+
+    .node-kind-pill.trunk {
+      border-color: rgba(56,189,248,0.7);
+      color: var(--accent);
+    }
+
+    .node-kind-pill.leaves {
+      border-color: rgba(251,191,36,0.7);
+      color: #facc15;
+    }
+
+    .node-title {
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .chevron {
+      font-size: 0.9rem;
+      transition: transform var(--transition-fast), color var(--transition-fast);
+      color: #9ca3af;
+    }
+
+    .node.open .chevron {
+      transform: rotate(90deg);
+      color: var(--accent);
+    }
+
+    .node-content {
+      display: none;
+      padding: 6px 10px 8px;
+      font-size: 0.78rem;
+      color: var(--text-main);
+      background: radial-gradient(circle at bottom right, rgba(15,23,42,0.9), rgba(2,6,23,1));
+    }
+
+    .node.open .node-content {
+      display: block;
+    }
+
+    .node p,
+    .node ul,
+    .node ol {
+      margin-bottom: 4px;
+    }
+
+    .node ul,
+    .node ol {
+      padding-left: 1.1rem;
+    }
+
+    .copyable {
+      cursor: pointer;
+      border-radius: 6px;
+      padding: 2px 4px;
+      margin: 2px -2px;
+      transition: background var(--transition-fast), box-shadow var(--transition-fast), transform 0.04s ease-out;
+    }
+
+    .copyable:hover {
+      background: rgba(15,23,42,0.9);
+      box-shadow: 0 0 0 1px rgba(56,189,248,0.35);
+    }
+
+    .formula-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.78rem;
+      background: rgba(15,23,42,0.96);
+      border-radius: 6px;
+      padding: 3px 4px;
+      border: 1px solid rgba(30,64,175,0.7);
+      margin: 2px 0;
+    }
+
+    .copy-btn {
+      border: none;
+      cursor: pointer;
+      font-size: 0.75rem;
+      padding: 2px 5px 2px 4px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.96);
+      color: #9ca3af;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      transition: background var(--transition-fast), color var(--transition-fast), transform 0.06s ease-out, box-shadow var(--transition-fast);
+      border: 1px solid rgba(55,65,81,0.9);
+    }
+
+    .copy-btn:hover {
+      background: rgba(8,47,73,0.98);
+      color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56,189,248,0.5);
+      transform: translateY(-0.5px);
+    }
+
+    .copy-btn span.icon {
+      font-size: 0.85rem;
+    }
+
+    .copy-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%) translateY(40px);
+      background: rgba(15,23,42,0.96);
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 0.8rem;
+      color: var(--text-main);
+      border: 1px solid rgba(56,189,248,0.6);
+      box-shadow: 0 12px 30px rgba(15,23,42,0.9);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.16s ease-out, transform 0.16s ease-out;
+      z-index: 9999;
+    }
+
+    .copy-toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (min-width: 900px) {
+      .layout {
+        flex-direction: row;
+      }
+
+      .sidebar {
+        width: 260px;
+        border-top: none;
+        border-right: 1px solid var(--border-subtle);
+        padding: 14px 14px 16px;
+        position: sticky;
+        top: 0;
+        align-self: flex-start;
+        min-height: calc(100vh - 120px);
+      }
+
+      .content {
+        padding: 16px 18px 20px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .section-card {
+        padding: 16px 14px 12px;
+      }
+    }
+
+    @media (max-width: 599px) {
+      header.hero {
+        padding: 16px 14px 10px;
+      }
+      .section-card {
+        margin: 0 -2px;
+      }
+      .content {
+        padding-inline: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="page-inner">
+      <header class="hero">
+        <div class="hero-top">
+          <div class="hero-pill">
+            <span class="dot"></span>
+            Chem 11 • Chapter 6
+          </div>
+        </div>
+        <div class="hero-main">
+          <div class="hero-title-block">
+            <h1>Relationships & Patterns in Chemistry – Interactive Map</h1>
+            <p>
+              Roots = core ideas & definitions · Trunk = rules & patterns · Leaves = examples & tips.
+              Double-click key text to copy, or tap 📋 to copy formulas.
+            </p>
+          </div>
+          <div class="hero-meta">
+            <span class="block"><strong>Focus:</strong> Periodic table, trends, bonding, Lewis structures, VSEPR & polarity</span>
+            <span class="block" style="margin-top:2px;">Designed for Grades 11–12</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar">
+          <div class="sidebar-title">
+            <span class="icon">🧭</span>
+            Navigate Chapter 6
+          </div>
+          <div class="search-box" id="searchBoxWrapper">
+            <span class="search-icon">🔍</span>
+            <input id="searchBox" type="text" placeholder="Filter sections by keyword (e.g. electronegativity, VSEPR)" />
+            <span class="clear-icon" id="clearSearch">✕</span>
+          </div>
+          <div class="section-links" id="sectionLinks">
+            <button class="section-link" data-target="sec-6-1">6.1 Periodic Table & Patterns</button>
+            <button class="section-link" data-target="sec-6-2">6.2 Periodic Trends</button>
+            <button class="section-link" data-target="sec-6-3">6.3 Chemical Bonding</button>
+            <button class="section-link" data-target="sec-6-4">6.4 Lewis Structures</button>
+            <button class="section-link" data-target="sec-6-5">6.5 VSEPR & Polarity</button>
+          </div>
+          <p class="sidebar-note">
+            Tip: Try search terms like <strong>ionic</strong>, <strong>ΔEN</strong>, <strong>AX₄</strong>, or <strong>atomic radius</strong>.
+          </p>
+        </aside>
+
+        <main class="content" id="content">
+
+          <!-- 6.1 -->
+          <section class="section-card copyable" id="sec-6-1">
+            <div class="section-badge">6.1</div>
+            <div class="section-header">
+              <h2>
+                Periodic Table & Patterns
+                <span class="label">structure & organization</span>
+              </h2>
+              <p class="section-subtitle">
+                How electron configuration controls an element’s position & properties.
+              </p>
+            </div>
+
+            <div class="nodes">
+
+              <!-- Roots -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill roots">Roots</span>
+                    <span class="node-title">Core ideas & definitions</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable">
+                    <strong>Periodic law:</strong> When elements are arranged in order of increasing atomic number, their
+                    physical and chemical properties repeat in a regular, <em>periodic</em> pattern.
+                  </p>
+                  <p class="copyable">
+                    <strong>Period:</strong> Horizontal row (1–7). Each new period means a new main energy level (shell) is being filled.
+                  </p>
+                  <p class="copyable">
+                    <strong>Group / family:</strong> Vertical column (1–18). Elements in a group have similar outer (valence) electron
+                    configurations and therefore similar chemical behaviour.
+                  </p>
+                  <ul class="copyable">
+                    <li><strong>Main-group (representative) elements:</strong> Groups 1–2, 13–18.</li>
+                    <li><strong>Transition elements:</strong> Groups 3–12 (d-block).</li>
+                    <li><strong>Inner transition elements:</strong> Lanthanides & actinides (f-block).</li>
+                  </ul>
+                  <p class="copyable">
+                    <strong>Blocks:</strong> s-block, p-block, d-block, f-block show which sublevel is being filled. The order of
+                    blocks across each period matches the Aufbau order for filling sublevels.
+                  </p>
+                  <p class="copyable">
+                    The two most important facts:
+                    <br />1) Elements in the same family have similar properties because they have similar valence electron
+                    configurations.<br />
+                    2) As you move down a family or across a period, many properties change in regular periodic trends.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Trunk -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill trunk">Trunk</span>
+                    <span class="node-title">Rules & patterns</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <ul class="copyable">
+                    <li>
+                      Atoms in the same <strong>group</strong> share the same number of valence electrons (for main-group elements), which explains repeated
+                      patterns in reactivity, ion formation, and bonding.
+                    </li>
+                    <li>
+                      Each new <strong>period</strong> begins when you start filling a new principal energy level’s s-sublevel.
+                    </li>
+                    <li>
+                      The position of an element in the table is a <strong>map of its electron configuration</strong>:
+                      s-block (left), d-block (middle), p-block (right), f-block (bottom).
+                    </li>
+                    <li>
+                      The fact that quantum mechanics <strong>predicts electron configurations</strong> that match the
+                      periodic table’s pattern is strong evidence that the periodic table reflects the true structure of atoms.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- Leaves -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill leaves">Leaves</span>
+                    <span class="node-title">Examples & interpretations</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable">
+                    <strong>Example – Similar family behaviour:</strong> Na and K are both in group 1. Their valence configurations
+                    end in <code>ns¹</code>, so both form +1 ions (Na⁺, K⁺) and react vigorously with water.
+                  </p>
+                  <p class="copyable">
+                    <strong>Reading positions like a map:</strong> An element is in period 3, group 16 (S, sulphur) – this tells you
+                    it has 3 main energy levels and 6 valence electrons.
+                  </p>
+                  <p class="copyable">
+                    <strong>Teaching tip:</strong> Have students pick an element, write its electron configuration, then explain
+                    how its position (period, group, block) reflects that configuration.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- 6.2 -->
+          <section class="section-card copyable" id="sec-6-2">
+            <div class="section-badge">6.2</div>
+            <div class="section-header">
+              <h2>
+                Periodic Trends
+                <span class="label">size · IE · EN</span>
+              </h2>
+              <p class="section-subtitle">
+                How atomic radius, ionization energy & electronegativity change across the periodic table.
+              </p>
+            </div>
+
+            <div class="nodes">
+
+              <!-- Roots -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill roots">Roots</span>
+                    <span class="node-title">Core definitions</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable">
+                    <strong>Atomic radius:</strong> Distance from the nucleus to the boundary of the surrounding electron cloud; a
+                    measure of how “big” the atom is.
+                  </p>
+                  <p class="copyable">
+                    <strong>First ionization energy (IE₁):</strong> Energy required to remove the <em>outermost</em> electron from a
+                    gaseous neutral atom.
+                  </p>
+                  <div class="formula-row">
+                    <span>X(g) → X⁺(g) + e⁻</span>
+                    <button class="copy-btn" data-copy="X(g) → X⁺(g) + e⁻">
+                      <span class="icon">📋</span>copy
+                    </button>
+                  </div>
+                  <p class="copyable">
+                    <strong>Electronegativity (EN):</strong> Relative ability of a <em>bonded</em> atom to attract the shared electrons toward itself.
+                    It is a unitless scale (Pauling scale: ~0.7 to 4.0).
+                  </p>
+                  <p class="copyable">
+                    <strong>Shielding:</strong> Inner (core) electrons reduce the effective pull of the nucleus on outer electrons.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Trunk -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill trunk">Trunk</span>
+                    <span class="node-title">Trends & explanations</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable"><strong>Atomic radius trends:</strong></p>
+                  <ul class="copyable">
+                    <li><em>Down a group:</em> radius increases. More energy levels and more inner electrons → more shielding and a bigger electron cloud.</li>
+                    <li><em>Across a period (left → right):</em> radius decreases. Protons are added to the same shell; shielding doesn’t increase much, so outer electrons feel a stronger pull and are drawn closer.</li>
+                    <li>Largest atoms: near the <strong>bottom left</strong>. Smallest atoms: near the <strong>top right</strong>.</li>
+                  </ul>
+
+                  <p class="copyable"><strong>Ionization energy trends:</strong></p>
+                  <ul class="copyable">
+                    <li><em>Across a period:</em> IE increases. Atoms get smaller and electrons are held more tightly.</li>
+                    <li><em>Down a group:</em> IE decreases. Valence electrons are farther from the nucleus and more shielded, so easier to remove.</li>
+                    <li>Metals (left) have low IE; non-metals (right) have high IE.</li>
+                    <li><strong>Second IE</strong> is much higher after a stable shell has formed (e.g. Li’s IE₂ is >10× IE₁).</li>
+                  </ul>
+
+                  <p class="copyable"><strong>Electronegativity trends:</strong></p>
+                  <ul class="copyable">
+                    <li><em>Across a period:</em> EN increases (atoms become smaller and nuclear attraction is stronger).</li>
+                    <li><em>Down a group:</em> EN decreases (atoms are larger and more shielded).</li>
+                    <li>Most electronegative: fluorine (EN ≈ 4.0). Least: large alkali metals like cesium (EN ≈ 0.7).</li>
+                  </ul>
+
+                  <p class="copyable">
+                    <strong>Cations vs anions:</strong> Cations (positive ions) are always smaller than their neutral atoms; anions
+                    (negative ions) are always larger due to increased electron-electron repulsion.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Leaves -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill leaves">Leaves</span>
+                    <span class="node-title">Examples, tips & comparisons</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable">
+                    <strong>Example 1 – Ordering atomic radii in a period:</strong>
+                    In period 3 (Na → Ar), size decreases from left to right: Na > Mg > Al > Si > P > S > Cl > Ar.
+                  </p>
+                  <p class="copyable">
+                    <strong>Example 2 – Ordering first ionization energies:</strong>
+                    For the same set, IE increases roughly Na < Mg < Al < Si < P < S < Cl < Ar.
+                  </p>
+                  <p class="copyable">
+                    <strong>Concept check:</strong> Elements with low IE and EN tend to <em>lose</em> electrons in reactions
+                    (forming cations); elements with high IE and EN tend to <em>gain</em> or share electrons (non-metals).
+                  </p>
+                  <p class="copyable">
+                    <strong>Teaching tip:</strong> Have students draw a periodic table arrow diagram:
+                    “Atomic radius ↑” (toward bottom left) and “IE, EN ↑” (toward top right) on the same chart.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- 6.3 -->
+          <section class="section-card copyable" id="sec-6-3">
+            <div class="section-badge">6.3</div>
+            <div class="section-header">
+              <h2>
+                Describing Chemical Bonding
+                <span class="label">ionic · covalent · ΔEN</span>
+              </h2>
+              <p class="section-subtitle">
+                How electronegativity differences explain ionic, polar covalent & non-polar bonds.
+              </p>
+            </div>
+
+            <div class="nodes">
+
+              <!-- Roots -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill roots">Roots</span>
+                    <span class="node-title">Valence electrons & bond types</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable">
+                    Atoms bond to reach a <strong>lower potential energy</strong>, often by forming a stable <strong>octet</strong> (8 valence
+                    electrons) like noble gases.
+                  </p>
+                  <p class="copyable">
+                    <strong>Ionic bond:</strong> Electrostatic attraction between <strong>cations and anions</strong> that forms when a metal
+                    transfers electron(s) to a non-metal.
+                  </p>
+                  <p class="copyable">
+                    <strong>Covalent bond:</strong> Bond formed by sharing one or more <strong>pairs of electrons</strong> between two atoms,
+                    usually two non-metals.
+                  </p>
+                  <p class="copyable">
+                    <strong>Metallic bond:</strong> Bonding between metals where valence electrons move through a “sea of electrons”
+                    shared by many positive metal ions (not deeply covered in this unit).
+                  </p>
+                </div>
+              </article>
+
+              <!-- Trunk -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill trunk">Trunk</span>
+                    <span class="node-title">ΔEN rules & bond character</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable">
+                    We use the <strong>difference in electronegativity</strong> to estimate bond type:
+                  </p>
+                  <div class="formula-row">
+                    <span>ΔEN = | EN₁ − EN₂ |</span>
+                    <button class="copy-btn" data-copy="ΔEN = | EN1 − EN2 |">
+                      <span class="icon">📋</span>copy
+                    </button>
+                  </div>
+                  <ul class="copyable">
+                    <li>ΔEN = 0 → <strong>Non-polar covalent</strong> (pure covalent). Equal sharing, often same element (H₂, Cl₂).</li>
+                    <li>0 < ΔEN < 0.4 → <strong>Mostly covalent</strong>. Almost equal sharing, very little ionic character.</li>
+                    <li>0.4 ≲ ΔEN ≲ 1.7 → <strong>Polar covalent</strong>. Unequal sharing, bond dipole forms.</li>
+                    <li>ΔEN ≳ 1.7 → <strong>Mostly ionic</strong>. Electron effectively transferred; ionic crystal lattice forms.</li>
+                  </ul>
+                  <p class="copyable">
+                    <strong>Bond dipole:</strong> In a polar covalent bond, electron density is pulled toward the more
+                    electronegative atom, giving that end a partial negative charge (δ⁻) and the other end δ⁺.
+                  </p>
+                  <p class="copyable">
+                    <strong>Ionic compounds:</strong> High melting points, form extended 3D lattices (e.g., NaCl). Their formulas show
+                    a <em>ratio</em> of ions, not a single molecule.
+                  </p>
+                  <p class="copyable">
+                    <strong>Covalent compounds:</strong> Often exist as independent molecules (e.g., H₂O, CO₂), sometimes as giant
+                    covalent networks (diamond, quartz) with very high melting points.
+                  </p>
+                  <p class="copyable">
+                    <strong>Electrons needed for octet (non-metals):</strong> Group 14 → 4, 15 → 3, 16 → 2, 17 → 1. We can “criss-cross”
+                    these numbers to predict covalent formulas.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Leaves -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill leaves">Leaves</span>
+                    <span class="node-title">Examples & worked ideas</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable">
+                    <strong>Example – HCl bond:</strong> EN(H) ≈ 2.1, EN(Cl) ≈ 3.0, so ΔEN ≈ 0.9 → a <strong>polar covalent</strong> bond. The
+                    electron pair is closer to chlorine (δ⁻) than hydrogen (δ⁺).
+                  </p>
+                  <p class="copyable">
+                    <strong>Example – Predicting a covalent formula:</strong> Phosphorus (group 15) needs 3 e⁻; chlorine (group 17) needs
+                    1 e⁻. Write P³ Cl¹ and criss-cross → PCl₃. This is a covalent molecule, so we normally do not reduce the ratio.
+                  </p>
+                  <p class="copyable">
+                    <strong>Comparing ionic character – MgS vs H₂O:</strong> Mg–S has a larger ΔEN than H–O, so <em>MgS has more ionic
+                    character</em> than water’s polar covalent bonds.
+                  </p>
+                  <p class="copyable">
+                    <strong>Teaching tip:</strong> Ask students to pair elements, calculate ΔEN, then predict: ionic, polar covalent, or
+                    non-polar covalent. Then relate this back to their positions on the periodic table.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- 6.4 -->
+          <section class="section-card copyable" id="sec-6-4">
+            <div class="section-badge">6.4</div>
+            <div class="section-header">
+              <h2>
+                Lewis Structures
+                <span class="label">octet rule & bonding patterns</span>
+              </h2>
+              <p class="section-subtitle">
+                Using valence electrons to draw 2D electron-dot diagrams for molecules & ions.
+              </p>
+            </div>
+
+            <div class="nodes">
+
+              <!-- Roots -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill roots">Roots</span>
+                    <span class="node-title">Octet rule & electron dots</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable">
+                    <strong>Octet rule:</strong> Main-group atoms tend to lose, gain, or share electrons until they have 8 valence
+                    electrons like a noble gas.
+                  </p>
+                  <p class="copyable">
+                    <strong>Lewis structure:</strong> 2D diagram showing valence electrons as dots and shared pairs as lines between atoms.
+                  </p>
+                  <p class="copyable">
+                    <strong>Valence electrons:</strong> Outer-shell electrons involved in bonding. For main-group elements, usually given
+                    by the group number (e.g., group 16 → 6 valence e⁻).
+                  </p>
+                  <p class="copyable">
+                    <strong>Special cases:</strong> H only needs 2 electrons (duet rule), and some atoms can have incomplete or expanded octets.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Trunk -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill trunk">Trunk</span>
+                    <span class="node-title">Drawing rules & exceptions</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable"><strong>General steps for drawing a Lewis structure:</strong></p>
+                  <ol class="copyable">
+                    <li>Count total valence electrons for all atoms.</li>
+                    <li>Choose a central atom (usually the one that needs the most electrons or is least electronegative, not H).</li>
+                    <li>Connect outer atoms to the central atom with single bonds (each line = 2 electrons).</li>
+                    <li>Complete octets for outer atoms using lone pairs.</li>
+                    <li>Place any remaining electrons as lone pairs on the central atom.</li>
+                    <li>If the central atom has less than 8 electrons, form double or triple bonds by converting lone pairs on neighbouring atoms into shared pairs.</li>
+                    <li>Check that the total number of electrons is correct and that octets are satisfied (or explain exceptions).
+                  </ol>
+                  <p class="copyable"><strong>Important exceptions:</strong></p>
+                  <ul class="copyable">
+                    <li><strong>Incomplete octet:</strong> B, Be, Al and a few others can be stable with fewer than 8 electrons.</li>
+                    <li><strong>Expanded octet:</strong> Elements in period 3 or beyond (P, S, Cl, Br, Xe) can have more than 8 valence electrons.</li>
+                    <li><strong>Odd-electron species:</strong> Radicals with an odd total number of electrons (not emphasized in this course).</li>
+                  </ul>
+                  <p class="copyable">
+                    Lewis structures provide the starting point for 3D shapes in VSEPR: each bond and lone pair is one “electron group” around the central atom.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Leaves -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill leaves">Leaves</span>
+                    <span class="node-title">Worked examples & tips</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable">
+                    <strong>Example – CO₂:</strong> C has 4 valence e⁻; each O has 6. Total = 16 e⁻.
+                    Skeleton: O–C–O. Add lone pairs to O atoms, then form two double bonds to give O=C=O, with each atom having an octet.
+                  </p>
+                  <p class="copyable">
+                    <strong>Example – H₂O:</strong> O has 6 valence e⁻; each H has 1. Total = 8 e⁻.
+                    Skeleton: H–O–H. Two lone pairs go on O, giving each atom a full shell (H has 2, O has 8).
+                  </p>
+                  <p class="copyable">
+                    <strong>Example – NH₃:</strong> N has 5 valence e⁻; H has 1 each. Total = 8 e⁻.
+                    Skeleton: three N–H bonds plus one lone pair on N. This leads to a trigonal pyramidal shape in VSEPR.
+                  </p>
+                  <p class="copyable">
+                    <strong>Teaching tip:</strong> Let students build 3D clay-and-stick models for molecules like CO₂, NH₃, and H₂O to see how electron pairs spread out in space.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- 6.5 -->
+          <section class="section-card copyable" id="sec-6-5">
+            <div class="section-badge">6.5</div>
+            <div class="section-header">
+              <h2>
+                VSEPR & Molecular Polarity
+                <span class="label">AX notation · shape · dipole</span>
+              </h2>
+              <p class="section-subtitle">
+                Predicting 3D shapes and deciding whether molecules are polar or non-polar.
+              </p>
+            </div>
+
+            <div class="nodes">
+
+              <!-- Roots -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill roots">Roots</span>
+                    <span class="node-title">VSEPR basics & AXE notation</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable">
+                    <strong>VSEPR theory:</strong> Valence-shell electron pairs (bonding and lone pairs) repel each other and arrange
+                    in 3D so they are as far apart as possible, giving the molecule a characteristic shape.
+                  </p>
+                  <p class="copyable">
+                    Each single bond, double bond, triple bond, or lone pair counts as one <strong>electron group</strong> or domain.
+                  </p>
+                  <p class="copyable">
+                    We describe the central atom with <strong>AXE notation</strong>:
+                    A = central atom, X = number of bonded atoms, E = number of lone pairs on A.
+                  </p>
+                  <ul class="copyable">
+                    <li>AX₂ → linear (e.g., CO₂).</li>
+                    <li>AX₃ → trigonal planar; AX₂E → bent (3 electron groups).</li>
+                    <li>AX₄ → tetrahedral; AX₃E → trigonal pyramidal; AX₂E₂ → bent (4 electron groups).</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- Trunk -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill trunk">Trunk</span>
+                    <span class="node-title">Shapes, angles & dipole rules</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable"><strong>Three electron groups (AX₃ / AX₂E):</strong></p>
+                  <ul class="copyable">
+                    <li>Electron-group geometry: trigonal planar (120°).</li>
+                    <li>AX₃: trigonal planar molecule (e.g., BF₃).</li>
+                    <li>AX₂E: bent/angular molecule (e.g., SO₂). Lone pair compresses bond angle to <120°.</li>
+                  </ul>
+
+                  <p class="copyable"><strong>Four electron groups (AX₄ / AX₃E / AX₂E₂):</strong></p>
+                  <ul class="copyable">
+                    <li>Electron-group geometry: tetrahedral (ideal 109.5°).</li>
+                    <li>AX₄: tetrahedral shape (CH₄) with ≈109.5° bond angles.</li>
+                    <li>AX₃E: trigonal pyramidal (NH₃) with ≈107° angles (lone pair pushes bonds closer).
+                    <li>AX₂E₂: bent or V-shaped (H₂O) with ≈104.5° angles.</li>
+                  </ul>
+
+                  <p class="copyable">
+                    <strong>Lone-pair vs bond-pair repulsion:</strong> Lone pairs are held by one nucleus and spread out more,
+                    creating stronger repulsion than bonding pairs. This compresses adjacent bond angles.
+                  </p>
+                  <p class="copyable">
+                    <strong>Molecular polarity:</strong> A molecule is polar if it has bond dipoles that do not cancel, giving a net
+                    dipole moment. It is non-polar if there are no polar bonds or if the bond dipoles cancel by symmetry.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Leaves -->
+              <article class="node open">
+                <div class="node-header">
+                  <div class="node-header-main">
+                    <span class="node-kind-pill leaves">Leaves</span>
+                    <span class="node-title">Key polarity examples</span>
+                  </div>
+                  <span class="chevron">▶</span>
+                </div>
+                <div class="node-content">
+                  <p class="copyable">
+                    <strong>Example – CO₂:</strong> AX₂ → linear. Two identical polar C=O bonds in opposite directions. Dipoles cancel →
+                    CO₂ is <strong>non-polar</strong>.
+                  </p>
+                  <p class="copyable">
+                    <strong>Example – H₂O:</strong> AX₂E₂ → bent. Two O–H polar bonds with bond dipoles pointing in roughly the same
+                    direction. Dipoles reinforce → water is strongly <strong>polar</strong>.
+                  </p>
+                  <p class="copyable">
+                    <strong>Example – CCl₄ vs CH₃Cl:</strong>
+                    Both are tetrahedral (AX₄). In CCl₄, four identical C–Cl bond dipoles cancel → non-polar.
+                    In CH₃Cl, the three C–H and one C–Cl dipole do not cancel → CH₃Cl is polar.
+                  </p>
+                  <p class="copyable">
+                    <strong>Example – Is NH₃ polar?</strong>
+                    Lewis structure: three N–H bonds and one lone pair (AX₃E → trigonal pyramidal). All bond dipoles point toward N
+                    and do not cancel → NH₃ is polar.
+                  </p>
+                  <p class="copyable">
+                    <strong>Teaching tip:</strong> Have students decide polarity with a 3-step checklist: (1) Draw Lewis structure,
+                    (2) Identify shape with AXE notation, (3) Combine bond dipoles to see if they cancel.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div class="copy-toast" id="copyToast">Copied to clipboard</div>
+  </div>
+
+  <script>
+    (function () {
+      const content = document.getElementById("content");
+      const sectionLinks = Array.from(
+        document.querySelectorAll(".section-link")
+      );
+      const searchBox = document.getElementById("searchBox");
+      const searchBoxWrapper = document.getElementById("searchBoxWrapper");
+      const clearSearch = document.getElementById("clearSearch");
+      const toast = document.getElementById("copyToast");
+
+      function showToast(message) {
+        if (!toast) return;
+        toast.textContent = message || "Copied to clipboard";
+        toast.classList.add("visible");
+        setTimeout(() => {
+          toast.classList.remove("visible");
+        }, 1300);
+      }
+
+      function smoothScrollTo(element) {
+        const rect = element.getBoundingClientRect();
+        const absoluteY = rect.top + window.scrollY - 80;
+        window.scrollTo({ top: absoluteY, behavior: "smooth" });
+      }
+
+      sectionLinks.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetId = btn.dataset.target;
+          const target = document.getElementById(targetId);
+          if (target) {
+            sectionLinks.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            smoothScrollTo(target);
+          }
+        });
+      });
+
+      document.querySelectorAll(".node-header").forEach((header) => {
+        header.addEventListener("click", () => {
+          const node = header.closest(".node");
+          if (!node) return;
+          node.classList.toggle("open");
+        });
+      });
+
+      document.querySelectorAll(".copy-btn").forEach((btn) => {
+        btn.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const text = btn.getAttribute("data-copy");
+          if (!text) return;
+          try {
+            await navigator.clipboard.writeText(text);
+            showToast("Formula copied");
+          } catch (err) {
+            showToast("Copy failed");
+          }
+        });
+      });
+
+      content.addEventListener("dblclick", async (e) => {
+        const target = e.target.closest(".copyable");
+        if (!target) return;
+        const text = target.innerText.trim();
+        if (!text) return;
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast("Text copied");
+        } catch (err) {
+          showToast("Copy failed");
+        }
+      });
+
+      function applyFilter(term) {
+        const lower = term.toLowerCase();
+        const cards = Array.from(
+          document.querySelectorAll(".section-card")
+        );
+        cards.forEach((card) => {
+          const text = card.innerText.toLowerCase();
+          const match = text.includes(lower);
+          card.classList.toggle("filtered-out", !match && lower.length > 0);
+        });
+      }
+
+      if (searchBox) {
+        searchBox.addEventListener("input", () => {
+          const value = searchBox.value.trim();
+          if (searchBoxWrapper) {
+            searchBoxWrapper.classList.toggle("has-text", value.length > 0);
+          }
+          applyFilter(value);
+        });
+      }
+
+      if (clearSearch) {
+        clearSearch.addEventListener("click", () => {
+          if (!searchBox) return;
+          searchBox.value = "";
+          if (searchBoxWrapper) {
+            searchBoxWrapper.classList.remove("has-text");
+          }
+          applyFilter("");
+          searchBox.focus();
+        });
+      }
+
+      window.addEventListener("load", () => {
+        const firstLink = document.querySelector(".section-link");
+        if (firstLink) firstLink.classList.add("active");
+      });
+    })();
+  </script>
+</body>
+</html>
