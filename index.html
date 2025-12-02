@@ -293,13 +293,20 @@ function renderTOC(nodes){
     const line = document.createElement('div');
     line.className = 'toc-line';
     
-    // Add links for sections 5, 7 and 8
+    // Add links for sections 5, 6, 7 and 8
     if(n.title.startsWith('5 A Closer Look at Matter')) {
       line.textContent = `${n.title} (page ${n.page}) `;
       const link = document.createElement('a');
       link.href = 'matter.html';
       link.textContent = '🔗';
       link.title = 'Open A Closer Look at Matter Interactive Map';
+      line.appendChild(link);
+    } else if(n.title.startsWith('6 Relationships and Patterns in Chemistry')) {
+      line.textContent = `${n.title} (page ${n.page}) `;
+      const link = document.createElement('a');
+      link.href = 'pattern.html';
+      link.textContent = '🔗';
+      link.title = 'Open Relationships and Patterns in Chemistry Interactive Map';
       line.appendChild(link);
     } else if(n.title.startsWith('7 Solution Chemistry')) {
       line.textContent = `${n.title} (page ${n.page}) `;
@@ -409,4 +416,3 @@ tocRoot.appendChild(document.createElement('hr'));
 
 </body>
 </html>
-
