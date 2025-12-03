@@ -1,0 +1,2120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chem 11 – Chapter 4 Concept Map: Expressing & Measuring Chemical Change</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-elevated: #151a2c;
+      --bg-node: #1d2336;
+      --accent: #5ac8fa;
+      --accent-soft: rgba(90, 200, 250, 0.1);
+      --accent-strong: #ffd166;
+      --text: #e4e9ff;
+      --text-muted: #a3acce;
+      --danger: #ff6b6b;
+      --border-subtle: #262c42;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.45);
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.3s ease;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "JetBrains Mono", "SF Mono", Menlo, Monaco, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: radial-gradient(circle at top left, #1a2240 0, #050814 40%, #02030a 100%);
+      color: var(--text);
+      font-family: var(--font-main);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      background: linear-gradient(to right, rgba(21, 26, 45, 0.98), rgba(7, 11, 24, 0.98));
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .header-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 1.5rem;
+      justify-content: space-between;
+    }
+
+    .title-block {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .title-pill {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, var(--accent-soft), transparent);
+      border: 1px solid rgba(90, 200, 250, 0.5);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+
+    .title-text h1 {
+      margin: 0;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #f9fbff;
+    }
+
+    .title-text p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .header-tagline {
+      font-size: 0.8rem;
+      color: var(--accent-strong);
+      background: rgba(255, 209, 102, 0.1);
+      border-radius: 999px;
+      padding: 0.4rem 0.85rem;
+      border: 1px solid rgba(255, 209, 102, 0.5);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+    }
+
+    .header-tagline span {
+      font-size: 0.85rem;
+    }
+
+    .header-tagline-emoji {
+      font-size: 1rem;
+    }
+
+    .main {
+      flex: 1;
+      padding: 1.25rem;
+    }
+
+    .main-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    /* Sidebar / Navigation */
+    .sidebar {
+      flex: 0 0 260px;
+      max-width: 260px;
+      background: rgba(8, 11, 25, 0.92);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 1rem 1rem 1.25rem;
+      box-shadow: var(--shadow-soft);
+      position: sticky;
+      top: 4.5rem;
+    }
+
+    .sidebar h2 {
+      margin: 0 0 0.6rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 0.9rem;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.55rem 2.1rem 0.55rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at top left, rgba(38, 44, 66, 0.9), rgba(14, 18, 37, 0.9));
+      color: var(--text);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+    }
+
+    .search-input::placeholder {
+      color: #72789b;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(90, 200, 250, 0.4);
+      background: radial-gradient(circle at top left, rgba(53, 61, 92, 0.9), rgba(11, 15, 32, 0.9));
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 0.65rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0.4rem 0 0;
+      border-top: 1px dashed rgba(255, 255, 255, 0.04);
+    }
+
+    .nav-list li {
+      margin: 0.1rem 0;
+    }
+
+    .nav-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      padding: 0.45rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .nav-link span.section-code {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 0.8rem;
+    }
+
+    .nav-link span.section-label {
+      flex: 1;
+    }
+
+    .nav-link:hover {
+      background: rgba(90, 200, 250, 0.12);
+      color: #f3f5ff;
+      transform: translateX(1px);
+    }
+
+    .nav-link.active {
+      background: rgba(90, 200, 250, 0.18);
+      color: #ffffff;
+      border: 1px solid rgba(90, 200, 250, 0.35);
+    }
+
+    .sidebar-footer {
+      margin-top: 0.9rem;
+      padding-top: 0.7rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.05);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .sidebar-footer strong {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    /* Content Area */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .section-intro {
+      background: radial-gradient(circle at top left, rgba(35, 42, 80, 0.9), rgba(8, 10, 22, 0.9));
+      border-radius: var(--radius-lg);
+      padding: 1.1rem 1.15rem;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-intro::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      opacity: 0.08;
+      background: conic-gradient(from 220deg, #5ac8fa, #ffd166, #ff6b6b, #5ac8fa);
+      filter: blur(38px);
+      pointer-events: none;
+    }
+
+    .section-intro-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-intro h2 {
+      margin: 0 0 0.35rem;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-intro h2 span {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
+    .section-intro p {
+      margin: 0.25rem 0;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .section-intro ul {
+      margin: 0.4rem 0 0;
+      padding-left: 1.1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .section-intro ul li {
+      margin-bottom: 0.15rem;
+    }
+
+    /* Cards */
+    .section-card {
+      background: rgba(13, 17, 34, 0.96);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 1rem 1.1rem 1.1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem 0.75rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-badge {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 0.25rem 0.7rem;
+      background: rgba(90, 200, 250, 0.07);
+      border: 1px solid rgba(90, 200, 250, 0.4);
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f4f6ff;
+    }
+
+    .section-chip {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px dashed rgba(255, 255, 255, 0.09);
+    }
+
+    .section-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .section-card-body p {
+      margin: 0;
+    }
+
+    /* Node (Roots / Trunk / Leaves) */
+    .node {
+      border-radius: var(--radius-md);
+      background: var(--bg-node);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      margin-top: 0.4rem;
+    }
+
+    .node-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.55rem 0.7rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .node-label {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .node-label span.icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .node-label span.text {
+      color: var(--text-muted);
+    }
+
+    .node-toggle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      transition: transform var(--transition-fast), color var(--transition-fast);
+    }
+
+    .node-body {
+      padding: 0 0.75rem 0.65rem;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-med);
+    }
+
+    .node-body.open {
+      /* max-height set dynamically via JS */
+    }
+
+    .node.open .node-header {
+      background: rgba(90, 200, 250, 0.06);
+    }
+
+    .node.open .node-label .text {
+      color: #f7f8ff;
+    }
+
+    .node.open .node-toggle {
+      transform: rotate(90deg);
+      color: var(--accent);
+    }
+
+    .node-body ul,
+    .node-body ol {
+      margin: 0.4rem 0 0.35rem;
+      padding-left: 1.1rem;
+    }
+
+    .node-body li {
+      margin-bottom: 0.18rem;
+    }
+
+    .node-body p {
+      margin: 0.25rem 0;
+      line-height: 1.4;
+    }
+
+    .node-body .subheading {
+      font-weight: 600;
+      color: #f2f4ff;
+      margin-top: 0.45rem;
+    }
+
+    .node-body .note {
+      font-size: 0.8rem;
+      color: var(--accent-strong);
+      background: rgba(255, 209, 102, 0.07);
+      border-radius: 999px;
+      padding: 0.15rem 0.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-top: 0.2rem;
+    }
+
+    .node-body .danger {
+      color: var(--danger);
+      font-weight: 500;
+    }
+
+    /* Formulas & Copy Buttons */
+    .formula-block {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin: 0.25rem 0;
+      flex-wrap: wrap;
+    }
+
+    .formula {
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      padding: 0.22rem 0.4rem;
+      border-radius: 0.5rem;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      white-space: nowrap;
+      overflow-x: auto;
+    }
+
+    .copy-btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 0.18rem 0.45rem;
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.18rem;
+      background: rgba(90, 200, 250, 0.06);
+      color: var(--accent);
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .copy-btn span {
+      font-size: 0.9rem;
+    }
+
+    .copy-btn:hover {
+      background: rgba(90, 200, 250, 0.16);
+      box-shadow: 0 0 0 1px rgba(90, 200, 250, 0.46);
+      transform: translateY(-0.5px);
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 1.1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(12, 18, 40, 0.96);
+      color: var(--text);
+      font-size: 0.8rem;
+      border: 1px solid rgba(90, 200, 250, 0.6);
+      box-shadow: var(--shadow-soft);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+      z-index: 120;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, -5px);
+    }
+
+    .toast-icon {
+      font-size: 1rem;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 900px) {
+      .main-inner {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        position: static;
+        top: auto;
+        width: 100%;
+        max-width: 100%;
+        order: 0;
+      }
+
+      .content {
+        order: 1;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+      }
+
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-tagline {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .main {
+        padding: 0.8rem;
+      }
+
+      .section-card {
+        padding: 0.9rem;
+      }
+
+      .section-intro {
+        padding: 0.9rem;
+      }
+
+      .title-text h1 {
+        font-size: 1rem;
+      }
+
+      .section-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="header-inner">
+      <div class="title-block">
+        <div class="title-pill">4</div>
+        <div class="title-text">
+          <h1>Expressing &amp; Measuring Chemical Change</h1>
+          <p>Chemistry 11 – Interactive Concept Map &amp; Mini-Textbook</p>
+        </div>
+      </div>
+      <div class="header-tagline">
+        <span class="header-tagline-emoji">🧪</span>
+        <span>Double-click any text to copy · 📋 buttons for formulas</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="main-inner">
+      <!-- Sidebar / Navigation -->
+      <aside class="sidebar">
+        <h2>Navigate &amp; Filter</h2>
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="Filter sections by keyword…"
+          />
+          <span class="search-icon">🔍</span>
+        </div>
+        <ul class="nav-list">
+          <li>
+            <a href="#sec4-1" class="nav-link">
+              <span class="section-code">4.1</span>
+              <span class="section-label">Writing &amp; Balancing Equations</span>
+            </a>
+          </li>
+          <li>
+            <a href="#sec4-2" class="nav-link">
+              <span class="section-code">4.2</span>
+              <span class="section-label">Classifying Reactions &amp; Products</span>
+            </a>
+          </li>
+          <li>
+            <a href="#sec4-3" class="nav-link">
+              <span class="section-code">4.3</span>
+              <span class="section-label">Oxidation &amp; Reduction (Redox)</span>
+            </a>
+          </li>
+          <li>
+            <a href="#sec4-4" class="nav-link">
+              <span class="section-code">4.4</span>
+              <span class="section-label">Energy Changes &amp; Enthalpy</span>
+            </a>
+          </li>
+          <li>
+            <a href="#sec4-5" class="nav-link">
+              <span class="section-code">4.5</span>
+              <span class="section-label">Stoichiometry</span>
+            </a>
+          </li>
+          <li>
+            <a href="#sec4-6" class="nav-link">
+              <span class="section-code">4.6</span>
+              <span class="section-label">Limiting Reactants &amp; Yields</span>
+            </a>
+          </li>
+        </ul>
+        <div class="sidebar-footer">
+          <p>
+            <strong>Tip:</strong> Use the search box to filter cards by topic,
+            e.g. “percent yield”, “gas volume”, “neutralization”.
+          </p>
+        </div>
+      </aside>
+
+      <!-- Content -->
+      <section class="content" id="contentRoot">
+        <!-- Intro -->
+        <div class="section-intro">
+          <div class="section-intro-inner">
+            <h2>
+              <span>Chapter overview</span>
+            </h2>
+            <p>
+              This chapter explains how to <strong>describe chemical reactions</strong> using
+              equations, how to <strong>classify and analyze</strong> different types of reactions,
+              how to track <strong>electron transfer and energy changes</strong>, and how to use
+              <strong>stoichiometry</strong> to predict masses, volumes, and yields in real
+              chemical processes.
+            </p>
+            <ul>
+              <li>4.1 – Writing and balancing chemical equations (symbols for change).</li>
+              <li>4.2 – Reaction types and patterns for predicting products.</li>
+              <li>4.3 – Oxidation numbers and redox reactions (electron transfer).</li>
+              <li>4.4 – Enthalpy, energy diagrams, endothermic vs. exothermic reactions.</li>
+              <li>4.5 – Stoichiometric calculations using moles, gases, and solutions.</li>
+              <li>4.6 – Limiting reactants, percent yield, and percentage purity.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 4.1 -->
+        <article class="section-card chapter-card" id="sec4-1">
+          <div class="section-card-header">
+            <span class="section-badge">4.1</span>
+            <div class="section-title">Writing &amp; Balancing Chemical Equations</div>
+            <span class="section-chip">Law of conservation of mass · symbols for change</span>
+          </div>
+          <div class="section-card-body">
+            <p>
+              In this section we learn how to turn real chemical changes into
+              <strong>chemical equations</strong> and how to balance them so that they obey
+              the <strong>law of conservation of mass</strong>.
+            </p>
+
+            <!-- ROOTS -->
+            <div class="node open">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🌱</span>
+                  <span class="text">Roots · Core ideas &amp; definitions</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">What is a chemical equation?</p>
+                <p>
+                  A <strong>chemical equation</strong> is a symbolic “sentence” that shows
+                  which substances react and which substances form in a chemical reaction.
+                  It uses formulas instead of words:
+                </p>
+                <ul>
+                  <li><strong>Reactants</strong> – starting substances (left side).</li>
+                  <li><strong>Products</strong> – new substances formed (right side).</li>
+                  <li>
+                    <strong>State symbols</strong> – (s), (l), (g), (aq) show physical state.
+                  </li>
+                  <li>
+                    <strong>Coefficients</strong> – numbers in front of formulas that tell us
+                    the ratio of particles (or moles).
+                  </li>
+                </ul>
+
+                <p class="subheading">Word equations vs. Formula equations</p>
+                <ul>
+                  <li>
+                    <strong>Word equation:</strong> mercury(II) oxide → mercury + oxygen
+                  </li>
+                  <li>
+                    <strong>Formula equation:</strong> HgO(s) → Hg(l) + O₂(g)
+                  </li>
+                </ul>
+                <p>
+                  The word equation is easy to read, but the formula equation shows the
+                  <strong>actual particle-level change</strong> and allows us to do
+                  calculations.
+                </p>
+
+                <p class="subheading">Law of conservation of mass</p>
+                <p>
+                  In an ordinary chemical reaction, <strong>atoms cannot be created or
+                  destroyed</strong>. They are only rearranged. This means:
+                </p>
+                <ul>
+                  <li>
+                    The <strong>number of atoms of each element</strong> must be the same on
+                    both sides of the equation.
+                  </li>
+                  <li>
+                    We must <strong>balance</strong> equations by adjusting
+                    <em>coefficients</em>, not subscripts.
+                  </li>
+                </ul>
+                <p class="note">
+                  💡 <strong>Key mindset:</strong> When balancing equations, you are not
+                  changing what substances are, only how many units of each participate.
+                </p>
+
+                <p class="subheading">Evidence of chemical change</p>
+                <p>
+                  A process is likely a chemical reaction if you observe one or more of the
+                  following:
+                </p>
+                <ul>
+                  <li>Energy change: heat/light released or absorbed.</li>
+                  <li>Color change.</li>
+                  <li>Gas formation (bubbles, fizzing).</li>
+                  <li>Precipitate formation (solid forming in a solution).</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- TRUNK -->
+            <div class="node">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🌳</span>
+                  <span class="text">Trunk · Rules, patterns &amp; key formulas</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">General steps for writing a formula equation</p>
+                <ol>
+                  <li>Write the <strong>word equation</strong> from the description.</li>
+                  <li>
+                    Convert each name to a <strong>formula</strong>, including state symbols
+                    (s, l, g, aq).
+                  </li>
+                  <li>
+                    Check that each formula is chemically correct (proper subscripts, charges
+                    balanced in ionic compounds).
+                  </li>
+                  <li>Then balance the equation.</li>
+                </ol>
+
+                <p class="subheading">Strategy for balancing equations</p>
+                <ol>
+                  <li>
+                    <strong>Count atoms</strong> of each element on both sides.
+                  </li>
+                  <li>
+                    Start with elements that appear in <strong>only one formula per side</strong>.
+                  </li>
+                  <li>
+                    Balance <strong>polyatomic ions</strong> as units if they stay together
+                    (e.g., NO₃⁻, SO₄²⁻).
+                  </li>
+                  <li>
+                    Leave elements that appear in many places (like O and H) for
+                    <strong>last</strong>.
+                  </li>
+                  <li>
+                    Adjust <strong>coefficients</strong> in front of whole formulas.
+                    <span class="danger">Never change subscripts.</span>
+                  </li>
+                  <li>
+                    Recount atoms to confirm they match on both sides.
+                  </li>
+                </ol>
+
+                <p class="subheading">Coefficients vs. subscripts</p>
+                <ul>
+                  <li>
+                    A coefficient multiplies the entire formula (e.g., 2 H₂O = 4 H and 2 O).
+                  </li>
+                  <li>
+                    A subscript is part of the chemical identity (H₂O vs. H₂O₂ are different
+                    substances).
+                  </li>
+                  <li class="danger">
+                    Changing subscripts changes the substance and makes the equation invalid.
+                  </li>
+                </ul>
+
+                <p class="subheading">Balancing using fractions (if needed)</p>
+                <p>
+                  Sometimes it is convenient to use <strong>fractional coefficients</strong>,
+                  especially for diatomic molecules like O₂, and then clear fractions at the
+                  end:
+                </p>
+                <ol>
+                  <li>Balance everything except O and H.</li>
+                  <li>Use a fraction to balance O or H if needed.</li>
+                  <li>Multiply all coefficients by the denominator to clear the fraction.</li>
+                </ol>
+                <p>
+                  This is common in combustion reactions where O₂ appears on only one side.
+                </p>
+              </div>
+            </div>
+
+            <!-- LEAVES -->
+            <div class="node">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🍃</span>
+                  <span class="text">Leaves · Examples, tips &amp; interpretations</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Example 1 – Decomposition of mercury(II) oxide</p>
+                <p><em>Word equation:</em> mercury(II) oxide → mercury + oxygen</p>
+                <p><em>Unbalanced formula equation:</em></p>
+                <div class="formula-block">
+                  <span class="formula">HgO(s) → Hg(l) + O₂(g)</span>
+                  <button class="copy-btn" data-copy="HgO(s) → Hg(l) + O₂(g)">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <p><strong>Step 1: Count atoms</strong></p>
+                <ul>
+                  <li>Left: 1 Hg, 1 O</li>
+                  <li>Right: 1 Hg, 2 O</li>
+                </ul>
+                <p>Oxygen is unbalanced.</p>
+
+                <p><strong>Step 2: Balance oxygen</strong></p>
+                <p>Add a 2 in front of HgO:</p>
+                <div class="formula-block">
+                  <span class="formula">2 HgO(s) → Hg(l) + O₂(g)</span>
+                  <button class="copy-btn" data-copy="2 HgO(s) → Hg(l) + O₂(g)">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <p>Now left: 2 Hg, 2 O; right: 1 Hg, 2 O. Hg is unbalanced.</p>
+
+                <p><strong>Step 3: Balance Hg</strong></p>
+                <p>Add a 2 in front of Hg on the right:</p>
+                <div class="formula-block">
+                  <span class="formula">2 HgO(s) → 2 Hg(l) + O₂(g)</span>
+                  <button class="copy-btn" data-copy="2 HgO(s) → 2 Hg(l) + O₂(g)">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <p>Now both sides: 2 Hg, 2 O → Equation is balanced.</p>
+
+                <p class="subheading">Example 2 – Combustion of butane</p>
+                <p><em>Word description:</em> Butane burns in oxygen to form carbon dioxide and water vapor.</p>
+                <p><em>Unbalanced equation:</em></p>
+                <div class="formula-block">
+                  <span class="formula">C₄H₁₀(g) + O₂(g) → CO₂(g) + H₂O(g)</span>
+                  <button class="copy-btn" data-copy="C₄H₁₀(g) + O₂(g) → CO₂(g) + H₂O(g)">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+
+                <ol>
+                  <li>
+                    Balance C: 4 carbons on left → 4 CO₂ on right.
+                    <div class="formula-block">
+                      <span class="formula">C₄H₁₀ + O₂ → 4 CO₂ + H₂O</span>
+                      <button class="copy-btn" data-copy="C₄H₁₀ + O₂ → 4 CO₂ + H₂O">
+                        <span>📋</span> Copy
+                      </button>
+                    </div>
+                  </li>
+                  <li>
+                    Balance H: 10 hydrogens on left → 5 H₂O on right.
+                    <div class="formula-block">
+                      <span class="formula">C₄H₁₀ + O₂ → 4 CO₂ + 5 H₂O</span>
+                      <button class="copy-btn" data-copy="C₄H₁₀ + O₂ → 4 CO₂ + 5 H₂O">
+                        <span>📋</span> Copy
+                      </button>
+                    </div>
+                  </li>
+                  <li>
+                    Balance O: right side has 4×2 = 8 from CO₂ + 5×1 = 5 from H₂O = 13 O atoms.
+                    We need 13/2 O₂ on left → use a fraction:
+                    <div class="formula-block">
+                      <span class="formula">C₄H₁₀ + 13/2 O₂ → 4 CO₂ + 5 H₂O</span>
+                      <button class="copy-btn" data-copy="C₄H₁₀ + 13/2 O₂ → 4 CO₂ + 5 H₂O">
+                        <span>📋</span> Copy
+                      </button>
+                    </div>
+                  </li>
+                  <li>
+                    Clear the fraction by multiplying everything by 2:
+                    <div class="formula-block">
+                      <span class="formula">2 C₄H₁₀ + 13 O₂ → 8 CO₂ + 10 H₂O</span>
+                      <button class="copy-btn" data-copy="2 C₄H₁₀ + 13 O₂ → 8 CO₂ + 10 H₂O">
+                        <span>📋</span> Copy
+                      </button>
+                    </div>
+                  </li>
+                </ol>
+
+                <p class="note">
+                  ✅ <strong>Check:</strong> The final equation tells us that
+                  <em>2 molecules (or moles) of butane</em> react with
+                  <em>13 molecules (or moles) of oxygen</em> to make
+                  <em>8 CO₂ and 10 H₂O</em>.
+                </p>
+
+                <p class="subheading">Common pitfalls</p>
+                <ul>
+                  <li>Changing subscripts instead of coefficients.</li>
+                  <li>Forgetting that diatomic elements (H₂, N₂, O₂, F₂, Cl₂, Br₂, I₂) exist as pairs.</li>
+                  <li>Not recounting atoms after adjusting coefficients.</li>
+                  <li>Ignoring state symbols – they are important for later energy and stoichiometry work.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4.2 -->
+        <article class="section-card chapter-card" id="sec4-2">
+          <div class="section-card-header">
+            <span class="section-badge">4.2</span>
+            <div class="section-title">Classifying Reactions &amp; Predicting Products</div>
+            <span class="section-chip">Synthesis · decomposition · combustion · single &amp; double replacement</span>
+          </div>
+          <div class="section-card-body">
+            <p>
+              This section shows the main <strong>patterns of chemical reactions</strong>.
+              Recognizing these patterns helps us to <strong>predict products</strong> and
+              understand what is happening at the particle level.
+            </p>
+
+            <!-- ROOTS -->
+            <div class="node open">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🌱</span>
+                  <span class="text">Roots · Core ideas &amp; definitions</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">The big reaction families</p>
+                <ul>
+                  <li><strong>Synthesis (combination):</strong> two or more substances combine to form one product.</li>
+                  <li><strong>Decomposition:</strong> one compound breaks into two or more simpler substances.</li>
+                  <li><strong>Combustion:</strong> a fuel (often a hydrocarbon) reacts with oxygen to form CO₂ and H₂O.</li>
+                  <li><strong>Single replacement:</strong> an element replaces another element in a compound.</li>
+                  <li><strong>Double replacement:</strong> two ionic compounds exchange ions to form new compounds.</li>
+                  <li><strong>Neutralization:</strong> acid + base → salt + water (a special type of double replacement).</li>
+                </ul>
+
+                <p class="subheading">Why classify reactions?</p>
+                <p>
+                  Classification helps us see <strong>patterns</strong>, which then help us:
+                </p>
+                <ul>
+                  <li>Predict likely products from given reactants.</li>
+                  <li>Recognize whether electrons are transferred (redox) or not.</li>
+                  <li>Anticipate energy changes (exothermic/endothermic) and reaction conditions.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- TRUNK -->
+            <div class="node">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🌳</span>
+                  <span class="text">Trunk · Rules, patterns &amp; key formulas</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Synthesis (Combination) – general pattern</p>
+                <div class="formula-block">
+                  <span class="formula">A + B → AB</span>
+                  <button class="copy-btn" data-copy="A + B → AB">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <ul>
+                  <li>Element + element → binary compound (e.g., Ba + Cl₂ → BaCl₂).</li>
+                  <li>Nonmetal oxide + water → acid (e.g., SO₃ + H₂O → H₂SO₄).</li>
+                  <li>Metal oxide + water → base (e.g., K₂O + H₂O → 2 KOH).</li>
+                  <li>Metal oxide + nonmetal oxide → salt (e.g., CaO + CO₂ → CaCO₃).</li>
+                </ul>
+                <p>These are often <strong>exothermic</strong> (release energy).</p>
+
+                <p class="subheading">Decomposition – general pattern</p>
+                <div class="formula-block">
+                  <span class="formula">AB → A + B</span>
+                  <button class="copy-btn" data-copy="AB → A + B">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <ul>
+                  <li>Acids → water + nonmetal oxide.</li>
+                  <li>Bases (metal hydroxides) → metal oxide + water.</li>
+                  <li>Carbonates → metal oxide + CO₂.</li>
+                  <li>Electrolysis: compound → elements using electrical energy.</li>
+                </ul>
+                <p>These are often <strong>endothermic</strong> (require energy input).</p>
+
+                <p class="subheading">Combustion – general pattern</p>
+                <div class="formula-block">
+                  <span class="formula">Fuel + O₂ → CO₂ + H₂O (+ energy)</span>
+                  <button class="copy-btn" data-copy="Fuel + O₂ → CO₂ + H₂O">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <p>
+                  For a hydrocarbon CₓHᵧ, complete combustion in excess oxygen produces
+                  CO₂ and H₂O. Combustion is strongly <strong>exothermic</strong>.
+                </p>
+
+                <p class="subheading">Single replacement – general pattern</p>
+                <div class="formula-block">
+                  <span class="formula">A + BC → AC + B</span>
+                  <button class="copy-btn" data-copy="A + BC → AC + B">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <ul>
+                  <li>More reactive metal replaces less reactive metal in a compound.</li>
+                  <li>More reactive halogen replaces less reactive halogen.</li>
+                  <li>Activity series is used to decide whether a replacement occurs.</li>
+                </ul>
+
+                <p class="subheading">Double replacement – general pattern</p>
+                <div class="formula-block">
+                  <span class="formula">AB + CD → AD + CB</span>
+                  <button class="copy-btn" data-copy="AB + CD → AD + CB">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <p>Often occurs between ionic solutions. Look for:</p>
+                <ul>
+                  <li><strong>Precipitation:</strong> an insoluble solid appears.</li>
+                  <li><strong>Neutralization:</strong> acid + base → salt + water.</li>
+                  <li><strong>Gas-forming:</strong> unstable product decomposes to a gas (e.g., H₂CO₃ → CO₂ + H₂O).</li>
+                </ul>
+
+                <p class="subheading">Neutralization – special double replacement</p>
+                <div class="formula-block">
+                  <span class="formula">Acid + Base → Salt + H₂O</span>
+                  <button class="copy-btn" data-copy="Acid + Base → Salt + H₂O">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <p>Often mildly exothermic and important in acid–base chemistry.</p>
+              </div>
+            </div>
+
+            <!-- LEAVES -->
+            <div class="node">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🍃</span>
+                  <span class="text">Leaves · Examples, tips &amp; interpretations</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Example 1 – Synthesis: forming sulfuric acid</p>
+                <p>
+                  <em>Word description:</em> Sulfur trioxide gas reacts with water to form
+                  sulfuric acid.
+                </p>
+                <p><em>Formula equation:</em></p>
+                <div class="formula-block">
+                  <span class="formula">SO₃(g) + H₂O(l) → H₂SO₄(aq)</span>
+                  <button class="copy-btn" data-copy="SO₃(g) + H₂O(l) → H₂SO₄(aq)">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <p>
+                  Pattern: nonmetal oxide (SO₃) + water → acid (H₂SO₄). This is a
+                  synthesis reaction.
+                </p>
+
+                <p class="subheading">Example 2 – Decomposition: carbonate breakdown</p>
+                <p>
+                  Heated calcium carbonate decomposes into calcium oxide and carbon dioxide.
+                </p>
+                <div class="formula-block">
+                  <span class="formula">CaCO₃(s) → CaO(s) + CO₂(g)</span>
+                  <button class="copy-btn" data-copy="CaCO₃(s) → CaO(s) + CO₂(g)">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <p>
+                  Carbonate → metal oxide + CO₂ is a classic decomposition pattern.
+                </p>
+
+                <p class="subheading">Example 3 – Single replacement with metals</p>
+                <p>
+                  Zinc metal is placed in a copper(II) sulfate solution. Zinc is more
+                  reactive than copper, so it replaces copper:
+                </p>
+                <div class="formula-block">
+                  <span class="formula">Zn(s) + CuSO₄(aq) → ZnSO₄(aq) + Cu(s)</span>
+                  <button class="copy-btn" data-copy="Zn(s) + CuSO₄(aq) → ZnSO₄(aq) + Cu(s)">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <p>
+                  We use the activity series to check that Zn can replace Cu. The reaction
+                  is a redox process (electrons are transferred).
+                </p>
+
+                <p class="subheading">Example 4 – Double replacement: precipitation</p>
+                <p>
+                  Mixing aqueous sodium chloride and silver nitrate produces a white
+                  precipitate of silver chloride:
+                </p>
+                <div class="formula-block">
+                  <span class="formula">NaCl(aq) + AgNO₃(aq) → AgCl(s) + NaNO₃(aq)</span>
+                  <button class="copy-btn" data-copy="NaCl(aq) + AgNO₃(aq) → AgCl(s) + NaNO₃(aq)">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <p>
+                  AgCl is insoluble in water, so it appears as a solid. This is a double
+                  replacement and a precipitation reaction.
+                </p>
+
+                <p class="subheading">Common tips for classifying reactions</p>
+                <ul>
+                  <li>Look at the <strong>number of products</strong>: one product usually means synthesis; more products can mean decomposition.</li>
+                  <li>If O₂ is a reactant and CO₂ + H₂O are products, you likely have combustion.</li>
+                  <li>If an element replaces another in a compound, think single replacement.</li>
+                  <li>If two ionic compounds are in solution and ions swap partners, think double replacement.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4.3 -->
+        <article class="section-card chapter-card" id="sec4-3">
+          <div class="section-card-header">
+            <span class="section-badge">4.3</span>
+            <div class="section-title">Oxidation &amp; Reduction (Redox Reactions)</div>
+            <span class="section-chip">Oxidation numbers · electron transfer · agents</span>
+          </div>
+          <div class="section-card-body">
+            <p>
+              This section introduces <strong>oxidation numbers</strong> and
+              <strong>redox reactions</strong>, where electrons are transferred between
+              substances. These ideas connect chemical reactions to electrical energy and
+              corrosion, batteries, and many industrial processes.
+            </p>
+
+            <!-- ROOTS -->
+            <div class="node open">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🌱</span>
+                  <span class="text">Roots · Core ideas &amp; definitions</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Oxidation and reduction</p>
+                <ul>
+                  <li>
+                    <strong>Oxidation:</strong> loss of electrons by a substance.
+                    Oxidation number increases.
+                  </li>
+                  <li>
+                    <strong>Reduction:</strong> gain of electrons by a substance.
+                    Oxidation number decreases.
+                  </li>
+                </ul>
+                <p>
+                  Remember the mnemonic:
+                  <strong>LEO the lion says GER</strong> –
+                  <em>Lose Electrons = Oxidation</em>, <em>Gain Electrons = Reduction</em>.
+                </p>
+
+                <p class="subheading">Redox vs. non-redox reactions</p>
+                <ul>
+                  <li>
+                    In <strong>redox reactions</strong>, electrons move from one species to
+                    another (e.g., combustion, single replacement, many synthesis and
+                    decomposition reactions with elements).
+                  </li>
+                  <li>
+                    In <strong>non-redox (metathesis)</strong> reactions, oxidation numbers
+                    do not change (e.g., most double replacement and neutralization
+                    reactions).
+                  </li>
+                </ul>
+
+                <p class="subheading">Oxidizing and reducing agents</p>
+                <ul>
+                  <li>
+                    <strong>Reducing agent:</strong> substance that
+                    <em>gives electrons</em> (is oxidized).
+                  </li>
+                  <li>
+                    <strong>Oxidizing agent:</strong> substance that
+                    <em>accepts electrons</em> (is reduced).
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- TRUNK -->
+            <div class="node">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🌳</span>
+                  <span class="text">Trunk · Rules for oxidation numbers &amp; redox</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Rules for assigning oxidation numbers</p>
+                <ol>
+                  <li>
+                    <strong>Elements:</strong> any element alone (e.g., Na(s), O₂(g),
+                    Cl₂(g)) has oxidation number 0.
+                  </li>
+                  <li>
+                    <strong>Monatomic ions:</strong> oxidation number equals the ion charge
+                    (e.g., Na⁺ → +1, O²⁻ → −2).
+                  </li>
+                  <li>
+                    <strong>Oxygen:</strong> usually −2; in peroxides (e.g., H₂O₂) it is −1;
+                    in OF₂, oxygen is +2.
+                  </li>
+                  <li>
+                    <strong>Hydrogen:</strong> usually +1; in metal hydrides (e.g., NaH) it
+                    is −1.
+                  </li>
+                  <li>
+                    <strong>Sum in a neutral compound = 0.</strong>
+                  </li>
+                  <li>
+                    <strong>Sum in a polyatomic ion = ion charge.</strong>
+                  </li>
+                  <li>
+                    For covalent compounds, the more electronegative element gets the
+                    negative oxidation number.
+                  </li>
+                </ol>
+
+                <p class="subheading">Detecting redox change</p>
+                <p>
+                  To see whether a reaction is redox:
+                </p>
+                <ol>
+                  <li>Assign oxidation numbers to each element in reactants and products.</li>
+                  <li>Compare values for each element on both sides.</li>
+                  <li>If any element’s oxidation number changes, the reaction is redox.</li>
+                </ol>
+                <p>
+                  One element’s oxidation number will increase (oxidation), while another’s
+                  will decrease (reduction).
+                </p>
+
+                <p class="subheading">Typical redox reaction types</p>
+                <ul>
+                  <li>Combustion reactions of fuels (C, H, sometimes S) with O₂.</li>
+                  <li>Single replacement reactions (metals or halogens swapping places).</li>
+                  <li>Many reactions involving elemental forms (e.g., metals, O₂, H₂, halogens).</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- LEAVES -->
+            <div class="node">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🍃</span>
+                  <span class="text">Leaves · Examples, tips &amp; interpretations</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Example – Determining oxidation numbers</p>
+                <p>Consider the compound H₂SO₄ (sulfuric acid):</p>
+                <ul>
+                  <li>H is usually +1 → total from H is +2.</li>
+                  <li>O is usually −2 → total from 4 O atoms is −8.</li>
+                  <li>
+                    Let oxidation number of S be x. Sum must be 0 for a neutral compound:
+                    x + 2 + (−8) = 0 → x − 6 = 0 → x = +6.
+                  </li>
+                </ul>
+
+                <p class="subheading">Example – Is this reaction redox?</p>
+                <p>Reaction: Zn(s) + Cu²⁺(aq) → Zn²⁺(aq) + Cu(s)</p>
+                <ul>
+                  <li>Zn(s): 0 → Zn²⁺: +2 (oxidation, Zn loses 2 electrons).</li>
+                  <li>Cu²⁺: +2 → Cu(s): 0 (reduction, Cu²⁺ gains 2 electrons).</li>
+                </ul>
+                <p>
+                  Thus this is a redox reaction. <strong>Zn</strong> is the
+                  <strong>reducing agent</strong> and <strong>Cu²⁺</strong> is the
+                  <strong>oxidizing agent</strong>.
+                </p>
+
+                <p class="subheading">Tip – Quick redox check</p>
+                <ul>
+                  <li>If you see an element by itself (e.g., Fe(s), O₂(g)) on one side only, redox is likely.</li>
+                  <li>If all reactants and products are ionic compounds and no elements appear alone, the reaction is often non-redox (especially in double replacement).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4.4 -->
+        <article class="section-card chapter-card" id="sec4-4">
+          <div class="section-card-header">
+            <span class="section-badge">4.4</span>
+            <div class="section-title">Energy Changes &amp; Enthalpy</div>
+            <span class="section-chip">Endothermic vs. exothermic · ΔH · energy diagrams</span>
+          </div>
+          <div class="section-card-body">
+            <p>
+              Chemical reactions always involve <strong>energy changes</strong>. This section
+              introduces <strong>enthalpy</strong> as a way to track energy stored in
+              chemical bonds and how it changes during a reaction.
+            </p>
+
+            <!-- ROOTS -->
+            <div class="node open">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🌱</span>
+                  <span class="text">Roots · Core ideas &amp; definitions</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Enthalpy (H)</p>
+                <p>
+                  <strong>Enthalpy</strong> is the chemical potential energy stored in a system
+                  due to the arrangement of atoms and bonds. We cannot measure absolute H
+                  directly, but we can measure <strong>changes</strong> in H during reactions.
+                </p>
+
+                <p class="subheading">Enthalpy change (ΔH)</p>
+                <p>
+                  The <strong>enthalpy change</strong> for a reaction is the amount of energy
+                  absorbed or released as the reaction occurs at constant pressure.
+                </p>
+                <div class="formula-block">
+                  <span class="formula">ΔH = H<sub>products</sub> − H<sub>reactants</sub></span>
+                  <button class="copy-btn" data-copy="ΔH = H_products − H_reactants">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <ul>
+                  <li>Units are typically kJ per mole of reaction.</li>
+                  <li>ΔH < 0 → exothermic (energy released).</li>
+                  <li>ΔH > 0 → endothermic (energy absorbed).</li>
+                </ul>
+
+                <p class="subheading">Endothermic vs. exothermic</p>
+                <ul>
+                  <li>
+                    <strong>Exothermic reaction:</strong> releases energy to surroundings
+                    (e.g., combustion). Products have lower enthalpy than reactants.
+                  </li>
+                  <li>
+                    <strong>Endothermic reaction:</strong> absorbs energy from surroundings
+                    (e.g., decomposition requiring heat). Products have higher enthalpy than
+                    reactants.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- TRUNK -->
+            <div class="node">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🌳</span>
+                  <span class="text">Trunk · Energy diagrams &amp; thermochemical equations</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Energy diagrams</p>
+                <ul>
+                  <li>
+                    On an energy diagram, the vertical axis represents
+                    <strong>enthalpy</strong> (or energy), and the horizontal axis
+                    represents the reaction progress.
+                  </li>
+                  <li>
+                    For exothermic reactions, the products are at a lower energy level than
+                    the reactants; energy flows out.
+                  </li>
+                  <li>
+                    For endothermic reactions, the products are at a higher energy level than
+                    the reactants; energy flows in.
+                  </li>
+                </ul>
+
+                <p class="subheading">Thermochemical equations</p>
+                <p>
+                  A <strong>thermochemical equation</strong> is a balanced chemical equation
+                  that includes the enthalpy change.
+                </p>
+                <ul>
+                  <li>
+                    Energy can be written as a term in the equation (on the reactant or
+                    product side).
+                  </li>
+                  <li>
+                    Or it can be given separately with a ΔH value.
+                  </li>
+                </ul>
+                <p>For an exothermic reaction:</p>
+                <div class="formula-block">
+                  <span class="formula">CH₄(g) + 2 O₂(g) → CO₂(g) + 2 H₂O(l) + 890 kJ</span>
+                  <button class="copy-btn" data-copy="CH₄(g) + 2 O₂(g) → CO₂(g) + 2 H₂O(l) + 890 kJ">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <p>or</p>
+                <div class="formula-block">
+                  <span class="formula">ΔH = −890 kJ</span>
+                  <button class="copy-btn" data-copy="ΔH = −890 kJ">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+
+                <p class="subheading">Bond energy view</p>
+                <ul>
+                  <li>Breaking bonds absorbs energy.</li>
+                  <li>Forming bonds releases energy.</li>
+                  <li>
+                    Overall ΔH depends on the balance between energy required to break bonds
+                    in reactants and energy released when new bonds form in products.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- LEAVES -->
+            <div class="node">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🍃</span>
+                  <span class="text">Leaves · Examples, tips &amp; interpretations</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Example – Interpreting an exothermic ΔH</p>
+                <p>Suppose a reaction has ΔH = −250 kJ.</p>
+                <ul>
+                  <li>The negative sign means the reaction is exothermic.</li>
+                  <li>250 kJ of energy are released to the surroundings for the given balanced reaction.</li>
+                  <li>If the balanced equation is written per 2 mol of a reactant, the value applies to that amount.</li>
+                </ul>
+
+                <p class="subheading">Example – Endothermic change</p>
+                <p>
+                  Decomposition reactions like CaCO₃(s) → CaO(s) + CO₂(g) require heat;
+                  they absorb energy. The ΔH for such a reaction would be positive.
+                </p>
+
+                <p class="subheading">Tips</p>
+                <ul>
+                  <li>Always keep track of whether energy should be on the reactant side (endothermic) or product side (exothermic).</li>
+                  <li>Remember that ΔH values depend on how the equation is written; changing coefficients changes the energy associated with that equation.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4.5 -->
+        <article class="section-card chapter-card" id="sec4-5">
+          <div class="section-card-header">
+            <span class="section-badge">4.5</span>
+            <div class="section-title">Stoichiometry</div>
+            <span class="section-chip">Mole ratios · mass · gas volume · solution concentration</span>
+          </div>
+          <div class="section-card-body">
+            <p>
+              Stoichiometry uses the <strong>balanced chemical equation</strong> to connect
+              amounts of reactants and products in <strong>moles, mass, and volume</strong>.
+              It lets us answer “how much?” questions about real reactions.
+            </p>
+
+            <!-- ROOTS -->
+            <div class="node open">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🌱</span>
+                  <span class="text">Roots · Core ideas &amp; definitions</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Mole ratio</p>
+                <p>
+                  The <strong>mole ratio</strong> between substances in a reaction comes from
+                  the coefficients in the balanced equation. It tells you how many moles of
+                  one substance react with or produce how many moles of another.
+                </p>
+                <p>
+                  Example: in
+                  <span class="formula">N₂ + 3 H₂ → 2 NH₃</span>,
+                  the mole ratios are:
+                </p>
+                <ul>
+                  <li>1 mol N₂ : 3 mol H₂</li>
+                  <li>1 mol N₂ : 2 mol NH₃</li>
+                  <li>3 mol H₂ : 2 mol NH₃</li>
+                </ul>
+
+                <p class="subheading">Key quantitative relationships</p>
+                <ul>
+                  <li>
+                    <strong>Mass ↔ moles:</strong> n = m / M
+                    <ul>
+                      <li>n = moles, m = mass (g), M = molar mass (g/mol).</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Gas volume at STP:</strong> 1 mol gas = 22.4 L at
+                    standard temperature and pressure (STP).
+                  </li>
+                  <li>
+                    <strong>Solution concentration (molarity):</strong>
+                  </li>
+                </ul>
+                <div class="formula-block">
+                  <span class="formula">M = n / V</span>
+                  <button class="copy-btn" data-copy="M = n / V">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <ul>
+                  <li>M = molarity (mol/L)</li>
+                  <li>n = moles of solute</li>
+                  <li>V = volume of solution in L</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- TRUNK -->
+            <div class="node">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🌳</span>
+                  <span class="text">Trunk · Stoichiometry problem patterns</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">General stoichiometry procedure</p>
+                <ol>
+                  <li>Write and <strong>balance</strong> the chemical equation.</li>
+                  <li>Convert given information into <strong>moles</strong> of a known substance.</li>
+                  <li>Use the <strong>mole ratio</strong> from the balanced equation to find moles of the desired substance.</li>
+                  <li>Convert moles of the desired substance to the requested quantity (mass, volume, or concentration).</li>
+                </ol>
+
+                <p class="subheading">Common types of stoichiometry problems</p>
+                <ul>
+                  <li><strong>Moles → moles</strong>: straightforward use of mole ratios.</li>
+                  <li><strong>Mass → moles → moles → mass</strong>.</li>
+                  <li><strong>Mass ↔ gas volume at STP</strong>.</li>
+                  <li><strong>Gas volume ↔ gas volume</strong> (same T and P) – ratio is same as mole ratio.</li>
+                  <li><strong>Solution stoichiometry</strong> using molarity.</li>
+                </ul>
+
+                <p class="subheading">Key formula blocks</p>
+                <div class="formula-block">
+                  <span class="formula">n = m / M</span>
+                  <button class="copy-btn" data-copy="n = m / M">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <div class="formula-block">
+                  <span class="formula">V<sub>gas at STP</sub> = n × 22.4 L</span>
+                  <button class="copy-btn" data-copy="V_gas = n × 22.4 L at STP">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <div class="formula-block">
+                  <span class="formula">M = n / V</span>
+                  <button class="copy-btn" data-copy="M = n / V">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- LEAVES -->
+            <div class="node">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🍃</span>
+                  <span class="text">Leaves · Examples, tips &amp; interpretations</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Example – Mass to mass</p>
+                <p>
+                  Reaction:
+                  <span class="formula">N₂ + 3 H₂ → 2 NH₃</span>
+                </p>
+                <p>
+                  If 14.0 g of N₂ reacts with excess H₂, what mass of NH₃ can form?
+                </p>
+                <ol>
+                  <li>
+                    Find moles of N₂:
+                    <br />
+                    M(N₂) ≈ 28.0 g/mol
+                    <br />
+                    n(N₂) = 14.0 g ÷ 28.0 g/mol = 0.500 mol
+                  </li>
+                  <li>
+                    Use mole ratio N₂ : NH₃ = 1 : 2:
+                    <br />
+                    n(NH₃) = 0.500 mol × (2 mol NH₃ / 1 mol N₂) = 1.00 mol
+                  </li>
+                  <li>
+                    Convert moles of NH₃ to mass:
+                    <br />
+                    M(NH₃) ≈ 17.0 g/mol
+                    <br />
+                    m(NH₃) = 1.00 mol × 17.0 g/mol = 17.0 g
+                  </li>
+                </ol>
+
+                <p class="subheading">Example – Gas volume at STP</p>
+                <p>
+                  How many liters of CO₂ at STP are produced when 0.50 mol of propane
+                  (C₃H₈) burns completely?
+                </p>
+                <p>
+                  Balanced equation:
+                  <span class="formula">C₃H₈ + 5 O₂ → 3 CO₂ + 4 H₂O</span>
+                </p>
+                <ol>
+                  <li>
+                    From mole ratio C₃H₈ : CO₂ = 1 : 3:
+                    <br />
+                    n(CO₂) = 0.50 mol × 3 = 1.50 mol
+                  </li>
+                  <li>
+                    At STP, V = n × 22.4 L/mol:
+                    <br />
+                    V(CO₂) = 1.50 mol × 22.4 L/mol = 33.6 L
+                  </li>
+                </ol>
+
+                <p class="subheading">Tips</p>
+                <ul>
+                  <li>Always check the equation is balanced before using coefficients.</li>
+                  <li>Label units clearly at every step to avoid mixing them.</li>
+                  <li>For gases, make sure the conditions are STP before using 22.4 L/mol.</li>
+                  <li>For solutions, convert volume to liters before using M = n / V.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4.6 -->
+        <article class="section-card chapter-card" id="sec4-6">
+          <div class="section-card-header">
+            <span class="section-badge">4.6</span>
+            <div class="section-title">Limiting Reactants, Percent Yield &amp; Purity</div>
+            <span class="section-chip">Limiting reagent · theoretical vs. actual yield · impurities</span>
+          </div>
+          <div class="section-card-body">
+            <p>
+              Real chemical reactions often stop before all reactants are used up, and
+              samples are not perfectly pure. This section explains how to handle
+              <strong>limiting reactants</strong>, <strong>percent yield</strong>, and
+              <strong>percentage purity</strong>.
+            </p>
+
+            <!-- ROOTS -->
+            <div class="node open">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🌱</span>
+                  <span class="text">Roots · Core ideas &amp; definitions</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Limiting reactant</p>
+                <p>
+                  The <strong>limiting reactant</strong> is the reactant that is completely
+                  used up first in a reaction. It determines the maximum amount of product
+                  that can form.
+                </p>
+
+                <p class="subheading">Excess reactant</p>
+                <p>
+                  The <strong>excess reactant</strong> is present in more than enough amount
+                  and is left over after the reaction stops.
+                </p>
+
+                <p class="subheading">Theoretical yield, actual yield, and percent yield</p>
+                <ul>
+                  <li>
+                    <strong>Theoretical yield:</strong> the maximum amount of product
+                    predicted from stoichiometric calculations assuming perfect reaction.
+                  </li>
+                  <li>
+                    <strong>Actual yield:</strong> the amount of product actually obtained
+                    from an experiment.
+                  </li>
+                  <li>
+                    <strong>Percent yield:</strong> compares actual and theoretical yields.
+                  </li>
+                </ul>
+                <div class="formula-block">
+                  <span class="formula">Percent yield = (actual yield / theoretical yield) × 100%</span>
+                  <button class="copy-btn" data-copy="Percent yield = (actual yield / theoretical yield) × 100%">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+
+                <p class="subheading">Percentage purity</p>
+                <p>
+                  Percentage purity tells you what fraction of an impure sample is actually
+                  the substance of interest.
+                </p>
+                <div class="formula-block">
+                  <span class="formula">Purity (%) = (mass of pure substance / mass of sample) × 100%</span>
+                  <button class="copy-btn" data-copy="Purity (%) = (mass of pure substance / mass of sample) × 100%">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- TRUNK -->
+            <div class="node">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🌳</span>
+                  <span class="text">Trunk · Problem-solving patterns</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Finding the limiting reactant</p>
+                <ol>
+                  <li>Write and balance the chemical equation.</li>
+                  <li>Convert each reactant quantity to <strong>moles</strong>.</li>
+                  <li>
+                    Use mole ratios to calculate how much product each reactant would
+                    produce.
+                  </li>
+                  <li>
+                    The reactant that produces the <strong>smallest amount of product</strong>
+                    is the limiting reactant.
+                  </li>
+                </ol>
+
+                <p class="subheading">Calculating percent yield</p>
+                <ol>
+                  <li>
+                    Use stoichiometry (starting from the limiting reactant) to find the
+                    <strong>theoretical yield</strong>.
+                  </li>
+                  <li>Measure or obtain the <strong>actual yield</strong> from experiment.</li>
+                  <li>
+                    Use the percent yield formula:
+                    <div class="formula-block">
+                      <span class="formula">% yield = (actual / theoretical) × 100%</span>
+                      <button class="copy-btn" data-copy="% yield = (actual / theoretical) × 100%">
+                        <span>📋</span> Copy
+                      </button>
+                    </div>
+                  </li>
+                </ol>
+
+                <p class="subheading">Using percentage purity</p>
+                <ol>
+                  <li>Let the mass of the impure sample be m<sub>sample</sub>.</li>
+                  <li>
+                    If purity (%) is given, find mass of pure substance:
+                    <div class="formula-block">
+                      <span class="formula">m<sub>pure</sub> = (purity% / 100%) × m<sub>sample</sub></span>
+                      <button class="copy-btn" data-copy="m_pure = (purity% / 100%) × m_sample">
+                        <span>📋</span> Copy
+                      </button>
+                    </div>
+                  </li>
+                  <li>
+                    Convert m<sub>pure</sub> to moles and use stoichiometry as usual.
+                  </li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- LEAVES -->
+            <div class="node">
+              <div class="node-header">
+                <div class="node-label">
+                  <span class="icon">🍃</span>
+                  <span class="text">Leaves · Examples, tips &amp; interpretations</span>
+                </div>
+                <div class="node-toggle">▶</div>
+              </div>
+              <div class="node-body">
+                <p class="subheading">Example – Limiting reactant concept</p>
+                <p>
+                  If you have 10 buns and only 6 patties, you can only make 6 burgers.
+                  Patties are the <strong>limiting reactant</strong>; buns are in excess.
+                </p>
+                <p>
+                  Chemical reactions work the same way: the limiting reactant is used up
+                  first and stops the reaction.
+                </p>
+
+                <p class="subheading">Example – Percent yield</p>
+                <p>
+                  If the theoretical yield of a product is 25.0 g but you only collect 18.5 g
+                  experimentally:
+                </p>
+                <div class="formula-block">
+                  <span class="formula">% yield = (18.5 g / 25.0 g) × 100% = 74.0%</span>
+                  <button class="copy-btn" data-copy="% yield = (18.5 g / 25.0 g) × 100% = 74.0%">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <p>
+                  A 74% yield indicates some product was lost, side reactions occurred, or
+                  conditions were not ideal.
+                </p>
+
+                <p class="subheading">Example – Percentage purity</p>
+                <p>
+                  A 10.0 g sample of impure CaCO₃ is 80.0% pure. The mass of pure CaCO₃ is:
+                </p>
+                <div class="formula-block">
+                  <span class="formula">m<sub>pure</sub> = (80.0 / 100) × 10.0 g = 8.00 g</span>
+                  <button class="copy-btn" data-copy="m_pure = (80.0 / 100) × 10.0 g = 8.00 g">
+                    <span>📋</span> Copy
+                  </button>
+                </div>
+                <p>
+                  Stoichiometric calculations must be based on 8.00 g, not 10.0 g, because
+                  only 8.00 g is actually CaCO₃.
+                </p>
+
+                <p class="subheading">Tips</p>
+                <ul>
+                  <li>Always identify the limiting reactant before predicting product mass.</li>
+                  <li>Percent yields greater than 100% usually indicate measurement or contamination errors.</li>
+                  <li>Impurities in reactants lower the effective amount of the substance and thus affect yields.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toastMessage">Copied to clipboard</span>
+</div>
+
+<script>
+  (function () {
+    const nodeHeaders = document.querySelectorAll('.node-header');
+    nodeHeaders.forEach(header => {
+      const node = header.parentElement;
+      const body = node.querySelector('.node-body');
+      const toggle = header.querySelector('.node-toggle');
+
+      function updateMaxHeight(open) {
+        if (!body) return;
+        if (open) {
+          body.classList.add('open');
+          body.style.maxHeight = body.scrollHeight + 'px';
+          node.classList.add('open');
+        } else {
+          body.classList.remove('open');
+          body.style.maxHeight = 0;
+          node.classList.remove('open');
+        }
+      }
+
+      // Initialize default open states
+      if (node.classList.contains('open')) {
+        updateMaxHeight(true);
+      }
+
+      header.addEventListener('click', () => {
+        const isOpen = body.classList.contains('open');
+        updateMaxHeight(!isOpen);
+      });
+
+      window.addEventListener('resize', () => {
+        if (body.classList.contains('open')) {
+          body.style.maxHeight = body.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // Toast helpers
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMessage');
+    let toastTimeout;
+
+    function showToast(msg) {
+      if (!toast) return;
+      toastMsg.textContent = msg || 'Copied to clipboard';
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => toast.classList.remove('show'), 1600);
+    }
+
+    // Copy buttons
+    const copyButtons = document.querySelectorAll('.copy-btn');
+    copyButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const text = btn.getAttribute('data-copy');
+        if (!text) return;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            showToast('Formula copied');
+          }).catch(() => {
+            showToast('Copy failed');
+          });
+        } else {
+          // fallback
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          try {
+            document.execCommand('copy');
+            showToast('Formula copied');
+          } catch (e) {
+            showToast('Copy failed');
+          }
+          document.body.removeChild(textarea);
+        }
+      });
+    });
+
+    // Double click to copy selected text
+    document.addEventListener('dblclick', () => {
+      const selection = window.getSelection().toString().trim();
+      if (!selection) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(selection).then(() => {
+          showToast('Text copied');
+        }).catch(() => {
+          showToast('Copy failed');
+        });
+      }
+    });
+
+    // Search filter
+    const searchInput = document.getElementById('searchInput');
+    const cards = document.querySelectorAll('.chapter-card');
+
+    function filterCards() {
+      const query = (searchInput.value || '').toLowerCase();
+      cards.forEach(card => {
+        const txt = card.innerText.toLowerCase();
+        card.style.display = txt.includes(query) ? '' : 'none';
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', filterCards);
+    }
+
+    // Section link highlight on scroll (simple approximation)
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = Array.from(cards);
+
+    function onScroll() {
+      const scrollPos = window.scrollY || document.documentElement.scrollTop;
+      let activeId = null;
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        const top = rect.top + scrollPos - 120;
+        if (scrollPos >= top) {
+          activeId = sec.id;
+        }
+      });
+      if (activeId) {
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === '#' + activeId) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+</body>
+</html>
+
