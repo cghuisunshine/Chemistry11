@@ -293,8 +293,15 @@ function renderTOC(nodes){
     const line = document.createElement('div');
     line.className = 'toc-line';
     
-    // Add links for sections 3, 4, 5, 6, 7 and 8
-    if(n.title.startsWith('3 The Mole — The Central Unit of Chemistry')) {
+    // Add links for sections 2, 3, 4, 5, 6, 7 and 8
+    if(n.title.startsWith('2 The Nature of Matter')) {
+      line.textContent = `${n.title} (page ${n.page}) `;
+      const link = document.createElement('a');
+      link.href = 'NatureOfMatter.html';
+      link.textContent = '🔗';
+      link.title = 'Open The Nature of Matter Interactive Map';
+      line.appendChild(link);
+    } else if(n.title.startsWith('3 The Mole — The Central Unit of Chemistry')) {
       line.textContent = `${n.title} (page ${n.page}) `;
       const link = document.createElement('a');
       link.href = 'mole.html';

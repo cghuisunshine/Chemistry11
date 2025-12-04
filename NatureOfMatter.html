@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chem 11 – Chapter 2: The Nature of Matter (Interactive Map)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1020;
+      --bg-softer: #111827;
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.12);
+      --accent-strong: rgba(249, 115, 22, 0.25);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-soft: #1f2937;
+      --radius-xl: 1.25rem;
+      --radius-lg: 1rem;
+      --shadow-soft: 0 18px 35px rgba(15, 23, 42, 0.8);
+      --transition-fast: 0.25s ease;
+      --transition-slow: 0.35s ease;
+      --danger: #f97373;
+      --success: #22c55e;
+      --code-bg: #020617;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        -apple-system, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Layout */
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1rem 3rem;
+    }
+
+    header {
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, var(--bg-soft), #020617);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-soft);
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.25rem;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .badge {
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+    }
+
+    .layout {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      margin-top: 1rem;
+    }
+
+    /* Sidebar */
+
+    .sidebar {
+      position: sticky;
+      top: 0.75rem;
+      align-self: flex-start;
+      width: 260px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, var(--bg-soft), #020617);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 1rem 1rem 0.85rem;
+    }
+
+    .sidebar h2 {
+      font-size: 1.05rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 0.9rem;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.45rem 0.75rem 0.45rem 2rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #020617;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.6rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .filter-status {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .sidebar-section-links {
+      list-style: none;
+      padding-left: 0;
+      border-top: 1px dashed var(--border-soft);
+      padding-top: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .sidebar-section-links li + li {
+      margin-top: 0.2rem;
+    }
+
+    .sidebar-section-links a {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.5rem;
+      border-radius: 999px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        transform 0.1s ease-out;
+    }
+
+    .sidebar-section-links a span.pipe {
+      color: var(--accent);
+      font-size: 0.7rem;
+      opacity: 0.9;
+    }
+
+    .sidebar-section-links a:hover {
+      background: var(--accent-soft);
+      color: var(--text-main);
+      transform: translateX(2px);
+    }
+
+    .sidebar-section-links a.active-link {
+      background: var(--accent-strong);
+      color: var(--text-main);
+    }
+
+    .sidebar-footer-note {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      border-top: 1px dashed var(--border-soft);
+      padding: 0.55rem 0 0.3rem;
+      margin-top: 0.4rem;
+    }
+
+    /* Content / cards */
+
+    .content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .section-card {
+      background: radial-gradient(circle at top left, #111827, #020617 55%);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 1.1rem 1.25rem 1.2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card.hidden-by-filter {
+      display: none;
+    }
+
+    .section-heading-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .tag-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.35rem;
+      font-size: 0.7rem;
+    }
+
+    .tag {
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-soft);
+      color: var(--text-muted);
+    }
+
+    /* Collapsible nodes */
+
+    .node {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, 0.95);
+      margin-top: 0.6rem;
+      overflow: hidden;
+    }
+
+    .node-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      padding: 0.55rem 0.8rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: none;
+      color: var(--text-main);
+      cursor: pointer;
+      text-align: left;
+      outline: none;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .node-header span.label {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .node-header span.icon {
+      font-size: 0.9rem;
+    }
+
+    .node-header span.chevron {
+      font-size: 0.8rem;
+      transition: transform var(--transition-fast);
+    }
+
+    .node-header.roots {
+      border-left: 3px solid #22c55e;
+    }
+
+    .node-header.trunk {
+      border-left: 3px solid #38bdf8;
+    }
+
+    .node-header.leaves {
+      border-left: 3px solid var(--accent);
+    }
+
+    .node-header:hover {
+      background: #020617;
+    }
+
+    .node.open .node-header {
+      background: #020617;
+    }
+
+    .node.open .node-header span.chevron {
+      transform: rotate(90deg);
+    }
+
+    .node-body {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 0.8rem;
+      background: #020617;
+      transition: max-height var(--transition-slow), padding var(--transition-slow);
+      font-size: 0.88rem;
+    }
+
+    .node.open .node-body {
+      padding-top: 0.45rem;
+      padding-bottom: 0.6rem;
+    }
+
+    .node-body p,
+    .node-body ul {
+      margin-bottom: 0.4rem;
+    }
+
+    .node-body ul {
+      padding-left: 1.1rem;
+    }
+
+    .node-body li + li {
+      margin-top: 0.15rem;
+    }
+
+    /* Formulas & copy buttons */
+
+    .formula-row {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin: 0.25rem 0;
+      padding: 0.25rem 0.35rem;
+      border-radius: 0.5rem;
+      background: var(--code-bg);
+      border: 1px solid #111827;
+    }
+
+    .formula-row code {
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      overflow-x: auto;
+    }
+
+    .copy-btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 0.15rem 0.4rem;
+      font-size: 0.75rem;
+      background: transparent;
+      color: var(--text-muted);
+      transition: background var(--transition-fast), color var(--transition-fast),
+        transform 0.1s ease-out;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-soft);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .copy-toast {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      padding: 0.45rem 0.8rem;
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      border: 1px solid var(--border-soft);
+      color: var(--text-main);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 999;
+    }
+
+    .copy-toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .inline-highlight {
+      background: rgba(148, 163, 184, 0.15);
+      border-radius: 0.35rem;
+      padding: 0.05rem 0.3rem;
+    }
+
+    /* Mobile layout */
+
+    @media (max-width: 900px) {
+      .layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        position: static;
+        width: 100%;
+        margin-bottom: 0.75rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 0.8rem 0.9rem;
+      }
+
+      .section-card {
+        padding: 0.9rem 0.9rem 1rem;
+      }
+
+      .section-heading-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Chemistry 11 – Chapter 2: The Nature of Matter</h1>
+      <p>
+        Interactive concept map & mini-textbook for Grade 11–12 students. Click each
+        node to expand:
+        <span class="inline-highlight">Roots → core ideas</span>,
+        <span class="inline-highlight">Trunk → rules & formulas</span>,
+        <span class="inline-highlight">Leaves → examples & tips</span>.
+      </p>
+      <div class="badge-row">
+        <div class="badge">Double-click any text to copy</div>
+        <div class="badge">📋 Click buttons to copy formulas</div>
+        <div class="badge">Dark theme • Mobile friendly</div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <h2>Chapter Map</h2>
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input
+            id="searchBox"
+            type="text"
+            placeholder="Filter sections by keyword…"
+          />
+        </div>
+        <div class="filter-status" id="filterStatus">
+          Showing all sections.
+        </div>
+        <ul class="sidebar-section-links" id="sectionLinks">
+          <li>
+            <a href="#section-2-1">
+              <span class="pipe">●</span>
+              <span>2.1 Properties of Matter</span>
+            </a>
+          </li>
+          <li>
+            <a href="#section-2-2">
+              <span class="pipe">●</span>
+              <span>2.2 Classification of Matter</span>
+            </a>
+          </li>
+          <li>
+            <a href="#section-2-3">
+              <span class="pipe">●</span>
+              <span>2.3 Separating Mixtures</span>
+            </a>
+          </li>
+          <li>
+            <a href="#section-2-4">
+              <span class="pipe">●</span>
+              <span>2.4 Chemical Nomenclature</span>
+            </a>
+          </li>
+        </ul>
+        <p class="sidebar-footer-note">
+          Tip: on a phone or tablet, this navigation bar appears
+          <strong>above</strong> the cards. Use the search box to quickly jump to
+          “boiling point”, “solutions”, “chromatography”, “acids”, etc.
+        </p>
+      </aside>
+
+      <!-- Main content -->
+      <main class="content">
+        <!-- 2.1 Properties of Matter -->
+        <section class="section-card" id="section-2-1" data-keywords="properties of matter extensive intensive physical chemical kinetic energy temperature heat states solid liquid gas melting boiling">
+          <div class="section-heading-row">
+            <div>
+              <div class="section-title">2.1 Properties of Matter</div>
+              <div class="section-subtitle">
+                Matter, properties, energy, and states
+              </div>
+            </div>
+            <div class="tag-strip">
+              <span class="tag">matter</span>
+              <span class="tag">physical vs chemical</span>
+              <span class="tag">thermal concepts</span>
+              <span class="tag">KMT</span>
+            </div>
+          </div>
+
+          <!-- Roots -->
+          <div class="node open">
+            <button class="node-header roots">
+              <span class="label">
+                <span class="icon">🌱</span>
+                <span>Roots – Core ideas & definitions</span>
+              </span>
+              <span class="chevron">▶</span>
+            </button>
+            <div class="node-body">
+              <p>
+                <strong>Matter</strong> is anything that has mass and takes up space.
+                Chemistry studies the
+                <strong>properties, composition, and behaviour</strong> of this matter.
+              </p>
+              <ul>
+                <li>
+                  <strong>Mass</strong> – how much matter an object contains (g or kg).
+                </li>
+                <li>
+                  <strong>Property</strong> – a characteristic we can use to describe or
+                  identify matter (e.g., colour, density, melting point).
+                </li>
+              </ul>
+              <p>Properties are grouped in several important ways:</p>
+              <ul>
+                <li>
+                  <strong>Extensive properties</strong> – depend on the
+                  <em>amount</em> of substance (mass, volume, total thermal energy).
+                </li>
+                <li>
+                  <strong>Intensive properties</strong> – do <em>not</em> depend on
+                  amount (density, melting point, boiling point, temperature).
+                  Every pure substance has its own unique set of intensive properties.
+                </li>
+                <li>
+                  <strong>Physical properties</strong> – describe how a substance
+                  looks or behaves without changing into a new substance (e.g., state,
+                  density, conductivity, melting/boiling point).
+                </li>
+                <li>
+                  <strong>Chemical properties</strong> – describe how a substance can
+                  change into new substances (reactivity, flammability, toxicity,
+                  stability, heat of combustion).
+                </li>
+              </ul>
+              <p>
+                Matter can exist as a <strong>solid, liquid, or gas</strong>. The
+                <strong>Kinetic Molecular Theory (KMT)</strong> explains these states:
+              </p>
+              <ul>
+                <li>All matter is made of tiny particles.</li>
+                <li>There is empty space between particles.</li>
+                <li>Particles are always moving.</li>
+                <li>
+                  The more energy particles have, the faster and more freely they move.
+                </li>
+              </ul>
+              <p>
+                Particles can move in three ways:
+                <strong>translational</strong> (moving place to place),
+                <strong>rotational</strong> (spinning), and
+                <strong>vibrational</strong> (back-and-forth motion).
+              </p>
+              <ul>
+                <li>
+                  <strong>Kinetic energy</strong> – the energy of motion; faster or
+                  heavier objects have more kinetic energy.
+                </li>
+                <li>
+                  <strong>Thermal energy</strong> – the total mechanical energy of all
+                  particles in a sample (an <strong>extensive</strong> property).
+                </li>
+                <li>
+                  <strong>Temperature</strong> – the average mechanical energy per
+                  particle (an <strong>intensive</strong> property).
+                </li>
+                <li>
+                  <strong>Heat</strong> – energy transferred between objects because of
+                  a temperature difference (flows from hot → cold).
+                </li>
+              </ul>
+              <p>
+                A thermometer’s reading is really the
+                <strong>thermometer’s own temperature</strong>. It exchanges heat with
+                the sample until they reach the same temperature.
+              </p>
+              <p>Common <strong>changes of state</strong> include:</p>
+              <ul>
+                <li>solid → liquid: <strong>melting</strong></li>
+                <li>liquid → solid: <strong>freezing</strong></li>
+                <li>liquid → gas: <strong>evaporation/vaporization</strong></li>
+                <li>gas → liquid: <strong>condensation</strong></li>
+                <li>solid → gas: <strong>sublimation</strong></li>
+                <li>gas → solid: <strong>deposition</strong></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Trunk -->
+          <div class="node open">
+            <button class="node-header trunk">
+              <span class="label">
+                <span class="icon">🌳</span>
+                <span>Trunk – Rules, patterns & key quantitative ideas</span>
+              </span>
+              <span class="chevron">▶</span>
+            </button>
+            <div class="node-body">
+              <p><strong>Melting point</strong></p>
+              <ul>
+                <li>
+                  Temperature where a solid becomes a liquid (or melts and freezes at
+                  the same rate).
+                </li>
+                <li>
+                  At the melting point, particles have just enough energy to slip past
+                  one another.
+                </li>
+              </ul>
+
+              <p><strong>Boiling point</strong></p>
+              <ul>
+                <li>
+                  Temperature where the liquid’s <strong>vapour pressure</strong> equals
+                  the surrounding pressure.
+                </li>
+                <li>
+                  At this point, bubbles of vapour can rise through the liquid without
+                  collapsing.
+                </li>
+                <li>
+                  Lower external pressure (high altitude or vacuum) → lower boiling
+                  point.
+                </li>
+              </ul>
+
+              <p><strong>Heats of fusion and vaporization</strong></p>
+              <ul>
+                <li>
+                  <strong>Heat of fusion, H<sub>f</sub></strong> – heat needed to melt
+                  1 g of a substance at its melting point (J/g). Equivalent heat is
+                  released when 1 g freezes.
+                </li>
+                <li>
+                  <strong>Heat of vaporization, H<sub>v</sub></strong> – heat needed to
+                  vaporize 1 g of a substance at its boiling point (J/g). Equivalent
+                  heat is released when 1 g condenses.
+                </li>
+                <li>
+                  Both represent changes in
+                  <strong>potential energy</strong> between phases; the temperature stays
+                  constant during the phase change.
+                </li>
+              </ul>
+
+              <p><strong>Heating curves</strong></p>
+              <ul>
+                <li>
+                  On a <em>temperature vs added heat</em> graph:
+                  <ul>
+                    <li>
+                      Sloped lines show temperature rising as heat increases particle
+                      kinetic energy.
+                    </li>
+                    <li>
+                      Flat plateaus show melting or boiling – temperature stays
+                      constant while heat changes potential energy (particle spacing and
+                      attractions).
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Leaves -->
+          <div class="node open">
+            <button class="node-header leaves">
+              <span class="label">
+                <span class="icon">🍃</span>
+                <span>Leaves – Examples, interpretations & tips</span>
+              </span>
+              <span class="chevron">▶</span>
+            </button>
+            <div class="node-body">
+              <p><strong>Bathtub vs cup of boiling water</strong></p>
+              <p>
+                A bathtub full of cool water has much more
+                <strong>thermal energy</strong> than a small cup of boiling water because
+                it contains many more molecules, even though each molecule has less
+                energy on average (lower temperature).
+              </p>
+
+              <p><strong>Ice–water mixture at 0 °C</strong></p>
+              <p>
+                A beaker with ice and water at 0 °C can absorb heat from the room, but
+                the temperature stays at 0 °C until all the ice has melted. The added
+                energy goes into changing state (potential energy), not into raising the
+                temperature (kinetic energy).
+              </p>
+
+              <p><strong>Tip for exams</strong></p>
+              <ul>
+                <li>
+                  If you see a flat region on a heating curve, think
+                  <strong>phase change</strong> and heats of fusion or vaporization.
+                </li>
+                <li>
+                  If you see temperature changing, think change in
+                  <strong>kinetic</strong> energy and use heat capacities (later chapters).
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2.2 Classification of Matter -->
+        <section class="section-card" id="section-2-2" data-keywords="classification matter pure substance mixture element compound metal non-metal metalloid solution colloid suspension homogeneous heterogeneous acids bases salts organic inorganic ionic molecular">
+          <div class="section-heading-row">
+            <div>
+              <div class="section-title">2.2 The Classification of Matter</div>
+              <div class="section-subtitle">
+                Pure substances, mixtures, and how we organize them
+              </div>
+            </div>
+            <div class="tag-strip">
+              <span class="tag">elements</span>
+              <span class="tag">compounds</span>
+              <span class="tag">mixtures</span>
+              <span class="tag">solutions & colloids</span>
+            </div>
+          </div>
+
+          <!-- Roots -->
+          <div class="node open">
+            <button class="node-header roots">
+              <span class="label">
+                <span class="icon">🌱</span>
+                <span>Roots – Core ideas & definitions</span>
+              </span>
+              <span class="chevron">▶</span>
+            </button>
+            <div class="node-body">
+              <p>
+                All things in the physical world are classified as either
+                <strong>matter</strong> or <strong>energy</strong>.
+              </p>
+              <p><strong>First split: pure substance vs mixture</strong></p>
+              <ul>
+                <li>
+                  <strong>Pure substance</strong> – same composition and properties in
+                  every sample.
+                  <ul>
+                    <li>
+                      <strong>Element</strong>: cannot be chemically broken down;
+                      composed of one type of atom.
+                    </li>
+                    <li>
+                      <strong>Compound</strong>: can be decomposed; composed of more
+                      than one type of atom in a fixed ratio.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Mixture</strong> – composed of more than one substance.
+                  Components keep their own identities and can be separated by physical
+                  means. Proportions can vary.
+                </li>
+              </ul>
+
+              <p><strong>Chemical species</strong></p>
+              <p>
+                The particles of matter (atoms, molecules, ions) are called
+                <strong>chemical species</strong>. They can be classified as neutral
+                atoms, ions, or molecules, and further by type (e.g., metal atom vs
+                non-metal atom).
+              </p>
+
+              <p><strong>Elements: metals, non-metals, metalloids</strong></p>
+              <ul>
+                <li>
+                  <strong>Metals</strong> – good thermal and electrical conductors,
+                  lustrous, malleable, ductile. Metal oxides react with water to form
+                  bases (hydroxides).
+                </li>
+                <li>
+                  <strong>Non-metals</strong> – poor conductors, many are gases; solids
+                  tend to be brittle. Non-metal oxides react with water to form acids.
+                </li>
+                <li>
+                  <strong>Metalloids</strong> – in between metals and non-metals
+                  (often semiconductors, e.g., silicon).
+                </li>
+              </ul>
+              <p>
+                Some elements have different <strong>allotropes</strong> – different
+                arrangements of the same atoms (e.g., diamond vs graphite).
+              </p>
+
+              <p><strong>Compounds</strong></p>
+              <ul>
+                <li>
+                  <strong>Organic</strong> – contain carbon and hydrogen (often plus
+                  other elements).
+                </li>
+                <li>
+                  <strong>Inorganic</strong> – all other compounds.
+                </li>
+                <li>
+                  <strong>Binary</strong> – only two elements.
+                </li>
+                <li>
+                  <strong>Non-binary</strong> – three or more elements.
+                </li>
+                <li>
+                  <strong>Ionic compounds</strong> – made of ions held in a crystal
+                  lattice (usually metal + non-metal, or containing NH₄⁺).
+                </li>
+                <li>
+                  <strong>Molecular compounds</strong> – made of neutral molecules
+                  (non-metal + non-metal, no NH₄⁺).
+                </li>
+              </ul>
+
+              <p><strong>Acids, bases, and salts</strong></p>
+              <ul>
+                <li>
+                  <strong>Acid</strong> – behaves like H⁺ plus an anion in solution
+                  (form ions in water).
+                </li>
+                <li>
+                  <strong>Base</strong> – ionic compound containing OH⁻ (hydroxide).
+                </li>
+                <li>
+                  <strong>Salt</strong> – any ionic compound that is not a hydroxide.
+                  Acids and bases react to give a salt + water (neutralization).
+                </li>
+              </ul>
+
+              <p><strong>Mixtures</strong></p>
+              <ul>
+                <li>
+                  <strong>Homogeneous mixture</strong> – appears uniform throughout
+                  (e.g., air, salt water). Often called a solution.
+                </li>
+                <li>
+                  <strong>Heterogeneous mixture</strong> – not uniform; different parts
+                  can be seen (e.g., salad, granite, sand in water).
+                </li>
+              </ul>
+
+              <p><strong>Solutions, colloids, suspensions</strong></p>
+              <ul>
+                <li>
+                  <strong>Solution</strong> – homogeneous mixture with particles <
+                  1 nm.
+                  <ul>
+                    <li><strong>Solute</strong> – minor component.</li>
+                    <li><strong>Solvent</strong> – major component.</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Colloid</strong> – particles between 1 nm and 1 µm, often
+                  cloudy; show the <strong>Tyndall effect</strong> (light beam visible).
+                </li>
+                <li>
+                  <strong>Suspension</strong> – particles > 1 µm; heterogeneous; solids
+                  settle over time.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Trunk -->
+          <div class="node open">
+            <button class="node-header trunk">
+              <span class="label">
+                <span class="icon">🌳</span>
+                <span>Trunk – Rules, patterns & classification shortcuts</span>
+              </span>
+              <span class="chevron">▶</span>
+            </button>
+            <div class="node-body">
+              <p><strong>Classification tree (conceptual)</strong></p>
+              <ul>
+                <li>Matter
+                  <ul>
+                    <li>Pure substance
+                      <ul>
+                        <li>Element</li>
+                        <li>Compound</li>
+                      </ul>
+                    </li>
+                    <li>Mixture
+                      <ul>
+                        <li>Homogeneous (solutions)</li>
+                        <li>Heterogeneous
+                          <ul>
+                            <li>Colloids</li>
+                            <li>Suspensions & coarse mixtures</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+              <p><strong>Quick tests</strong></p>
+              <ul>
+                <li>
+                  If composition is fixed and only one type of particle pattern →
+                  pure substance.
+                </li>
+                <li>
+                  If composition can vary and components can be separated physically →
+                  mixture.
+                </li>
+                <li>
+                  Contains <strong>metal</strong> → ionic compound (unless told
+                  otherwise).
+                </li>
+                <li>
+                  Contains only <strong>non-metals</strong>:
+                  <ul>
+                    <li>If it contains NH₄⁺ → ionic.</li>
+                    <li>Otherwise → molecular (covalent).</li>
+                  </ul>
+                </li>
+                <li>
+                  Organic if it has both <strong>C</strong> and
+                  <strong>H</strong> in the formula.
+                </li>
+              </ul>
+
+              <p><strong>Distinguishing solutions, colloids, suspensions</strong></p>
+              <ul>
+                <li>
+                  Shine a strong beam of light:
+                  <ul>
+                    <li>
+                      No visible beam → true solution (particles too small to scatter
+                      light).
+                    </li>
+                    <li>
+                      Visible beam → colloid or suspension (Tyndall effect).
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Leave undisturbed:
+                  <ul>
+                    <li>No settling → solution or colloid.</li>
+                    <li>Particles settle → suspension.</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Leaves -->
+          <div class="node open">
+            <button class="node-header leaves">
+              <span class="label">
+                <span class="icon">🍃</span>
+                <span>Leaves – Examples, interpretations & tips</span>
+              </span>
+              <span class="chevron">▶</span>
+            </button>
+            <div class="node-body">
+              <p><strong>Examples</strong></p>
+              <ul>
+                <li>Air – homogeneous mixture (solution of gases).</li>
+                <li>Milk – colloid (fat droplets in water; cloudy, Tyndall effect).</li>
+                <li>Muddy water – suspension (soil settles over time).</li>
+                <li>Steel – solid solution (carbon in iron).</li>
+              </ul>
+
+              <p><strong>Exam tips</strong></p>
+              <ul>
+                <li>
+                  If a question asks whether something is “homogeneous”, think:
+                  “Would this look uniform even under a microscope?”
+                </li>
+                <li>
+                  Remember that “mixture” doesn’t necessarily mean “physically
+                  stirred”. Any material whose atoms are not forced into a fixed ratio
+                  is a mixture.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2.3 Separating Mixtures -->
+        <section class="section-card" id="section-2-3" data-keywords="separating mixtures physical separation density decanting filtration centrifugation chromatography distillation fractional distillation froth flotation Rf retention factor">
+          <div class="section-heading-row">
+            <div>
+              <div class="section-title">
+                2.3 Separating the Substances of a Mixture
+              </div>
+              <div class="section-subtitle">
+                Physical separation methods and how they work
+              </div>
+            </div>
+            <div class="tag-strip">
+              <span class="tag">density</span>
+              <span class="tag">centrifuge</span>
+              <span class="tag">chromatography</span>
+              <span class="tag">distillation</span>
+            </div>
+          </div>
+
+          <!-- Roots -->
+          <div class="node open">
+            <button class="node-header roots">
+              <span class="label">
+                <span class="icon">🌱</span>
+                <span>Roots – Core ideas & definitions</span>
+              </span>
+              <span class="chevron">▶</span>
+            </button>
+            <div class="node-body">
+              <p>
+                To <strong>separate a mixture</strong>, we exploit differences in
+                <strong>physical properties</strong> like density, solubility, particle
+                size, and boiling point.
+              </p>
+              <ul>
+                <li>
+                  Separating a mixture does <em>not</em> change substances into new
+                  ones.
+                </li>
+                <li>
+                  Decomposing a compound <em>does</em> produce new substances through
+                  chemical reactions.
+                </li>
+              </ul>
+
+              <p><strong>Mechanical vs non-mechanical methods</strong></p>
+              <ul>
+                <li>
+                  <strong>Mechanical</strong> – rely on motion, gravity, and contact
+                  forces (picking, sifting, skimming, filtration, centrifugation,
+                  decanting).
+                </li>
+                <li>
+                  <strong>Non-mechanical</strong> – use heat, electricity, magnetism,
+                  solubility, or surface interactions (distillation, chromatography,
+                  froth flotation).
+                </li>
+              </ul>
+
+              <p><strong>Density separation & sedimentation</strong></p>
+              <p>
+                When a solid is in a liquid, its motion is affected by
+                <strong>gravity</strong> pulling down and
+                <strong>buoyancy</strong> pushing up:
+              </p>
+              <ul>
+                <li>
+                  If the particle is <strong>less dense</strong> than the fluid, it floats
+                  (buoyancy > weight).
+                </li>
+                <li>
+                  If it’s <strong>more dense</strong>, it sinks and forms
+                  <strong>sediment</strong>.
+                </li>
+              </ul>
+              <p>
+                <strong>Decanting</strong> – carefully pouring off the liquid and
+                leaving sediment behind.
+              </p>
+              <p>
+                <strong>Filtration</strong> – passing a mixture through filter paper:
+              </p>
+              <ul>
+                <li><strong>Residue</strong> – solid left on the filter.</li>
+                <li><strong>Filtrate</strong> – liquid that passes through.</li>
+              </ul>
+
+              <p><strong>Centrifugation</strong></p>
+              <p>
+                A centrifuge spins a sample rapidly; particles want to keep moving in a
+                straight line (<strong>inertia</strong>) while the tube curves, so they
+                are driven to the bottom faster than by gravity alone.
+              </p>
+
+              <p><strong>Chromatography</strong></p>
+              <ul>
+                <li>
+                  Separates solutes in a solution by how they move relative to a
+                  <strong>stationary phase</strong>.
+                </li>
+                <li>
+                  A <strong>mobile phase</strong> (solvent or gas) carries solutes
+                  along at different speeds depending on their attractions to the two
+                  phases.
+                </li>
+                <li>
+                  Includes paper chromatography, thin-layer chromatography (TLC),
+                  column chromatography, gas chromatography.
+                </li>
+              </ul>
+
+              <p><strong>Distillation</strong></p>
+              <ul>
+                <li>
+                  Uses differences in <strong>boiling point</strong> or vapour
+                  pressure to separate components.
+                </li>
+                <li>
+                  <strong>Simple distillation</strong> – good for separating a dissolved
+                  solid from a liquid or liquids with very different boiling points.
+                </li>
+                <li>
+                  <strong>Fractional distillation</strong> – uses a fractionating
+                  column to perform many small vaporization–condensation steps in one
+                  run, improving separation of liquids with closer boiling points.
+                </li>
+              </ul>
+
+              <p><strong>Froth flotation</strong></p>
+              <p>
+                Used in mining, wastewater treatment, and paper recycling. A reagent
+                makes certain mineral grains hydrophobic so they attach to air bubbles
+                and float, separating them from unwanted material (gangue).
+              </p>
+            </div>
+          </div>
+
+          <!-- Trunk -->
+          <div class="node open">
+            <button class="node-header trunk">
+              <span class="label">
+                <span class="icon">🌳</span>
+                <span>Trunk – Formulas, rules & patterns</span>
+              </span>
+              <span class="chevron">▶</span>
+            </button>
+            <div class="node-body">
+              <p><strong>Buoyancy concept</strong></p>
+              <p>
+                A particle floats if it displaces a weight of fluid greater than its own
+                weight; it sinks if it displaces less. This explains density separation.
+              </p>
+
+              <p><strong>Chromatography: retention factor</strong></p>
+              <div class="formula-row">
+                <code>Rf = distance travelled by solute / distance travelled by solvent front</code>
+                <button class="copy-btn" title="Copy formula">📋</button>
+              </div>
+              <ul>
+                <li>
+                  Rf is a <strong>ratio</strong> (no units), between 0 and 1 in simple
+                  systems.
+                </li>
+                <li>
+                  For a given stationary phase and solvent, each substance has a
+                  characteristic Rf.
+                </li>
+              </ul>
+              <p>
+                In column chromatography, a similar idea uses <strong>time</strong>:
+              </p>
+              <div class="formula-row">
+                <code>Rf = (time for solute to pass through column) / (time for solvent)</code>
+                <button class="copy-btn" title="Copy formula">📋</button>
+              </div>
+
+              <p><strong>Distillation patterns</strong></p>
+              <ul>
+                <li>
+                  In simple distillation, the first distillate is enriched in the
+                  lower-boiling component but may still be a mixture.
+                </li>
+                <li>
+                  Fractional distillation creates a temperature gradient along the
+                  column; lower-boiling components rise higher.
+                </li>
+                <li>
+                  Industrial fractionating towers (e.g., oil refineries) continuously
+                  feed vapour and withdraw different fractions at various heights.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Leaves -->
+          <div class="node open">
+            <button class="node-header leaves">
+              <span class="label">
+                <span class="icon">🍃</span>
+                <span>Leaves – Examples, worked ideas & tips</span>
+              </span>
+              <span class="chevron">▶</span>
+            </button>
+            <div class="node-body">
+              <p><strong>Example: separating sand, salt, and iron filings</strong></p>
+              <ul>
+                <li>
+                  Use a magnet to remove iron filings (magnetic property – mechanical
+                  separation).
+                </li>
+                <li>
+                  Add water to dissolve salt while sand remains solid (difference in
+                  solubility).
+                </li>
+                <li>
+                  Filter to separate sand (residue) from salt solution (filtrate).
+                </li>
+                <li>
+                  Evaporate water from filtrate to recover solid salt.
+                </li>
+              </ul>
+
+              <p><strong>Example: chromatography spot</strong></p>
+              <p>
+                Suppose the solvent front moves 5.0&nbsp;cm up the paper and a dye spot
+                travels 3.0&nbsp;cm. Then:
+              </p>
+              <div class="formula-row">
+                <code>Rf = 3.0 cm / 5.0 cm = 0.60</code>
+                <button class="copy-btn" title="Copy">📋</button>
+              </div>
+              <p>
+                You could compare 0.60 with known Rf values to help identify the dye.
+              </p>
+
+              <p><strong>Tip: mechanical vs non-mechanical</strong></p>
+              <ul>
+                <li>
+                  If the method uses <strong>heat</strong> or <strong>boiling</strong>,
+                  think <strong>distillation</strong>.
+                </li>
+                <li>
+                  If it uses a <strong>stationary medium</strong> and a
+                  <strong>moving fluid</strong>, think
+                  <strong>chromatography</strong>.
+                </li>
+                <li>
+                  If it uses <strong>spinning</strong>, think
+                  <strong>centrifugation</strong>.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2.4 Chemical Nomenclature -->
+        <section class="section-card" id="section-2-4" data-keywords="nomenclature ionic compounds molecular compounds binary multivalent polyatomic ions hydrates acids naming formulas">
+          <div class="section-heading-row">
+            <div>
+              <div class="section-title">2.4 A Review of Chemical Nomenclature</div>
+              <div class="section-subtitle">
+                Naming and writing formulas for common compounds
+              </div>
+            </div>
+            <div class="tag-strip">
+              <span class="tag">ionic</span>
+              <span class="tag">molecular</span>
+              <span class="tag">hydrates</span>
+              <span class="tag">acids</span>
+            </div>
+          </div>
+
+          <!-- Roots -->
+          <div class="node open">
+            <button class="node-header roots">
+              <span class="label">
+                <span class="icon">🌱</span>
+                <span>Roots – Core ideas & definitions</span>
+              </span>
+              <span class="chevron">▶</span>
+            </button>
+            <div class="node-body">
+              <p><strong>Ionic vs molecular compounds</strong></p>
+              <ul>
+                <li>
+                  <strong>Ionic compound</strong> – made of cations (+ ions) and
+                  anions (– ions); formed by metals with non-metals or by compounds
+                  containing NH₄⁺.
+                </li>
+                <li>
+                  <strong>Molecular (covalent) compound</strong> – made of neutral
+                  molecules; formed between non-metals (no NH₄⁺).
+                </li>
+              </ul>
+
+              <p><strong>Binary ionic compounds</strong></p>
+              <ul>
+                <li>
+                  Contain one metal ion and one non-metal ion (monatomic ions).
+                </li>
+                <li>
+                  <strong>Naming</strong>:
+                  <em>metal name</em> + <em>non-metal name ending in −ide</em>.
+                </li>
+                <li>
+                  <strong>Formula</strong> must have total positive charge = total
+                  negative charge.
+                </li>
+              </ul>
+
+              <p><strong>Multivalent metals</strong></p>
+              <ul>
+                <li>
+                  Some metals can form more than one stable ion (e.g., Fe²⁺ and Fe³⁺,
+                  Cu⁺ and Cu²⁺).
+                </li>
+                <li>
+                  Use a <strong>Roman numeral</strong> in brackets after the metal name
+                  to show the ion’s charge: iron(II), iron(III), copper(I), copper(II).
+                </li>
+              </ul>
+
+              <p><strong>Polyatomic ions</strong></p>
+              <p>
+                Polyatomic ions are charged groups of covalently bonded atoms (like a
+                “charged molecule”), e.g. NO₃⁻, SO₄²⁻, CO₃²⁻, OH⁻, NH₄⁺.
+              </p>
+              <ul>
+                <li>
+                  Many are <strong>oxyanions</strong> (an element + oxygen atoms).
+                </li>
+                <li>
+                  Fewer oxygens → name ends in <strong>−ite</strong>; more oxygens →
+                  <strong>−ate</strong> (e.g., sulphite SO₃²⁻, sulphate SO₄²⁻).
+                </li>
+                <li>
+                  With more than two possibilities, use prefixes:
+                  <strong>hypo−</strong> (least O), normal −ite, normal −ate,
+                  <strong>per−</strong> (most O).
+                </li>
+              </ul>
+
+              <p><strong>Molecular compounds: prefix system</strong></p>
+              <p>
+                Use Greek prefixes to show the number of each atom (mono, di, tri,
+                tetra, penta, hexa, hepta, octa, nona, deca). The second element always
+                ends in <strong>−ide</strong>.
+              </p>
+
+              <p><strong>Hydrates</strong></p>
+              <ul>
+                <li>
+                  Ionic crystals that contain a fixed number of water molecules.
+                </li>
+                <li>
+                  Formula uses a dot followed by
+                  <code>nH2O</code>, e.g. CuSO₄·5H₂O.
+                </li>
+                <li>
+                  The water is part of the crystal structure, not just “wetness”.
+                </li>
+              </ul>
+
+              <p><strong>Acids</strong></p>
+              <ul>
+                <li>
+                  Think of them as H⁺ bonded to an anion; in water they form H⁺ and the
+                  corresponding anion.
+                </li>
+                <li>
+                  Naming depends on the <strong>anion</strong> and whether it contains
+                  oxygen.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Trunk -->
+          <div class="node open">
+            <button class="node-header trunk">
+              <span class="label">
+                <span class="icon">🌳</span>
+                <span>Trunk – Naming rules, formulas & examples</span>
+              </span>
+              <span class="chevron">▶</span>
+            </button>
+            <div class="node-body">
+              <p><strong>Charge balance in ionic compounds</strong></p>
+              <p>
+                Ions always combine in ratios that make the compound overall
+                <strong>neutral</strong>. For example, aluminum sulphide:
+              </p>
+              <div class="formula-row">
+                <code>2 Al³⁺ + 3 S²⁻ → Al₂S₃ (charges: 2×(+3) + 3×(−2) = 0)</code>
+                <button class="copy-btn" title="Copy equation">📋</button>
+              </div>
+              <p>
+                A quick method is the “cross-over” rule: cross the absolute values of
+                the charges to become subscripts, then simplify the ratio if possible.
+              </p>
+
+              <p><strong>Binary ionic naming</strong></p>
+              <ul>
+                <li>NaCl → sodium chloride.</li>
+                <li>MgBr₂ → magnesium bromide.</li>
+                <li>FeCl₂ → iron(II) chloride (Fe²⁺).</li>
+                <li>FeCl₃ → iron(III) chloride (Fe³⁺).</li>
+              </ul>
+
+              <p><strong>Polyatomic ions in formulas</strong></p>
+              <p>
+                When you need more than one polyatomic ion, use
+                <strong>brackets</strong>:
+              </p>
+              <div class="formula-row">
+                <code>Ca²⁺ + 2 NO₃⁻ → Ca(NO₃)₂ (calcium nitrate)</code>
+                <button class="copy-btn" title="Copy formula">📋</button>
+              </div>
+              <p>
+                The subscript applies to the entire polyatomic ion, not just the last
+                atom.
+              </p>
+
+              <p><strong>Molecular compounds: prefix rules</strong></p>
+              <ul>
+                <li>
+                  First element: use prefix only if more than one atom (omit
+                  “mono−”). Second element: always use a prefix and end with “−ide”.
+                </li>
+              </ul>
+              <div class="formula-row">
+                <code>CO₂ → carbon dioxide; N₂O₄ → dinitrogen tetroxide</code>
+                <button class="copy-btn" title="Copy examples">📋</button>
+              </div>
+
+              <p><strong>Hydrate naming</strong></p>
+              <p>
+                Use the normal ionic name, then a prefix + “hydrate” for the number of
+                water molecules:
+              </p>
+              <div class="formula-row">
+                <code>CuSO₄·5H₂O → copper(II) sulphate pentahydrate</code>
+                <button class="copy-btn" title="Copy hydrate">📋</button>
+              </div>
+
+              <p><strong>Acid naming rules</strong></p>
+              <p>Look at the name of the anion:</p>
+              <ul>
+                <li>
+                  Anion ends in <strong>−ide</strong> (no oxygen):
+                  <ul>
+                    <li>
+                      acid name: <strong>hydro− + root + −ic acid</strong>.<br />
+                      HCl (chloride) → hydrochloric acid.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Oxyanion ends in <strong>−ate</strong>:
+                  <ul>
+                    <li>
+                      acid name: <strong>root + −ic acid</strong>.<br />
+                      H₂SO₄ (sulphate) → sulphuric acid.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Oxyanion ends in <strong>−ite</strong>:
+                  <ul>
+                    <li>
+                      acid name: <strong>root + −ous acid</strong>.<br />
+                      H₂SO₃ (sulphite) → sulphurous acid.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Leaves -->
+          <div class="node open">
+            <button class="node-header leaves">
+              <span class="label">
+                <span class="icon">🍃</span>
+                <span>Leaves – Worked examples & tips</span>
+              </span>
+              <span class="chevron">▶</span>
+            </button>
+            <div class="node-body">
+              <p><strong>Example 1 – Ionic compound from name</strong></p>
+              <p>Write the formula for <strong>tin(IV) bromide</strong>.</p>
+              <ul>
+                <li>Tin(IV) ion: Sn⁴⁺</li>
+                <li>Bromide ion: Br⁻</li>
+                <li>Need 4 bromide ions to balance 4+ charge.</li>
+              </ul>
+              <div class="formula-row">
+                <code>Sn⁴⁺ + 4 Br⁻ → SnBr₄</code>
+                <button class="copy-btn" title="Copy example">📋</button>
+              </div>
+
+              <p><strong>Example 2 – Name from formula</strong></p>
+              <p>Name <strong>Fe₂(SO₄)₃</strong>.</p>
+              <ul>
+                <li>
+                  Sulphate is SO₄²⁻. Three sulphate ions give total −6 charge.
+                </li>
+                <li>
+                  Two iron ions must give +6 total → each Fe is +3 → Fe³⁺.
+                </li>
+                <li>So the compound is iron(III) sulphate.</li>
+              </ul>
+
+              <p><strong>Example 3 – Acid from formula</strong></p>
+              <p>Name <strong>HNO₂</strong>.</p>
+              <ul>
+                <li>Anion is NO₂⁻, “nitrite”.</li>
+                <li>
+                  “−ite” turns into “−ous acid” → <strong>nitrous acid</strong>.
+                </li>
+              </ul>
+
+              <p><strong>Tip for tests</strong></p>
+              <ul>
+                <li>
+                  Highlight whether a compound is ionic or molecular before naming it;
+                  that tells you whether to use the Stock system or prefix system.
+                </li>
+                <li>
+                  For hydrates, read the dot as “with”:
+                  <code>·5H₂O</code> means “with five waters”.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="copy-toast" id="copyToast">Copied to clipboard ✅</div>
+
+  <script>
+    // Collapsible nodes
+    document.querySelectorAll(".node-header").forEach((header) => {
+      header.addEventListener("click", () => {
+        const node = header.parentElement;
+        const body = node.querySelector(".node-body");
+        const isOpen = node.classList.contains("open");
+
+        if (!isOpen) {
+          // Set max-height based on scrollHeight
+          body.style.maxHeight = body.scrollHeight + "px";
+          node.classList.add("open");
+        } else {
+          body.style.maxHeight = body.scrollHeight + "px"; // lock current height
+          // force reflow
+          void body.offsetWidth;
+          body.style.maxHeight = "0";
+          node.classList.remove("open");
+        }
+      });
+
+      // Initialize heights for nodes that start open
+      const node = header.parentElement;
+      const body = node.querySelector(".node-body");
+      if (node.classList.contains("open")) {
+        body.style.maxHeight = body.scrollHeight + "px";
+      }
+    });
+
+    // Search / filter cards
+    const searchBox = document.getElementById("searchBox");
+    const filterStatus = document.getElementById("filterStatus");
+    const cards = Array.from(document.querySelectorAll(".section-card"));
+
+    function updateFilter() {
+      const query = searchBox.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const text = card.textContent.toLowerCase();
+        const keywords = (card.getAttribute("data-keywords") || "").toLowerCase();
+        const match =
+          query === "" ||
+          text.includes(query) ||
+          (keywords && keywords.includes(query));
+
+        card.classList.toggle("hidden-by-filter", !match);
+        if (match) visibleCount++;
+      });
+
+      if (query === "") {
+        filterStatus.textContent = "Showing all sections.";
+      } else if (visibleCount === 0) {
+        filterStatus.textContent =
+          "No sections match \"" + query + "\". Try a different keyword.";
+      } else {
+        filterStatus.textContent =
+          "Showing " + visibleCount + " section(s) matching \"" + query + "\".";
+      }
+    }
+
+    searchBox.addEventListener("input", updateFilter);
+
+    // Smooth scroll for sidebar links and active highlighting
+    const sectionLinks = document.querySelectorAll("#sectionLinks a");
+    sectionLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const targetId = link.getAttribute("href").slice(1);
+        const target = document.getElementById(targetId);
+        if (target) {
+          e.preventDefault();
+          const top =
+            target.getBoundingClientRect().top + window.pageYOffset - 12;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      });
+    });
+
+    function updateActiveLink() {
+      let currentId = null;
+      cards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top <= 120 && rect.bottom >= 120) {
+          currentId = card.id;
+        }
+      });
+      sectionLinks.forEach((link) => {
+        const id = link.getAttribute("href").slice(1);
+        link.classList.toggle("active-link", id === currentId);
+      });
+    }
+
+    window.addEventListener("scroll", updateActiveLink);
+    window.addEventListener("load", updateActiveLink);
+
+    // Copy toast
+    const copyToast = document.getElementById("copyToast");
+    let toastTimeout = null;
+    function showToast(message) {
+      copyToast.textContent = message;
+      copyToast.classList.add("visible");
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        copyToast.classList.remove("visible");
+      }, 1600);
+    }
+
+    // Copy buttons for formulas
+    document.querySelectorAll(".copy-btn").forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        const code = btn.previousElementSibling;
+        if (!code) return;
+        const text = code.textContent.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast("Formula copied ✅");
+        } catch (err) {
+          showToast("Copy failed – check permissions ❗");
+        }
+      });
+    });
+
+    // Double-click anywhere to copy text
+    document.addEventListener("dblclick", async (event) => {
+      try {
+        const selection = window.getSelection();
+        let text = selection && selection.toString().trim();
+        if (!text) {
+          // No manual selection – copy the clicked element's text
+          const target = event.target;
+          if (target && target.innerText) {
+            text = target.innerText.trim();
+          }
+        }
+        if (text) {
+          await navigator.clipboard.writeText(text);
+          showToast("Text copied ✅");
+        }
+      } catch (err) {
+        showToast("Copy failed – check permissions ❗");
+      }
+    });
+  </script>
+</body>
+</html>
+
