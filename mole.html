@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chem 11 – Chapter 3 Interactive Map (3.1–3.6)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --bg-soft: #111726;
+      --card: #1a2238;
+      --accent: #4f9dfc;
+      --accent-soft: rgba(79,157,252,0.15);
+      --text-main: #e8ecf7;
+      --text-muted: #9aa3b8;
+      --radius: 1.2rem;
+      --transition: 0.25s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI";
+      color: var(--text-main);
+      background: var(--bg);
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    #sidebar {
+      width: 260px;
+      background: var(--bg-soft);
+      padding: 1.2rem;
+      border-right: 1px solid #1f2638;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    #sidebar h2 {
+      margin-bottom: 1rem;
+      color: var(--accent);
+      font-size: 1.2rem;
+    }
+
+    #searchBox {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      border-radius: 0.6rem;
+      border: none;
+      background: #0d1322;
+      color: var(--text-main);
+      margin-bottom: 1.2rem;
+    }
+
+    #sidebar a {
+      display: block;
+      padding: 0.4rem 0;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    #sidebar a:hover {
+      color: var(--accent);
+    }
+
+    /* Content */
+    #content {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    .section-card {
+      background: var(--card);
+      padding: 1.4rem;
+      margin-bottom: 1.4rem;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    }
+
+    .section-card h2 {
+      margin-bottom: 0.2rem;
+    }
+
+    .section-card h3 {
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .section-card p {
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    /* Collapsible nodes */
+    .node {
+      margin-top: 1rem;
+      border: 1px solid #2a3550;
+      border-radius: 0.8rem;
+      overflow: hidden;
+    }
+
+    .node-header {
+      background: var(--accent-soft);
+      padding: 0.7rem 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--accent);
+      user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .node-header span.chevron {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .node-content {
+      display: none;
+      padding: 1rem;
+      line-height: 1.6;
+      font-size: 0.93rem;
+    }
+
+    .node-content ul {
+      padding-left: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .node-content li {
+      margin-bottom: 0.3rem;
+    }
+
+    .formula {
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background: #111726;
+      padding: 0.3rem 0.5rem;
+      border-radius: 0.4rem;
+      display: inline-block;
+      margin: 0.15rem 0;
+    }
+
+    /* Copy button */
+    .copy-btn {
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 0.25rem 0.6rem;
+      border-radius: 0.5rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      float: right;
+      transition: var(--transition);
+      margin-left: 0.4rem;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* Mobile layout */
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+      }
+      #sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid #1f2638;
+      }
+      #content {
+        padding: 1.2rem;
+      }
+    }
+  </style>
+
+  <script>
+    // Search filter
+    function filterContent() {
+      const query = document.getElementById("searchBox").value.toLowerCase();
+      const cards = document.querySelectorAll(".section-card");
+      cards.forEach(card => {
+        card.style.display = card.innerText.toLowerCase().includes(query) ? "block" : "none";
+      });
+    }
+
+    // Collapsible nodes
+    document.addEventListener("click", e => {
+      if (e.target.classList.contains("node-header") || e.target.closest(".node-header")) {
+        const header = e.target.closest(".node-header");
+        const content = header.nextElementSibling;
+        const chevron = header.querySelector(".chevron");
+        const isOpen = content.style.display === "block";
+        content.style.display = isOpen ? "none" : "block";
+        if (chevron) chevron.textContent = isOpen ? "▼" : "▲";
+      }
+    });
+
+    // Copy button
+    function copyText(id) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text);
+      alert("Copied!");
+    }
+
+    // Double-click selection copy
+    document.addEventListener("dblclick", e => {
+      const selected = window.getSelection().toString();
+      if (selected.length > 0) {
+        navigator.clipboard.writeText(selected);
+      }
+    });
+  </script>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <h2>Chapter 3 Map</h2>
+    <input
+      type="text"
+      id="searchBox"
+      placeholder="Search concepts, formulas..."
+      onkeyup="filterContent()"
+    />
+
+    <a href="#sec31">3.1 Relative Atomic Mass</a>
+    <a href="#sec32">3.2 Introducing the Mole</a>
+    <a href="#sec33">3.3 Wheel Model of Mole Conversions</a>
+    <a href="#sec34">3.4 Molar Volume</a>
+    <a href="#sec35">3.5 Composition Analysis</a>
+    <a href="#sec36">3.6 Molarity & Ions in Solution</a>
+  </div>
+
+  <!-- Content -->
+  <div id="content">
+
+    <!-- 3.1 -->
+    <div class="section-card" id="sec31">
+      <h2>3.1 Relative Atomic Mass</h2>
+      <h3>Comparing atoms using mass ratios</h3>
+
+      <div class="node">
+        <div class="node-header">
+          🌱 ROOTS — Core Ideas & Definitions
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content" id="copy31_roots">
+          <ul>
+            <li><strong>Relative mass</strong> compares how heavy one item is relative to another by weighing the <em>same number</em> of items.</li>
+            <li><strong>Law of Constant Composition:</strong> Any pure sample of a compound has the same mass ratio of its elements. This implies fixed atom ratios.</li>
+            <li>Dalton used these fixed mass ratios to infer <strong>relative atomic masses</strong> for different elements.</li>
+            <li>Historically hydrogen was assigned an atomic mass of 1 u and other elements were compared to it.</li>
+          </ul>
+          <button class="copy-btn" onclick="copyText('copy31_roots')">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="node">
+        <div class="node-header">
+          🌳 TRUNK — Rules, Formulas, and Patterns
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content" id="copy31_trunk">
+          <p>For samples with the same number of atoms:</p>
+          <p class="formula">
+            mass ratio (A : B) = atomic mass ratio (A : B)
+          </p>
+          <ul>
+            <li>For a 1:1 compound like MgO or SrO, the mass ratio of Mg:O (or Sr:O) is the same as the atomic mass ratio of Mg:O (or Sr:O).</li>
+            <li>For non-1:1 formulas (e.g., BaCl₂, MgCl₂), you must adjust for the number of atoms in the formula when comparing atomic masses.</li>
+          </ul>
+          <p>Example adjustment for BaCl₂:</p>
+          <p class="formula">
+            1.934 g Ba : 1.000 g Cl in BaCl₂<br />
+            but BaCl₂ has 2 Cl atoms → compare 1 Ba to 2 Cl
+          </p>
+          <button class="copy-btn" onclick="copyText('copy31_trunk')">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="node">
+        <div class="node-header">
+          🍃 LEAVES — Examples, Tips, and Interpretations
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content">
+          <ul>
+            <li><strong>Example (1:1):</strong> 0.350 g Mg reacts with 0.230 g O in MgO.<br />
+              Mass ratio Mg:O =
+              <span class="formula">0.350 / 0.230 ≈ 1.52</span><br />
+              → one Mg atom is 1.52 times as massive as one O atom.
+            </li>
+            <li><strong>Example (non-1:1):</strong> BaCl₂ mass ratio Ba:Cl = 1.934:1.000.<br />
+              Because BaCl₂ has 2 Cl atoms, first divide the Cl mass by 2, then compare to Ba to obtain the atomic mass of Ba.</li>
+            <li>Key idea: you never need the <em>actual</em> mass of a single atom, only reliable <strong>ratios</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3.2 -->
+    <div class="section-card" id="sec32">
+      <h2>3.2 Introducing the Mole</h2>
+      <h3>Counting atoms using a chemist’s “dozen”</h3>
+
+      <div class="node">
+        <div class="node-header">
+          🌱 ROOTS — Core Ideas & Definitions
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content" id="copy32_roots">
+          <ul>
+            <li>A <strong>mole (mol)</strong> is the amount of substance that contains as many entities as there are atoms in 12 g of carbon-12.</li>
+            <li>This number of entities is <strong>Avogadro’s number</strong>:
+              <span class="formula">6.02 × 10²³</span> particles per mol.
+            </li>
+            <li><strong>Molar mass</strong> of an element is its atomic mass (in u) expressed in grams for 1 mol (e.g., O: 16 u → 16 g/mol).</li>
+            <li>The mole lets chemists convert back and forth between the microscopic scale (atoms, molecules) and macroscopic scale (grams).</li>
+          </ul>
+          <button class="copy-btn" onclick="copyText('copy32_roots')">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="node">
+        <div class="node-header">
+          🌳 TRUNK — Main Formulas and Conversions
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content" id="copy32_trunk">
+          <p><strong>Particles ↔ moles</strong></p>
+          <p class="formula">
+            particles = n × 6.02 × 10²³<br />
+            n = particles ÷ (6.02 × 10²³)
+          </p>
+
+          <p><strong>Mass ↔ moles</strong></p>
+          <p class="formula">
+            n = mass / molar mass<br />
+            mass = n × molar mass
+          </p>
+
+          <p>
+            These relationships are applied using <strong>dimensional analysis</strong>, making sure units cancel logically and the final answer has the correct units.
+          </p>
+          <button class="copy-btn" onclick="copyText('copy32_trunk')">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="node">
+        <div class="node-header">
+          🍃 LEAVES — Examples, Tips, and Interpretations
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content">
+          <ul>
+            <li><strong>Example 1:</strong> number of O atoms in 3.2 mol O:
+              <span class="formula">
+                3.2 mol × 6.02×10²³ ≈ 1.9×10²⁴ atoms O
+              </span>
+            </li>
+            <li><strong>Example 2:</strong> moles of CO in 7.3×10²⁴ molecules CO:
+              <span class="formula">
+                n = 7.3×10²⁴ ÷ 6.02×10²³ ≈ 12 mol CO
+              </span>
+            </li>
+            <li><strong>Example 3:</strong> mass of 3.2 mol O:
+              <span class="formula">
+                mass = 3.2 mol × 16 g/mol = 51.2 g
+              </span>
+            </li>
+            <li><strong>Example 4:</strong> moles of water in 1.8 g H₂O:
+              <span class="formula">
+                n = 1.8 g ÷ 18 g/mol = 0.10 mol H₂O
+              </span>
+            </li>
+            <li>Think of the mole like a “dozen,” but for enormous numbers of particles.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3.3 -->
+    <div class="section-card" id="sec33">
+      <h2>3.3 Wheel Model of Mole Conversions</h2>
+      <h3>The mole as the central hub</h3>
+
+      <div class="node">
+        <div class="node-header">
+          🌱 ROOTS — Core Concepts
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content" id="copy33_roots">
+          <ul>
+            <li>The <strong>mole</strong> is the central “hub” that connects <strong>mass</strong>, <strong>number of particles</strong>, and (for gases) <strong>volume</strong>.</li>
+            <li>Direct conversion between mass and particles is not allowed; you must go through moles.</li>
+            <li><strong>Stoichiometry</strong> uses mole ratios from chemical formulas to relate amounts of different substances.</li>
+          </ul>
+          <button class="copy-btn" onclick="copyText('copy33_roots')">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="node">
+        <div class="node-header">
+          🌳 TRUNK — Route Planning & Formulas
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content" id="copy33_trunk">
+          <p><strong>Typical conversion paths:</strong></p>
+          <ul>
+            <li><span class="formula">mass → moles → particles</span></li>
+            <li><span class="formula">particles → moles → mass</span></li>
+          </ul>
+          <p><strong>Stoichiometric mole ratios</strong> (two-wheel model):</p>
+          <p class="formula">
+            1 mol CO₂ = 1 mol C + 2 mol O
+          </p>
+          <p>
+            This relationship allows you to convert between moles of CO₂, C, and O.
+          </p>
+          <button class="copy-btn" onclick="copyText('copy33_trunk')">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="node">
+        <div class="node-header">
+          🍃 LEAVES — Examples and Interpretations
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content">
+          <ul>
+            <li><strong>Example 1 (mass → atoms):</strong> 5.0 g Cu → atoms Cu<br />
+              <span class="formula">
+                5.0 g ÷ 63.5 g/mol = 0.0787 mol<br />
+                0.0787 mol × 6.02×10²³ ≈ 4.7×10²² atoms Cu
+              </span>
+            </li>
+            <li><strong>Example 2 (atoms → mass):</strong> mass of 1 O atom<br />
+              <span class="formula">
+                1 atom × (1 mol / 6.02×10²³ atoms) × 16 g/mol ≈ 2.66×10⁻²³ g
+              </span>
+            </li>
+            <li><strong>Example 3 (formula ratio):</strong> in 6.0 mol H₂O:  
+              each mol H₂O has 2 mol H, so:
+              <span class="formula">
+                6.0 mol H₂O × (2 mol H / 1 mol H₂O) = 12 mol H
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3.4 -->
+    <div class="section-card" id="sec34">
+      <h2>3.4 Molar Volume</h2>
+      <h3>Connecting moles of gas to volume</h3>
+
+      <div class="node">
+        <div class="node-header">
+          🌱 ROOTS — Core Ideas & Definitions
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content" id="copy34_roots">
+          <ul>
+            <li><strong>Molar volume</strong> is the volume occupied by 1 mol of a substance.</li>
+            <li>For gases at <strong>STP</strong> (0 °C, 101.3 kPa):
+              <span class="formula">1 mol gas ≈ 22.4 L</span>.
+            </li>
+            <li>Avogadro’s hypothesis: equal volumes of gases at the same temperature and pressure contain equal numbers of particles.</li>
+            <li>Liquids and solids also have molar volumes, determined mainly by particle size and spacing; they expand slightly with temperature.</li>
+          </ul>
+          <button class="copy-btn" onclick="copyText('copy34_roots')">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="node">
+        <div class="node-header">
+          🌳 TRUNK — Gas Volume Formulas
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content" id="copy34_trunk">
+          <p><strong>At STP (for gases):</strong></p>
+          <p class="formula">
+            V = n × 22.4 L<br />
+            n = V ÷ 22.4 L
+          </p>
+
+          <p><strong>Density and molar volume:</strong></p>
+          <p class="formula">
+            density = mass / volume<br />
+            V<sub>m</sub> = M / ρ
+          </p>
+          <p>where <em>M</em> is molar mass and <em>ρ</em> is density.</p>
+          <button class="copy-btn" onclick="copyText('copy34_trunk')">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="node">
+        <div class="node-header">
+          🍃 LEAVES — Examples, Tips, and Interpretations
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content">
+          <ul>
+            <li><strong>Example 1:</strong> volume of 1.3 mol NO₂ at STP:
+              <span class="formula">
+                V = 1.3 mol × 22.4 L/mol = 29.1 L
+              </span>
+            </li>
+            <li><strong>Example 2:</strong> moles of air in 600.0 L at STP:
+              <span class="formula">
+                n = 600.0 L ÷ 22.4 L/mol ≈ 26.8 mol
+              </span>
+            </li>
+            <li><strong>Example 3 (multi-step):</strong> 8.0 L CH₄ at STP → mass<br />
+              <span class="formula">
+                n = 8.0 L ÷ 22.4 L/mol ≈ 0.357 mol<br />
+                mass = 0.357 mol × 16 g/mol ≈ 5.7 g
+              </span>
+            </li>
+            <li><strong>Example 4 (density):</strong> SF₆ with ρ = 6.00 g/L and M = 146.1 g/mol:<br />
+              <span class="formula">
+                V<sub>m</sub> = 146.1 g/mol ÷ 6.00 g/L ≈ 24.4 L/mol
+              </span>
+            </li>
+            <li>Tip: Always check if the gas is at STP before using 22.4 L/mol directly.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3.5 -->
+    <div class="section-card" id="sec35">
+      <h2>3.5 Composition Analysis</h2>
+      <h3>Percentage composition, empirical and molecular formulas</h3>
+
+      <div class="node">
+        <div class="node-header">
+          🌱 ROOTS — Core Ideas & Definitions
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content" id="copy35_roots">
+          <ul>
+            <li><strong>Percentage composition:</strong> the percentage by mass of each element in a compound.</li>
+            <li><strong>Empirical formula:</strong> the simplest whole-number ratio of atoms in a compound (e.g., C₆H₁₂O₆ → CH₂O).</li>
+            <li><strong>Molecular formula:</strong> the actual numbers of each type of atom in one molecule; it is an integer multiple of the empirical formula.</li>
+            <li><strong>Structural formula:</strong> shows how atoms are connected, not just their ratio.</li>
+          </ul>
+          <button class="copy-btn" onclick="copyText('copy35_roots')">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="node">
+        <div class="node-header">
+          🌳 TRUNK — Formulas and Procedures
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content" id="copy35_trunk">
+          <p><strong>Percentage composition (from formula):</strong></p>
+          <p class="formula">
+            %Element = (mass of that element in 1 mol compound ÷ molar mass of compound) × 100%
+          </p>
+
+          <p><strong>Steps to find an empirical formula from % composition:</strong></p>
+          <ol>
+            <li>Assume 100 g of the compound → % becomes grams.</li>
+            <li>Convert each element’s mass to moles.</li>
+            <li>Divide all mole amounts by the smallest mole value.</li>
+            <li>If necessary, multiply all subscripts by a whole number to remove fractions (e.g., ×2, ×3).</li>
+          </ol>
+
+          <p><strong>Molecular formula:</strong></p>
+          <p class="formula">
+            molecular formula = empirical formula × (molar mass ÷ empirical formula mass)
+          </p>
+          <button class="copy-btn" onclick="copyText('copy35_trunk')">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="node">
+        <div class="node-header">
+          🍃 LEAVES — Examples, Tips, and Interpretations
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content">
+          <ul>
+            <li><strong>Example 1 (percentage composition of sugar):</strong> C₁₂H₂₂O₁₁, M = 342 g/mol.<br />
+              Carbon in 1 mol: 144 g → %C =
+              <span class="formula">144 ÷ 342 × 100% ≈ 42.1%</span>.<br />
+              Similar calculations give %H and %O.
+            </li>
+
+            <li><strong>Example 2 (finding an empirical formula):</strong><br />
+              48.65% C, 8.11% H, 43.24% O<br />
+              Assume 100 g → 48.65 g C, 8.11 g H, 43.24 g O.<br />
+              Convert to moles (approx.): C 4.05, H 8.04, O 2.70.<br />
+              Divide by smallest (2.70) → C 1.5, H ~3.0, O 1.0.<br />
+              Multiply all by 2 → empirical formula
+              <span class="formula">C₃H₆O₂</span>.
+            </li>
+
+            <li><strong>Example 3 (molecular formula):</strong><br />
+              Empirical formula = CH₂, empirical mass = 14 g/mol, actual molar mass = 42 g/mol.<br />
+              Ratio:
+              <span class="formula">42 ÷ 14 = 3</span> → multiply subscripts by 3<br />
+              → molecular formula
+              <span class="formula">C₃H₆</span>.
+            </li>
+
+            <li>Tip: If you get subscripts like 1.33 or 1.5, multiply all by 3 or 2 respectively to obtain whole numbers.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3.6 -->
+    <div class="section-card" id="sec36">
+      <h2>3.6 Molarity & Ions in Solution</h2>
+      <h3>Solutions, concentration, and counting ions</h3>
+
+      <div class="node">
+        <div class="node-header">
+          🌱 ROOTS — Core Ideas & Definitions
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content" id="copy36_roots">
+          <ul>
+            <li>A <strong>solution</strong> is a homogeneous mixture of a <strong>solute</strong> dissolved in a <strong>solvent</strong> (often water).</li>
+            <li><strong>Molarity (M)</strong> is the molar concentration of a solution:
+              <span class="formula">M = mol solute / L solution</span>.
+            </li>
+            <li>A <strong>standard solution</strong> has a carefully known molar concentration.</li>
+            <li>Ionic compounds dissociate into ions when dissolved; the formula tells the ratio of ions produced.</li>
+          </ul>
+          <button class="copy-btn" onclick="copyText('copy36_roots')">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="node">
+        <div class="node-header">
+          🌳 TRUNK — Molarity & Ion Relationships
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content" id="copy36_trunk">
+          <p><strong>Molarity formulas:</strong></p>
+          <p class="formula">
+            n = M × V<br />
+            V = n ÷ M<br />
+            mass = M × V × molar mass
+          </p>
+
+          <p><strong>Preparing a standard solution (conceptual steps):</strong></p>
+          <ol>
+            <li>Calculate moles of solute from the desired molarity and volume.</li>
+            <li>Convert moles to mass using molar mass.</li>
+            <li>Weigh that mass of solute, dissolve in some water, and then dilute <em>up to</em> the desired final volume.</li>
+          </ol>
+
+          <p><strong>Dissociation and ion ratios (examples):</strong></p>
+          <p class="formula">
+            CaCl₂(s) → Ca²⁺(aq) + 2Cl⁻(aq)
+          </p>
+          <p>
+            For a 3.0 M CaCl₂ solution: [Ca²⁺] = 3.0 M, [Cl⁻] = 6.0 M.
+          </p>
+
+          <p class="formula">
+            Al₂(SO₄)₃(s) → 2Al³⁺(aq) + 3SO₄²⁻(aq)
+          </p>
+          <p>
+            1 mol of Al₂(SO₄)₃ produces 2 mol Al³⁺ and 3 mol SO₄²⁻.
+          </p>
+          <button class="copy-btn" onclick="copyText('copy36_trunk')">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="node">
+        <div class="node-header">
+          🍃 LEAVES — Examples, Tips, and Multi-Step Problems
+          <span class="chevron">▼</span>
+        </div>
+        <div class="node-content">
+          <ul>
+            <li><strong>Example 1 (volume → moles):</strong><br />
+              How many moles of NaCl are in 0.435 L of 0.60 M seawater?<br />
+              <span class="formula">
+                n = M × V = 0.60 mol/L × 0.435 L ≈ 0.26 mol NaCl
+              </span>
+            </li>
+
+            <li><strong>Example 2 (moles → volume):</strong><br />
+              Volume of 3.0 M HCl containing 0.25 mol HCl:<br />
+              <span class="formula">
+                V = n ÷ M = 0.25 mol ÷ 3.0 mol/L ≈ 0.083 L
+              </span>
+            </li>
+
+            <li><strong>Example 3 (preparing a standard solution):</strong><br />
+              To make 0.055 L of 0.20 M KCl:<br />
+              <span class="formula">
+                n = M × V = 0.20 × 0.055 = 0.011 mol<br />
+                mass = 0.011 mol × 74.6 g/mol ≈ 0.82 g KCl
+              </span><br />
+              Weigh 0.82 g KCl, dissolve in water, and dilute up to 55 mL.
+            </li>
+
+            <li><strong>Example 4 (fluoride ions ingested):</strong><br />
+              2.0 L of 0.047 M F⁻ solution:<br />
+              <span class="formula">
+                n(F⁻) = 0.047 mol/L × 2.0 L = 0.094 mol<br />
+                number of F⁻ ions = 0.094 mol × 6.02×10²³ ≈ 5.7×10²² ions
+              </span>
+            </li>
+
+            <li><strong>Example 5 (ions from AlCl₃):</strong><br />
+              0.025 L of 0.30 M AlCl₃ → Cl⁻ ions<br />
+              <span class="formula">
+                n(AlCl₃) = 0.30 × 0.025 = 0.0075 mol<br />
+                AlCl₃ → Al³⁺ + 3Cl⁻ → n(Cl⁻) = 0.0075 × 3 = 0.0225 mol<br />
+                number of Cl⁻ ions = 0.0225 mol × 6.02×10²³ ≈ 1.35×10²² ions
+              </span>
+            </li>
+
+            <li>Tip: For any ionic solution, first find moles of the compound, then use the ion ratio from the formula, and finally convert to particles if needed.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
+
