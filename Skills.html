@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chem 11 – Skills & Processes of Chemistry (Chapter 1 Map)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0c1020;
+      --bg-softer: #111827;
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.15);
+      --accent-strong: rgba(249, 115, 22, 0.35);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-soft: #1f2937;
+      --danger: #ef4444;
+      --radius-lg: 1.25rem;
+      --radius-xl: 1.75rem;
+      --shadow-soft: 0 18px 35px rgba(15, 23, 42, 0.8);
+      --transition-fast: 0.22s ease;
+      --transition-slow: 0.35s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .app-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    header.app-header {
+      padding: 1.25rem 1.25rem 1.5rem;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, #020617, #0b1120);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .app-header h1 {
+      font-size: 1.5rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.3rem;
+    }
+
+    .app-header p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .layout {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+
+    /* Sidebar */
+    aside.sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: var(--radius-xl);
+      padding: 1rem 1rem 1.1rem;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      position: sticky;
+      top: 0.75rem;
+      align-self: flex-start;
+      max-height: calc(100vh - 1.5rem);
+      overflow: auto;
+    }
+
+    .sidebar-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .sidebar-title span.emoji {
+      font-size: 1.05rem;
+    }
+
+    .sidebar-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 0.9rem;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.5rem 2rem 0.5rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #020617;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+        background-color var(--transition-fast);
+    }
+
+    .search-box input::placeholder {
+      color: #6b7280;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+      background: #020617;
+    }
+
+    .search-box-icon {
+      position: absolute;
+      right: 0.55rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      color: #6b7280;
+      pointer-events: none;
+    }
+
+    .sidebar-section-list {
+      margin-top: 0.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .sidebar-link {
+      border-radius: 999px;
+      padding: 0.35rem 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      background: transparent;
+      transition: background-color var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        transform 0.12s ease;
+    }
+
+    .sidebar-link span.left {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .sidebar-link span.code {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+        Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.72rem;
+      padding: 0.05rem 0.4rem;
+      border-radius: 999px;
+      background: rgba(31, 41, 55, 0.95);
+      color: var(--accent);
+    }
+
+    .sidebar-link span.tag {
+      font-size: 0.7rem;
+      color: #6b7280;
+    }
+
+    .sidebar-link:hover {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: var(--border-soft);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .sidebar-link.active {
+      background: var(--accent-soft);
+      border-color: var(--accent-strong);
+      color: var(--text-main);
+    }
+
+    .sidebar-footer {
+      border-top: 1px solid var(--border-soft);
+      margin-top: 0.9rem;
+      padding-top: 0.6rem;
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    /* Main content */
+    main.content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .section-card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 1.1rem 1.1rem 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.4;
+      background: radial-gradient(circle at top left, rgba(249, 115, 22, 0.12), transparent 55%);
+    }
+
+    .section-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-header-title {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: baseline;
+    }
+
+    .section-label {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.78rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--border-soft);
+      color: var(--accent);
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .section-chip {
+      font-size: 0.72rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-muted);
+    }
+
+    .section-summary {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .node-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.6rem;
+    }
+
+    @media (max-width: 900px) {
+      .node-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .node {
+      background: var(--bg-soft);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+        transform 0.14s ease;
+    }
+
+    .node.open {
+      border-color: var(--accent-strong);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .node-header {
+      padding: 0.5rem 0.75rem 0.45rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(17, 24, 39, 1));
+    }
+
+    .node-header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .node-pill {
+      font-size: 0.7rem;
+      padding: 0.05rem 0.4rem;
+      border-radius: 999px;
+      background: rgba(30, 64, 175, 0.3);
+      border: 1px solid rgba(55, 65, 81, 1);
+    }
+
+    .node-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .node-header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .node-chevron {
+      font-size: 0.8rem;
+      transition: transform var(--transition-slow);
+    }
+
+    .node.open .node-chevron {
+      transform: rotate(90deg);
+    }
+
+    .node-body {
+      display: none;
+      padding: 0.5rem 0.75rem 0.7rem;
+      font-size: 0.83rem;
+      color: #e5e7eb;
+    }
+
+    .node.open .node-body {
+      display: block;
+    }
+
+    .node-body p {
+      margin-bottom: 0.4rem;
+    }
+
+    .node-body ul, .node-body ol {
+      padding-left: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .node-body li {
+      margin-bottom: 0.2rem;
+    }
+
+    .node-body strong {
+      font-weight: 600;
+    }
+
+    .node-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.8rem;
+      background: rgba(15, 23, 42, 1);
+      padding: 0.05rem 0.22rem;
+      border-radius: 0.25rem;
+      border: 1px solid rgba(31, 41, 55, 1);
+      color: #e5e7eb;
+    }
+
+    .copy-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.1rem 0.15rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      margin: 0.05rem 0;
+    }
+
+    .copy-text {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    .copy-btn {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 0.1rem 0.35rem;
+      font-size: 0.8rem;
+      background: rgba(15, 23, 42, 1);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color var(--transition-fast),
+        transform 0.08s ease;
+    }
+
+    .copy-btn:hover {
+      background: rgba(30, 64, 175, 0.5);
+      transform: translateY(-0.5px);
+    }
+
+    .copy-btn:active {
+      transform: translateY(0.25px) scale(0.97);
+    }
+
+    .hint-text {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    .highlight {
+      background: rgba(248, 250, 252, 0.04);
+      padding: 0.35rem 0.5rem;
+      border-radius: 0.6rem;
+      border: 1px dashed rgba(55, 65, 81, 0.9);
+      margin-bottom: 0.4rem;
+    }
+
+    .no-results {
+      display: none;
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--danger);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-main);
+      border: 1px solid var(--accent-strong);
+      box-shadow: var(--shadow-soft);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 50;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive layout: sidebar on top for mobile */
+    @media (max-width: 800px) {
+      .layout {
+        flex-direction: column;
+      }
+
+      aside.sidebar {
+        position: static;
+        width: 100%;
+        max-height: none;
+        order: -1;
+      }
+
+      main.content {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <h1>Chemistry 11 – Chapter 1 Skills &amp; Processes</h1>
+      <p>
+        Interactive concept map for: 1.1 Safety &amp; Equipment · 1.2 Lab &amp; Reporting Skills ·
+        1.3 Measurement &amp; Significant Data · 1.4 Unit Analysis &amp; Conversions.
+      </p>
+    </header>
+
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-title">
+          <span class="emoji">🗺️</span>
+          <span>Chapter 1 Map</span>
+        </div>
+        <div class="sidebar-subtitle">
+          Search and jump to any section. All text is double-click-to-copy.
+        </div>
+
+        <div class="search-box">
+          <input
+            id="searchBox"
+            type="text"
+            placeholder="Filter by keyword (e.g. WHMIS, sig figs, slope)"
+          />
+          <span class="search-box-icon">🔍</span>
+          <div id="noResults" class="no-results">No sections match that keyword.</div>
+        </div>
+
+        <nav class="sidebar-section-list">
+          <button class="sidebar-link" data-target="sec-1-1">
+            <span class="left">
+              <span class="code">1.1</span>
+              <span>Staying Safe Around Matter</span>
+            </span>
+            <span class="tag">safety · WHMIS</span>
+          </button>
+          <button class="sidebar-link" data-target="sec-1-2">
+            <span class="left">
+              <span class="code">1.2</span>
+              <span>Laboratory &amp; Reporting Skills</span>
+            </span>
+            <span class="tag">obs · graphs</span>
+          </button>
+          <button class="sidebar-link" data-target="sec-1-3">
+            <span class="left">
+              <span class="code">1.3</span>
+              <span>Measuring Significant Data</span>
+            </span>
+            <span class="tag">SI · sig figs</span>
+          </button>
+          <button class="sidebar-link" data-target="sec-1-4">
+            <span class="left">
+              <span class="code">1.4</span>
+              <span>Unit Analysis &amp; Conversions</span>
+            </span>
+            <span class="tag">DA · temp</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          Tip: <strong>Double-click</strong> any paragraph, list item, or formula to copy it.
+          Use the small <span style="color:var(--accent);">📋</span> buttons for
+          quick equation copies.
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="content" id="contentRoot">
+        <!-- 1.1 -->
+        <section id="sec-1-1" class="section-card">
+          <div class="section-card-inner">
+            <div class="section-header">
+              <div class="section-header-title">
+                <span class="section-label">1.1</span>
+                <h2 class="section-title">Staying Safe Around Matter</h2>
+              </div>
+              <span class="section-chip">lab equipment · WHMIS · emergency skills</span>
+            </div>
+            <p class="section-summary">
+              Safety is the first skill in chemistry. This section explains how to
+              recognize and use laboratory equipment, interpret WHMIS and household
+              hazard symbols, operate safety devices, and follow safe lab behaviour from
+              set-up to clean-up.
+            </p>
+
+            <div class="node-grid">
+              <!-- Roots -->
+              <article class="node open">
+                <header class="node-header">
+                  <div class="node-header-left">
+                    <span class="node-pill">Roots</span>
+                    <span class="node-title">Core Ideas &amp; Definitions</span>
+                  </div>
+                  <div class="node-header-right">
+                    <span>click to collapse</span>
+                    <span class="node-chevron">▶</span>
+                  </div>
+                </header>
+                <div class="node-body">
+                  <div class="highlight">
+                    <strong>Big picture:</strong> the safest chemist is the one who understands
+                    both <em>what</em> equipment does and <em>why</em> procedures exist. Safety
+                    is not just rules; it is applied understanding of matter and risk.
+                  </div>
+
+                  <p><strong>Laboratory glassware.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Beakers</strong> – wide-mouthed cylinders used to hold, mix, and
+                      roughly pour liquids. Their graduations are approximate, not for
+                      precise measurement.
+                    </li>
+                    <li>
+                      <strong>Erlenmeyer flasks</strong> – conical bodies with narrow necks,
+                      excellent for swirling solutions with minimal splashing and for
+                      reactions that might release gases.
+                    </li>
+                    <li>
+                      <strong>Florence flasks</strong> – round-bottom flasks that heat
+                      liquids evenly; their shape avoids “hot spots.”
+                    </li>
+                    <li>
+                      <strong>Test tubes</strong> – small glass cylinders used for
+                      small-scale reactions and heating; easy to observe changes.
+                    </li>
+                    <li>
+                      <strong>Evaporating dishes</strong> and <strong>crucibles</strong> –
+                      ceramic containers that withstand high temperatures: evaporating
+                      dishes for boiling off solvent; crucibles for red-hot heating of solids.
+                    </li>
+                    <li>
+                      <strong>Funnels</strong> – direct liquids and support filter paper
+                      for separating solids from liquids.
+                    </li>
+                    <li>
+                      <strong>Watch glasses</strong> – shallow concave dishes used as
+                      covers or to hold small samples for observation or drying.
+                    </li>
+                  </ul>
+
+                  <p><strong>Volumetric measuring glassware.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Graduated cylinders</strong> – cylinders with precise volume
+                      markings; used for reasonably accurate volume measurement.
+                    </li>
+                    <li>
+                      <strong>Burettes</strong> – tall, narrow tubes with a stopcock at the
+                      bottom; deliver controlled volumes, crucial in titrations.
+                    </li>
+                    <li>
+                      <strong>Pipettes</strong> – glass tubes that deliver fixed volumes
+                      (volumetric pipettes) or variable volumes (graduated pipettes). They
+                      require a bulb; you never mouth-pipette.
+                    </li>
+                    <li>
+                      <strong>Thermometers</strong> – measure temperature; the bulb must be
+                      fully immersed in the substance being measured.
+                    </li>
+                  </ul>
+
+                  <p><strong>Metal hardware.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Ring stands</strong>, <strong>ring clamps</strong>, and
+                      <strong>utility clamps</strong> – form stable frameworks for supporting
+                      beakers, flasks, or burettes over a burner or on a bench.
+                    </li>
+                    <li>
+                      <strong>Bunsen burners</strong> – gas burners with adjustable air
+                      intake; more air produces a hotter, blue flame, less air a cooler,
+                      yellow flame.
+                    </li>
+                    <li>
+                      <strong>Tongs</strong> – specialized for beakers, crucibles, or test
+                      tubes to safely handle hot equipment.
+                    </li>
+                    <li>
+                      <strong>Ceramic pads (wire gauze)</strong> – sit on a ring clamp to
+                      support glassware while heating, spreading the flame’s heat.
+                    </li>
+                    <li>
+                      <strong>Scoopulas</strong> – mini metal scoops for transferring solid
+                      chemicals; not for stirring.
+                    </li>
+                  </ul>
+
+                  <p><strong>Hazard communication systems.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>WHMIS</strong> (Workplace Hazardous Materials Information
+                      System) – Canada’s system for classifying hazardous materials, using
+                      standardized symbols and requiring training and data sheets.
+                    </li>
+                    <li>
+                      <strong>MSDS</strong> (Material Safety Data Sheet) – a detailed document
+                      for each chemical describing its identity, hazards, first-aid measures,
+                      storage, and handling.
+                    </li>
+                    <li>
+                      <strong>Household hazard symbols</strong> – simplified icons on
+                      consumer products; octagon borders indicate danger from the
+                      <em>contents</em>, triangle borders from the <em>container</em>.
+                    </li>
+                  </ul>
+
+                  <p><strong>Core lab safety equipment.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Fume hood</strong> – ventilated enclosure that pulls toxic fumes
+                      away from the user and out of the room.
+                    </li>
+                    <li>
+                      <strong>Eyewash station</strong> – provides a continuous, gentle
+                      stream of water to flush eyes for 10–15 minutes after chemical
+                      exposure; contacts must be removed.
+                    </li>
+                    <li>
+                      <strong>Safety shower</strong> – floods the body with water when
+                      chemicals spill over a large area of skin; contaminated clothing is
+                      removed and rinsing continues for at least 10–15 minutes.
+                    </li>
+                    <li>
+                      <strong>Fire extinguisher</strong> – most lab extinguishers are CO₂
+                      and are used for class A, B, and C fires (solids, liquids, electrical).
+                      They are not used directly on people.
+                    </li>
+                    <li>
+                      <strong>Fire blanket</strong> – used with STOP–DROP–ROLL to smother
+                      flames on a person’s clothing.
+                    </li>
+                    <li>
+                      <strong>Gas shut-off</strong> – cuts gas supply to all burners in an
+                      emergency; usually a large red handle or button.
+                    </li>
+                    <li>
+                      <strong>Spill control and first-aid kits</strong> – contain absorbents,
+                      neutralizers (e.g., baking soda for acids, vinegar for bases) and
+                      supplies to treat minor injuries.
+                    </li>
+                    <li>
+                      <strong>Glass disposal box</strong> – thick container for broken glass
+                      only; glass is never placed in regular garbage.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- Trunk -->
+              <article class="node open">
+                <header class="node-header">
+                  <div class="node-header-left">
+                    <span class="node-pill">Trunk</span>
+                    <span class="node-title">Rules, Patterns &amp; Procedures</span>
+                  </div>
+                  <div class="node-header-right">
+                    <span>click to collapse</span>
+                    <span class="node-chevron">▶</span>
+                  </div>
+                </header>
+                <div class="node-body">
+                  <p><strong>General safety behaviour.</strong></p>
+                  <ul>
+                    <li>Read the entire lab procedure before starting.</li>
+                    <li>Prepare data tables in your notebook ahead of time.</li>
+                    <li>Wear safety goggles and a lab apron whenever chemicals, glass,
+                      or heat are in use.</li>
+                    <li>Tie back long hair; avoid loose clothing and dangling jewellery.</li>
+                    <li>Wear closed-toed shoes; no sandals.</li>
+                    <li>Never eat, drink, or chew gum in the lab.</li>
+                    <li>Never taste chemicals and never pipette by mouth.</li>
+                    <li>Work with a business-like attitude and keep benches tidy.</li>
+                  </ul>
+
+                  <p><strong>Heating techniques and patterns.</strong></p>
+                  <ul>
+                    <li>
+                      When heating a test tube, hold it at about a 45° angle and move the
+                      tube slowly through the flame. Always point the open end away from
+                      yourself and others.
+                    </li>
+                    <li>
+                      Check temperature by bringing your hand near (not onto) glassware;
+                      if you can’t keep your hand nearby, it is still hot.
+                    </li>
+                    <li>
+                      Flammable liquids are heated using a hot plate or water bath, not
+                      an open Bunsen flame.
+                    </li>
+                  </ul>
+
+                  <p><strong>Chemical handling rules.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Smelling chemicals:</strong> never stick your nose over the
+                      container. Instead, gently <em>waft</em> vapours towards your face with
+                      your hand if instructed.
+                    </li>
+                    <li>
+                      Read labels carefully twice before using any reagent: once when you
+                      pick it up, and again before you pour.
+                    </li>
+                    <li>
+                      Hold reagent bottles with the label toward the palm so drips run
+                      down the back, protecting the label.
+                    </li>
+                    <li>
+                      Never return unused chemicals to the stock bottle; this prevents
+                      contamination. Instead, follow your teacher’s disposal instructions.
+                    </li>
+                    <li>
+                      Lubricate glass tubing with water or glycerin before inserting it
+                      into a rubber stopper and hold it close to the end being inserted to
+                      reduce the risk of breakage and cuts.
+                    </li>
+                  </ul>
+
+                  <p><strong>Critical rule: acid and water.</strong></p>
+                  <div class="highlight">
+                    <strong>Always add acid to water, never water to acid.</strong> When
+                    you pour water into concentrated acid, the first drops can boil
+                    instantly and splash acid. Adding acid slowly into a larger volume of
+                    water lets heat spread out safely.
+                  </div>
+
+                  <p><strong>Hazard systems in practice.</strong></p>
+                  <ul>
+                    <li>
+                      WHMIS symbols tell you <em>what type</em> of danger a chemical poses:
+                      flammable, corrosive, toxic, biohazardous, oxidizing, compressed gas,
+                      and so on.
+                    </li>
+                    <li>
+                      The MSDS explains exactly what to do if the chemical is swallowed,
+                      inhaled, spilled, or splashed on skin or eyes; it also gives storage,
+                      reactivity, and disposal guidance.
+                    </li>
+                    <li>
+                      Household symbols on cleaners, fuels, and pesticides warn about
+                      everyday hazards. The border shape quickly tells you whether the
+                      contents or the container is dangerous.
+                    </li>
+                  </ul>
+
+                  <p><strong>Emergency response pattern.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Chemical in eyes:</strong> go immediately to the eyewash
+                      station; rinse while holding eyelids open for at least 10–15 minutes
+                      and tell your teacher.
+                    </li>
+                    <li>
+                      <strong>Chemical on skin:</strong> flush with lots of water; if a
+                      large spill, use the safety shower and remove contaminated clothing.
+                    </li>
+                    <li>
+                      <strong>Fire on clothing:</strong> STOP–DROP–ROLL while someone
+                      covers you with a fire blanket.
+                    </li>
+                    <li>
+                      <strong>Fire in equipment:</strong> turn off gas or power if safe, then
+                      use an appropriate extinguisher; never spray a person with a fire
+                      extinguisher.
+                    </li>
+                    <li>
+                      <strong>Serious spill:</strong> evacuate area if necessary, alert the
+                      teacher, and use spill kits under direction; neutralize acids with
+                      sodium bicarbonate and bases with dilute acetic acid (vinegar) when
+                      told to do so.
+                    </li>
+                  </ul>
+
+                  <p><strong>End-of-lab routine.</strong></p>
+                  <ul>
+                    <li>Turn off burners, gas, and electrical equipment.</li>
+                    <li>Dispose of chemicals in designated containers; never down the
+                      sink unless instructed.</li>
+                    <li>Put broken glass into the glass disposal box.</li>
+                    <li>Wash and rinse glassware; allow it to air-dry.</li>
+                    <li>Wipe benches and wash your hands before leaving.</li>
+                    <li>Label any setups that must remain overnight clearly with your
+                      name and the contents.</li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- Leaves -->
+              <article class="node open">
+                <header class="node-header">
+                  <div class="node-header-left">
+                    <span class="node-pill">Leaves</span>
+                    <span class="node-title">Examples, Tips &amp; Pitfalls</span>
+                  </div>
+                  <div class="node-header-right">
+                    <span>click to collapse</span>
+                    <span class="node-chevron">▶</span>
+                  </div>
+                </header>
+                <div class="node-body">
+                  <p><strong>Example: choosing the right glassware.</strong></p>
+                  <ul>
+                    <li>
+                      To <em>measure exactly</em> 25.00 mL of a solution, choose a
+                      volumetric pipette or burette, not a beaker or Erlenmeyer flask.
+                    </li>
+                    <li>
+                      To <em>heat a solid to red hot</em>, use a crucible on a clay triangle,
+                      not a beaker.
+                    </li>
+                    <li>
+                      To <em>heat a solution gently</em> while stirring, use a beaker on a
+                      ceramic pad over a Bunsen burner or a hot plate.
+                    </li>
+                  </ul>
+
+                  <p><strong>Example: using an MSDS.</strong></p>
+                  <p>
+                    Suppose you are given a bottle of concentrated hydrochloric acid.
+                    From the MSDS you learn that it is corrosive to skin and eyes,
+                    produces choking fumes, and reacts with metals to release hydrogen
+                    gas. This tells you to:
+                  </p>
+                  <ul>
+                    <li>Work in a fume hood for large volumes or strong fumes.</li>
+                    <li>Wear goggles, gloves, and an apron.</li>
+                    <li>Keep away from reactive metals and open flames (because of hydrogen).</li>
+                    <li>Flush skin or eyes with water for 15 minutes if exposed.</li>
+                  </ul>
+
+                  <p><strong>Common pitfalls.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Reading the meniscus from above or below eye level</strong>
+                      results in parallax error; always read at eye level.
+                    </li>
+                    <li>
+                      <strong>Heating a closed container</strong> can cause a dangerous
+                      pressure build-up and possible explosion.
+                    </li>
+                    <li>
+                      <strong>Pipetting by mouth</strong> is extremely unsafe and forbidden;
+                      use a pipette bulb or pump.
+                    </li>
+                    <li>
+                      <strong>Returning unused reagent to the stock bottle</strong> can
+                      contaminate the entire bottle; discard excess as instructed instead.
+                    </li>
+                  </ul>
+
+                  <p><strong>Mental checklist before starting any lab.</strong></p>
+                  <ul>
+                    <li>Do I know where the eyewash, shower, and extinguisher are?</li>
+                    <li>Have I read the entire procedure and asked questions about anything unclear?</li>
+                    <li>Is my bench clear of food, drinks, and clutter?</li>
+                    <li>Do I have goggles, apron, and proper shoes on?</li>
+                  </ul>
+
+                  <p class="hint-text">
+                    <em>Skill goal:</em> by the end of this section, students should treat
+                    lab safety procedures as natural habits, not just rules memorized for a test.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- 1.2 -->
+        <section id="sec-1-2" class="section-card">
+          <div class="section-card-inner">
+            <div class="section-header">
+              <div class="section-header-title">
+                <span class="section-label">1.2</span>
+                <h2 class="section-title">Laboratory &amp; Reporting Skills</h2>
+              </div>
+              <span class="section-chip">observations · scientific method · graphs</span>
+            </div>
+            <p class="section-summary">
+              This section explains how to record observations, use the scientific method,
+              write and manipulate scientific notation, and represent relationships with
+              graphs and equations.
+            </p>
+
+            <div class="node-grid">
+              <!-- Roots -->
+              <article class="node open">
+                <header class="node-header">
+                  <div class="node-header-left">
+                    <span class="node-pill">Roots</span>
+                    <span class="node-title">Core Ideas &amp; Definitions</span>
+                  </div>
+                  <div class="node-header-right">
+                    <span>click to collapse</span>
+                    <span class="node-chevron">▶</span>
+                  </div>
+                </header>
+                <div class="node-body">
+                  <p><strong>Observations.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Qualitative observations</strong> describe qualities—colour,
+                      odour, texture, state of matter, and so on—without numbers. Example:
+                      “The precipitate is bright yellow.”
+                    </li>
+                    <li>
+                      <strong>Quantitative observations</strong> include numbers and units,
+                      such as mass, volume, temperature, length, and time. Example: “The
+                      solution’s temperature increased from 20.0&nbsp;°C to 27.5&nbsp;°C.”
+                    </li>
+                    <li>
+                      <strong>Physical properties</strong> can be observed without changing
+                      the substance (colour, density, melting point).
+                    </li>
+                    <li>
+                      <strong>Chemical properties</strong> are observed when a substance
+                      undergoes a chemical change (reacts with acid, rusts in air, burns).
+                    </li>
+                  </ul>
+
+                  <p><strong>The scientific method.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Observation:</strong> careful noticing and recording of
+                      phenomena; can be qualitative or quantitative.
+                    </li>
+                    <li>
+                      <strong>Hypothesis:</strong> a testable explanation or prediction
+                      often written in “if…then…” form, linking cause and effect.
+                    </li>
+                    <li>
+                      <strong>Experiment:</strong> a controlled test where variables are
+                      manipulated and data are gathered to support or refute the hypothesis.
+                    </li>
+                    <li>
+                      <strong>Theory:</strong> a well-supported explanation that unifies
+                      a broad set of observations and experiments (explains <em>why</em>).
+                    </li>
+                    <li>
+                      <strong>Law:</strong> a statement describing a consistently observed
+                      pattern in nature (describes <em>what</em> happens, not why).
+                    </li>
+                  </ul>
+
+                  <p><strong>Scientific notation.</strong></p>
+                  <ul>
+                    <li>
+                      A number is written as
+                      <span class="copy-wrap">
+                        <span class="copy-text">A × 10ⁿ</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>,
+                      where <em>A</em> (the mantissa) is between 1 and 10 and
+                      <em>n</em> (the exponent) is an integer.
+                    </li>
+                    <li>
+                      Positive exponents represent large numbers (move the decimal to the
+                      right); negative exponents represent small numbers (move decimal left).
+                    </li>
+                    <li>
+                      Example: 0.000 312 = 3.12 × 10⁻⁴; 58 200 = 5.82 × 10⁴.
+                    </li>
+                  </ul>
+
+                  <p><strong>Variables in experiments.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Independent variable</strong> – the quantity you choose or
+                      control (e.g., time, mass added, temperature setting) and place on
+                      the <strong>x-axis</strong>.
+                    </li>
+                    <li>
+                      <strong>Dependent variable</strong> – the quantity that responds and
+                      depends on the independent variable (e.g., extension of a spring,
+                      reaction yield), placed on the <strong>y-axis</strong>.
+                    </li>
+                  </ul>
+
+                  <p><strong>Graphing and relationships.</strong></p>
+                  <ul>
+                    <li>
+                      A <strong>linear (direct) relationship</strong> has the form
+                      <span class="copy-wrap">
+                        <span class="copy-text">y = kx + b</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>,
+                      where <em>k</em> is the slope and <em>b</em> the y-intercept.
+                    </li>
+                    <li>
+                      If <em>b = 0</em>, the relationship is directly proportional:
+                      <span class="copy-wrap">
+                        <span class="copy-text">y = kx</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>.
+                    </li>
+                    <li>
+                      Inverse relationships have the form
+                      <span class="copy-wrap">
+                        <span class="copy-text">y = k/x</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- Trunk -->
+              <article class="node open">
+                <header class="node-header">
+                  <div class="node-header-left">
+                    <span class="node-pill">Trunk</span>
+                    <span class="node-title">Rules, Formulas &amp; Patterns</span>
+                  </div>
+                  <div class="node-header-right">
+                    <span>click to collapse</span>
+                    <span class="node-chevron">▶</span>
+                  </div>
+                </header>
+                <div class="node-body">
+                  <p><strong>Working with scientific notation.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Multiplication:</strong>
+                      <span class="copy-wrap">
+                        <span class="copy-text">(A × 10ᵃ)(B × 10ᵇ) = (A·B) × 10ᵃ⁺ᵇ</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>.
+                      Multiply the mantissas, add the exponents.
+                    </li>
+                    <li>
+                      <strong>Division:</strong>
+                      <span class="copy-wrap">
+                        <span class="copy-text">(A × 10ᵃ)/(B × 10ᵇ) = (A/B) × 10ᵃ⁻ᵇ</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>.
+                      Divide the mantissas, subtract the exponents.
+                    </li>
+                    <li>
+                      <strong>Adding or subtracting:</strong> rewrite numbers so they
+                      have the same exponent, then add or subtract mantissas.
+                    </li>
+                    <li>
+                      <strong>Powers:</strong>
+                      <span class="copy-wrap">
+                        <span class="copy-text">(A × 10ⁿ)ᵐ = Aᵐ × 10ⁿᵐ</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>.
+                    </li>
+                  </ul>
+
+                  <p><strong>Steps for converting to scientific notation.</strong></p>
+                  <ol>
+                    <li>Move the decimal so the number is between 1 and 10.</li>
+                    <li>Count how many places you moved it.</li>
+                    <li>If you moved it left, the exponent is positive; if right, negative.</li>
+                    <li>Attach ×10 to that power: e.g., 0.000 45 → 4.5 × 10⁻⁴.</li>
+                  </ol>
+
+                  <p><strong>Graphing data.</strong></p>
+                  <ul>
+                    <li>Use a clear title describing the relationship (e.g. “Extension
+                      vs. Mass”).</li>
+                    <li>Label axes with variable names and units (e.g. “mass / g”).</li>
+                    <li>Use evenly spaced scales and a neat line of best fit, not
+                      jagged connections between points.</li>
+                    <li>
+                      To find slope,
+                      <span class="copy-wrap">
+                        <span class="copy-text">slope k = Δy / Δx</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>
+                      using two points on the line of best fit, not necessarily actual
+                      data points.
+                    </li>
+                    <li>
+                      Use your slope and y-intercept to write the equation relating
+                      variables, such as “distance = (1.2 m/s)·time + 4.0 m.”
+                    </li>
+                  </ul>
+
+                  <p><strong>Thinking about sources of error.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Errors are not the same as mistakes.</strong> Mistakes are
+                      avoidable blunders; errors are unavoidable limitations like
+                      instrument precision and small environmental variations.
+                    </li>
+                    <li>
+                      When discussing your data, comment on how your design or
+                      equipment might introduce uncertainty and how that shows up in
+                      the graph (scatter, changed slope, shifted intercept).
+                    </li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- Leaves -->
+              <article class="node open">
+                <header class="node-header">
+                  <div class="node-header-left">
+                    <span class="node-pill">Leaves</span>
+                    <span class="node-title">Examples, Tips &amp; Interpretations</span>
+                  </div>
+                  <div class="node-header-right">
+                    <span>click to collapse</span>
+                    <span class="node-chevron">▶</span>
+                  </div>
+                </header>
+                <div class="node-body">
+                  <p><strong>Example 1 – Scientific notation multiplication.</strong></p>
+                  <p>
+                    Multiply (2.5 × 10³)(3.2 × 10⁹).
+                  </p>
+                  <ul>
+                    <li>Mantissas: 2.5 × 3.2 = 8.0.</li>
+                    <li>Exponents: 3 + 9 = 12.</li>
+                    <li>Answer: 8.0 × 10¹².</li>
+                  </ul>
+
+                  <p><strong>Example 2 – Adding numbers in scientific notation.</strong></p>
+                  <p>
+                    Add 5.19 × 10⁷ and 3.14 × 10⁶.
+                  </p>
+                  <ul>
+                    <li>Rewrite 3.14 × 10⁶ as 0.314 × 10⁷.</li>
+                    <li>Add mantissas: 5.19 + 0.314 = 5.504.</li>
+                    <li>Answer: 5.504 × 10⁷.</li>
+                  </ul>
+
+                  <p><strong>Example 3 – Reading a graph.</strong></p>
+                  <p>
+                    If a distance vs. time graph is a straight line and the slope is
+                    1.2&nbsp;m/s, the equation might be:
+                  </p>
+                  <p>
+                    <span class="copy-wrap">
+                      <span class="copy-text">distance = (1.2 m/s)·time + 4.0 m</span>
+                      <button class="copy-btn" title="Copy formula">📋</button>
+                    </span>
+                  </p>
+                  <ul>
+                    <li>The slope (1.2&nbsp;m/s) tells you the speed.</li>
+                    <li>The y-intercept (4.0&nbsp;m) represents the starting distance.</li>
+                  </ul>
+
+                  <p><strong>Common pitfalls and quick fixes.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Problem:</strong> forgetting units on axes and in answers.<br />
+                      <strong>Fix:</strong> always include units in column headings and in
+                      final equations.
+                    </li>
+                    <li>
+                      <strong>Problem:</strong> connecting points with sharp zig-zags instead
+                      of drawing a smooth best-fit line.<br />
+                      <strong>Fix:</strong> aim for a single line that captures the overall
+                      trend, not each individual fluctuation.
+                    </li>
+                    <li>
+                      <strong>Problem:</strong> using the origin and one data point to find
+                      slope when the line does not pass through (0,0).<br />
+                      <strong>Fix:</strong> choose two precise points <em>on the best-fit line</em>.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- 1.3 -->
+        <section id="sec-1-3" class="section-card">
+          <div class="section-card-inner">
+            <div class="section-header">
+              <div class="section-header-title">
+                <span class="section-label">1.3</span>
+                <h2 class="section-title">Measuring &amp; Recording Significant Data</h2>
+              </div>
+              <span class="section-chip">SI system · uncertainty · significant figures</span>
+            </div>
+            <p class="section-summary">
+              This section explains SI units, accuracy vs. precision, types of error,
+              how to record uncertainty, and how to use significant figures correctly in
+              measurements and calculations.
+            </p>
+
+            <div class="node-grid">
+              <!-- Roots -->
+              <article class="node open">
+                <header class="node-header">
+                  <div class="node-header-left">
+                    <span class="node-pill">Roots</span>
+                    <span class="node-title">Core Ideas &amp; Definitions</span>
+                  </div>
+                  <div class="node-header-right">
+                    <span>click to collapse</span>
+                    <span class="node-chevron">▶</span>
+                  </div>
+                </header>
+                <div class="node-body">
+                  <p><strong>The SI system.</strong></p>
+                  <ul>
+                    <li>
+                      The <strong>International System of Units (SI)</strong> is the
+                      globally agreed-upon system used in science and engineering.
+                    </li>
+                    <li>
+                      Key base units: metre (m) for length, kilogram (kg) for mass,
+                      second (s) for time, kelvin (K) for temperature, mole (mol) for amount
+                      of substance, ampere (A) for electric current, candela (cd) for
+                      luminous intensity.
+                    </li>
+                    <li>
+                      Other units (e.g. m/s, J, Pa, g/mL) are derived from combinations of
+                      these base units.
+                    </li>
+                  </ul>
+
+                  <p><strong>Accuracy and precision.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Accuracy</strong> describes how close a measurement is to the
+                      true or accepted value.
+                    </li>
+                    <li>
+                      <strong>Precision</strong> (reproducibility) describes how close
+                      repeated measurements are to each other; it also reflects the
+                      fineness of the instrument’s scale.
+                    </li>
+                    <li>
+                      You can have high precision but low accuracy if an instrument is
+                      consistently mis-calibrated (systematic error).
+                    </li>
+                  </ul>
+
+                  <p><strong>Types of error.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Systematic error</strong> – consistently shifts all values in
+                      one direction; caused by faulty equipment or biased technique
+                      (e.g. balance that reads 0.05&nbsp;g too high).
+                    </li>
+                    <li>
+                      <strong>Random error</strong> – leads to scatter in data; caused by
+                      tiny fluctuations and limits in reading instruments (e.g. timing with
+                      a hand stopwatch).
+                    </li>
+                  </ul>
+
+                  <p><strong>Uncertainty in measurements.</strong></p>
+                  <ul>
+                    <li>
+                      Every measurement has uncertainty; we report this explicitly:
+                      <code>measured value ± uncertainty</code>.
+                    </li>
+                    <li>
+                      Uncertainty is based on the instrument’s smallest scale division,
+                      usually between ±0.1 and ±0.5 of that division.
+                    </li>
+                    <li>
+                      Example: a 50&nbsp;mL cylinder marked every 1&nbsp;mL might give a
+                      volume as 23.4&nbsp;mL ± 0.1&nbsp;mL.
+                    </li>
+                  </ul>
+
+                  <p><strong>Significant figures (sig figs).</strong></p>
+                  <ul>
+                    <li>
+                      Significant figures are the digits in a measurement that are known
+                      reliably, plus one final estimated digit.
+                    </li>
+                    <li>
+                      They indicate how much information (certainty) a measurement truly
+                      contains.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- Trunk -->
+              <article class="node open">
+                <header class="node-header">
+                  <div class="node-header-left">
+                    <span class="node-pill">Trunk</span>
+                    <span class="node-title">Formulas, Rules &amp; Procedures</span>
+                  </div>
+                  <div class="node-header-right">
+                    <span>click to collapse</span>
+                    <span class="node-chevron">▶</span>
+                  </div>
+                </header>
+                <div class="node-body">
+                  <p><strong>SI writing rules.</strong></p>
+                  <ul>
+                    <li>Put a space between the number and unit: 4.6&nbsp;g, 22&nbsp;°C.</li>
+                    <li>Do not pluralize unit symbols (5&nbsp;kg, not 5&nbsp;kgs).</li>
+                    <li>Use lowercase for unit names, except “Celsius.”</li>
+                    <li>Write a leading zero before decimals less than 1 (0.54&nbsp;g).</li>
+                    <li>Group long numbers with spaces (12&nbsp;500&nbsp;000), not commas.</li>
+                    <li>Avoid non-SI abbreviations such as “sec” or “cc.”</li>
+                  </ul>
+
+                  <p><strong>Combining uncertainties.</strong></p>
+                  <ul>
+                    <li>
+                      For addition or subtraction, <strong>add the absolute uncertainties</strong>:
+                      if V₁ = 27.6 ± 0.2&nbsp;mL and V₂ = 14.8 ± 0.2&nbsp;mL,
+                      then V₁ + V₂ = 42.4 ± 0.4&nbsp;mL.
+                    </li>
+                    <li>
+                      <strong>Absolute uncertainty</strong> is the difference between your
+                      measured value and the accepted value:
+                      <span class="copy-wrap">
+                        <span class="copy-text">Δ = measured − accepted</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>.
+                    </li>
+                    <li>
+                      <strong>Percentage error</strong> expresses error relative to the
+                      accepted value:
+                      <span class="copy-wrap">
+                        <span class="copy-text">percent error = (measured − accepted)/accepted × 100%</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>.
+                    </li>
+                  </ul>
+
+                  <p><strong>Counting significant figures.</strong></p>
+                  <ul>
+                    <li>All non-zero digits are significant (246 → 3 sig figs).</li>
+                    <li>
+                      Zeros <strong>between</strong> non-zero digits are significant
+                      (2094 → 4 sig figs).
+                    </li>
+                    <li>
+                      Leading zeros are <strong>not</strong> significant (0.00750 → 3 sig
+                      figs: 7, 5, 0).
+                    </li>
+                    <li>
+                      Trailing zeros are significant if the number has a decimal
+                      (5700. → 4 sig figs; 5700 → 2 sig figs unless specified).
+                    </li>
+                    <li>
+                      Scientific notation is helpful: 2.50 × 10³ clearly has 3 sig figs.
+                    </li>
+                  </ul>
+
+                  <p><strong>Sig fig rules in calculations.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Multiplication &amp; division:</strong> result has the same
+                      number of sig figs as the value with the fewest sig figs.
+                    </li>
+                    <li>
+                      <strong>Addition &amp; subtraction:</strong> result is rounded to the
+                      least precise decimal place among the inputs (not the fewest sig figs).
+                    </li>
+                    <li>
+                      Exact counts (e.g. 12 eggs, 3 beakers) and defined conversions
+                      (1&nbsp;cm = 10&nbsp;mm) do not limit sig figs.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- Leaves -->
+              <article class="node open">
+                <header class="node-header">
+                  <div class="node-header-left">
+                    <span class="node-pill">Leaves</span>
+                    <span class="node-title">Examples, Tips &amp; Interpretations</span>
+                  </div>
+                  <div class="node-header-right">
+                    <span>click to collapse</span>
+                    <span class="node-chevron">▶</span>
+                  </div>
+                </header>
+                <div class="node-body">
+                  <p><strong>Example – Percentage error with a penny.</strong></p>
+                  <p>
+                    Suppose the accepted mass of a penny is 2.46&nbsp;g and your balance
+                    reads 2.57&nbsp;g.
+                  </p>
+                  <ul>
+                    <li>Absolute error: Δ = 2.57 − 2.46 = +0.11&nbsp;g.</li>
+                    <li>
+                      Percent error:
+                      <span class="copy-wrap">
+                        <span class="copy-text">(0.11 g / 2.46 g) × 100% ≈ 4.5%</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>.
+                    </li>
+                    <li>
+                      Interpretation: your mass is slightly higher than the accepted
+                      value; possible causes include a balance that has not been zeroed
+                      or dust/oil on the penny.
+                    </li>
+                  </ul>
+
+                  <p><strong>Example – Significant figures in multiplication.</strong></p>
+                  <p>
+                    Area of a rectangle measured as 22&nbsp;m by 5.40&nbsp;m:
+                  </p>
+                  <ul>
+                    <li>22 has 2 sig figs; 5.40 has 3 sig figs.</li>
+                    <li>Area = 22 × 5.40 = 118.8&nbsp;m².</li>
+                    <li>Round to 2 sig figs → 1.2 × 10²&nbsp;m².</li>
+                  </ul>
+
+                  <p><strong>Example – Significant figures in addition.</strong></p>
+                  <p>
+                    246.812 + 1.3 = 248.112. The first number has 3 decimals, the
+                    second has 1 decimal, so the answer must have 1 decimal:
+                    248.1.
+                  </p>
+
+                  <p><strong>Tips to avoid common mistakes.</strong></p>
+                  <ul>
+                    <li>
+                      Decide sig figs from the <strong>original data</strong>, not your
+                      intermediate calculator results.
+                    </li>
+                    <li>
+                      Perform the full calculation, then round at the end, unless
+                      instructed otherwise.
+                    </li>
+                    <li>
+                      Remember that “more digits on the calculator” does not mean more
+                      real-world certainty; you are limited by your measuring tools.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- 1.4 -->
+        <section id="sec-1-4" class="section-card">
+          <div class="section-card-inner">
+            <div class="section-header">
+              <div class="section-header-title">
+                <span class="section-label">1.4</span>
+                <h2 class="section-title">Analysis of Units &amp; Conversions</h2>
+              </div>
+              <span class="section-chip">dimensional analysis · derived units · temperature</span>
+            </div>
+            <p class="section-summary">
+              This section shows how to convert between units using dimensional
+              analysis, handle derived units and exponents, and move between Celsius,
+              Fahrenheit, and Kelvin temperature scales.
+            </p>
+
+            <div class="node-grid">
+              <!-- Roots -->
+              <article class="node open">
+                <header class="node-header">
+                  <div class="node-header-left">
+                    <span class="node-pill">Roots</span>
+                    <span class="node-title">Core Ideas &amp; Definitions</span>
+                  </div>
+                  <div class="node-header-right">
+                    <span>click to collapse</span>
+                    <span class="node-chevron">▶</span>
+                  </div>
+                </header>
+                <div class="node-body">
+                  <p><strong>Dimensional analysis.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Dimensional analysis</strong> (factor-label method) is a
+                      systematic way to convert units by multiplying by fractions (conversion
+                      factors) equal to 1.
+                    </li>
+                    <li>
+                      A <strong>conversion factor</strong> is built from an equality such as
+                      1&nbsp;inch = 2.54&nbsp;cm, which can be written as:
+                      <span class="copy-wrap">
+                        <span class="copy-text">1 in / 2.54 cm</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>
+                      or
+                      <span class="copy-wrap">
+                        <span class="copy-text">2.54 cm / 1 in</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>.
+                    </li>
+                    <li>
+                      Units cancel like algebraic symbols; the final unit should be the
+                      one you are solving for.
+                    </li>
+                  </ul>
+
+                  <p><strong>Derived units.</strong></p>
+                  <ul>
+                    <li>
+                      Units like m/s, km/h, g/mL, and Pa (N/m²) are <strong>derived units</strong>
+                      because they combine more than one base unit.
+                    </li>
+                    <li>
+                      When converting derived units, you must convert the units in both
+                      the numerator and the denominator.
+                    </li>
+                  </ul>
+
+                  <p><strong>Metric prefixes.</strong></p>
+                  <ul>
+                    <li>
+                      Common prefixes: kilo- (10³), centi- (10⁻²), milli- (10⁻³), micro-
+                      (10⁻⁶), nano- (10⁻⁹), mega- (10⁶), giga- (10⁹).
+                    </li>
+                    <li>
+                      Converting between prefixed units is simply shifting decimal places
+                      because the system is based on powers of ten.
+                    </li>
+                  </ul>
+
+                  <p><strong>Temperature scales.</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Celsius (°C)</strong> – water freezes at 0&nbsp;°C and boils at
+                      100&nbsp;°C at standard pressure.
+                    </li>
+                    <li>
+                      <strong>Fahrenheit (°F)</strong> – water freezes at 32&nbsp;°F and
+                      boils at 212&nbsp;°F; used commonly in the United States.
+                    </li>
+                    <li>
+                      <strong>Kelvin (K)</strong> – absolute temperature scale; 0&nbsp;K is
+                      absolute zero, where particles have minimal thermal motion.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- Trunk -->
+              <article class="node open">
+                <header class="node-header">
+                  <div class="node-header-left">
+                    <span class="node-pill">Trunk</span>
+                    <span class="node-title">Formulas, Rules &amp; Procedures</span>
+                  </div>
+                  <div class="node-header-right">
+                    <span>click to collapse</span>
+                    <span class="node-chevron">▶</span>
+                  </div>
+                </header>
+                <div class="node-body">
+                  <p><strong>General dimensional analysis procedure.</strong></p>
+                  <ol>
+                    <li>Write down the given value as a fraction (over 1).</li>
+                    <li>
+                      Multiply by conversion factors so that unwanted units cancel and the
+                      desired unit remains.
+                    </li>
+                    <li>
+                      Check that all units except the final one have cancelled before
+                      calculating.
+                    </li>
+                    <li>Perform the multiplication and division, then round using sig figs.</li>
+                  </ol>
+
+                  <p><strong>Example – yards to centimetres.</strong></p>
+                  <p>
+                    Convert 1.00&nbsp;yd to cm using:
+                    1&nbsp;yd = 3&nbsp;ft, 1&nbsp;ft = 12&nbsp;in, 1&nbsp;in = 2.54&nbsp;cm.
+                  </p>
+                  <p>
+                    <span class="copy-wrap">
+                      <span class="copy-text">1.00 yd × 3 ft/1 yd × 12 in/1 ft × 2.54 cm/1 in</span>
+                      <button class="copy-btn" title="Copy formula">📋</button>
+                    </span>
+                  </p>
+                  <p>
+                    Units cancel: yd → ft → in → cm. Numerical answer: 91.44&nbsp;cm → 91.4&nbsp;cm (3 sig figs).
+                  </p>
+
+                  <p><strong>Example – km/h to m/s.</strong></p>
+                  <p>
+                    Convert 55.0&nbsp;km/h to m/s.
+                  </p>
+                  <p>
+                    <span class="copy-wrap">
+                      <span class="copy-text">55.0 km/h × 1000 m/1 km × 1 h/3600 s</span>
+                      <button class="copy-btn" title="Copy formula">📋</button>
+                    </span>
+                  </p>
+                  <p>
+                    Result ≈ 15.3&nbsp;m/s (3 sig figs).
+                  </p>
+
+                  <p><strong>Units with exponents.</strong></p>
+                  <ul>
+                    <li>
+                      If 1&nbsp;m = 100&nbsp;cm, then
+                      1&nbsp;m² = (100&nbsp;cm)² = 10⁴&nbsp;cm² and
+                      1&nbsp;m³ = (100&nbsp;cm)³ = 10⁶&nbsp;cm³.
+                    </li>
+                    <li>
+                      When converting squared or cubed units, the conversion factor
+                      itself must be squared or cubed.
+                    </li>
+                  </ul>
+
+                  <p><strong>Temperature conversion formulas.</strong></p>
+                  <ul>
+                    <li>
+                      Celsius ↔ Kelvin:
+                      <span class="copy-wrap">
+                        <span class="copy-text">T(K) = T(°C) + 273.15</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>,
+                      &nbsp;
+                      <span class="copy-wrap">
+                        <span class="copy-text">T(°C) = T(K) − 273.15</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>.
+                    </li>
+                    <li>
+                      Celsius ↔ Fahrenheit:
+                      <span class="copy-wrap">
+                        <span class="copy-text">T(°F) = 1.8·T(°C) + 32</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>,
+                      &nbsp;
+                      <span class="copy-wrap">
+                        <span class="copy-text">T(°C) = (T(°F) − 32) / 1.8</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>.
+                    </li>
+                  </ul>
+
+                  <p><strong>Using rates and densities as conversion factors.</strong></p>
+                  <ul>
+                    <li>
+                      A speed like 330&nbsp;m/s can be written as
+                      <span class="copy-wrap">
+                        <span class="copy-text">330 m/1 s</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>
+                      or its reciprocal 1&nbsp;s/330&nbsp;m, depending on which unit you
+                      need to cancel.
+                    </li>
+                    <li>
+                      A density like 7.13&nbsp;g/mL can be used to convert between mass and
+                      volume:
+                      <span class="copy-wrap">
+                        <span class="copy-text">7.13 g/1 mL</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>
+                      or
+                      <span class="copy-wrap">
+                        <span class="copy-text">1 mL/7.13 g</span>
+                        <button class="copy-btn" title="Copy formula">📋</button>
+                      </span>.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+
+              <!-- Leaves -->
+              <article class="node open">
+                <header class="node-header">
+                  <div class="node-header-left">
+                    <span class="node-pill">Leaves</span>
+                    <span class="node-title">Examples, Tips &amp; Interpretations</span>
+                  </div>
+                  <div class="node-header-right">
+                    <span>click to collapse</span>
+                    <span class="node-chevron">▶</span>
+                  </div>
+                </header>
+                <div class="node-body">
+                  <p><strong>Example – Using speed of sound.</strong></p>
+                  <p>
+                    An explosion occurs 5.0&nbsp;km away. How long until you hear it if
+                    sound travels at 330&nbsp;m/s?
+                  </p>
+                  <ul>
+                    <li>Convert 5.0&nbsp;km to metres: 5.0 × 1000 = 5000&nbsp;m.</li>
+                    <li>
+                      Use reciprocal of speed (you want time, not distance):
+                      5000&nbsp;m × (1&nbsp;s / 330&nbsp;m) ≈ 15&nbsp;s.
+                    </li>
+                    <li>
+                      Interpretation: the sound of the explosion reaches you
+                      about 15&nbsp;seconds after it happens.
+                    </li>
+                  </ul>
+
+                  <p><strong>Example – Using density to find volume.</strong></p>
+                  <p>
+                    What volume of liquid zinc is needed for a 15.0&nbsp;kg casting if
+                    density is 7.13&nbsp;g/mL?
+                  </p>
+                  <ul>
+                    <li>Convert 15.0&nbsp;kg to grams: 15.0 × 1000 = 15&nbsp;000&nbsp;g.</li>
+                    <li>
+                      Use density as a conversion:
+                      15&nbsp;000&nbsp;g × (1&nbsp;mL/7.13&nbsp;g) ≈ 2100&nbsp;mL.
+                    </li>
+                    <li>
+                      Convert to litres: 2100&nbsp;mL × (1&nbsp;L/1000&nbsp;mL) = 2.10&nbsp;L.
+                    </li>
+                  </ul>
+
+                  <p><strong>Example – Temperature conversions.</strong></p>
+                  <ul>
+                    <li>
+                      25.2&nbsp;°C → °F:
+                      (25.2 × 1.8) + 32 ≈ 77.4&nbsp;°F.
+                    </li>
+                    <li>
+                      0&nbsp;K → °F:
+                      0&nbsp;K − 273.15 = −273.15&nbsp;°C;
+                      then (−273.15 × 1.8) + 32 ≈ −459.7&nbsp;°F.
+                    </li>
+                  </ul>
+
+                  <p><strong>Common conversion pitfalls.</strong></p>
+                  <ul>
+                    <li>
+                      Forgetting to convert <em>all</em> units in a derived unit (e.g.
+                      converting km to m but forgetting to convert hours to seconds).
+                    </li>
+                    <li>
+                      Forgetting to square or cube the entire conversion factor when
+                      converting areas or volumes.
+                    </li>
+                    <li>
+                      Mixing up temperature <em>differences</em> and <em>absolute</em> values:
+                      note that a change of 1&nbsp;°C is the same size as a change of 1&nbsp;K,
+                      but °F has a different scale.
+                    </li>
+                  </ul>
+
+                  <p class="hint-text">
+                    <em>Skill goal:</em> by the end of this section, unit conversion
+                    should feel like algebra on units: set up the fractions so units
+                    cancel and the math becomes almost automatic.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Copied to clipboard</div>
+
+  <script>
+    (function () {
+      const sidebarLinks = document.querySelectorAll(".sidebar-link");
+      const cards = document.querySelectorAll(".section-card");
+      const searchBox = document.getElementById("searchBox");
+      const noResults = document.getElementById("noResults");
+      const toast = document.getElementById("toast");
+      const contentRoot = document.getElementById("contentRoot");
+
+      function showToast(message) {
+        if (!toast) return;
+        toast.textContent = message || "Copied to clipboard";
+        toast.classList.add("show");
+        clearTimeout(showToast._timeoutId);
+        showToast._timeoutId = setTimeout(() => {
+          toast.classList.remove("show");
+        }, 1100);
+      }
+
+      // Sidebar smooth scroll
+      sidebarLinks.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetId = btn.getAttribute("data-target");
+          const target = document.getElementById(targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+          sidebarLinks.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+        });
+      });
+
+      // Collapsible nodes
+      document.querySelectorAll(".node-header").forEach((header) => {
+        header.addEventListener("click", () => {
+          const node = header.closest(".node");
+          if (node) {
+            node.classList.toggle("open");
+          }
+        });
+      });
+
+      // Copy buttons
+      document.querySelectorAll(".copy-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const textSpan = btn.previousElementSibling;
+          if (!textSpan) return;
+          const text = textSpan.innerText.trim();
+          if (!navigator.clipboard) {
+            // Fallback
+            const tempArea = document.createElement("textarea");
+            tempArea.value = text;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            try {
+              document.execCommand("copy");
+              showToast();
+            } catch (err) {
+              console.error(err);
+            }
+            document.body.removeChild(tempArea);
+          } else {
+            navigator.clipboard
+              .writeText(text)
+              .then(() => showToast())
+              .catch((err) => console.error(err));
+          }
+        });
+      });
+
+      // Double-click to copy content text
+      if (contentRoot) {
+        contentRoot.addEventListener("dblclick", (e) => {
+          const target = e.target;
+          if (!target) return;
+
+          // Avoid copying icons / buttons
+          if (
+            target.classList.contains("copy-btn") ||
+            target.closest(".copy-btn")
+          ) {
+            return;
+          }
+
+          let copyNode = target;
+          // If they double click on child, step up to a sensible container
+          const candidate = target.closest("p, li, .highlight, .section-summary");
+          if (candidate) {
+            copyNode = candidate;
+          }
+
+          const text = copyNode.innerText.trim();
+          if (!text) return;
+
+          if (!navigator.clipboard) {
+            const tempArea = document.createElement("textarea");
+            tempArea.value = text;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            try {
+              document.execCommand("copy");
+              showToast();
+            } catch (err) {
+              console.error(err);
+            }
+            document.body.removeChild(tempArea);
+          } else {
+            navigator.clipboard
+              .writeText(text)
+              .then(() => showToast())
+              .catch((err) => console.error(err));
+          }
+        });
+      }
+
+      // Search / filter
+      if (searchBox) {
+        searchBox.addEventListener("input", () => {
+          const q = searchBox.value.trim().toLowerCase();
+          let anyVisible = false;
+
+          cards.forEach((card) => {
+            const text = card.innerText.toLowerCase();
+            if (!q || text.includes(q)) {
+              card.style.display = "";
+              anyVisible = true;
+            } else {
+              card.style.display = "none";
+            }
+          });
+
+          if (noResults) {
+            noResults.style.display = anyVisible ? "none" : "block";
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
+
