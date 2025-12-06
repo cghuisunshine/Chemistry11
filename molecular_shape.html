@@ -66,9 +66,9 @@
     }
 
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
       margin-top: 16px;
     }
 
@@ -82,6 +82,15 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      min-height: 80vh;
+      justify-content: center;
+      break-after: page;
+      page-break-after: always;
+    }
+
+    figure:last-child {
+      break-after: auto;
+      page-break-after: auto;
     }
 
     img {
@@ -90,6 +99,8 @@
       border-radius: calc(var(--radius) - 4px);
       background: var(--panel-soft);
       border: 1px solid rgba(255,255,255,0.06);
+      max-height: calc(100vh - 220px);
+      object-fit: contain;
     }
 
     figcaption {
