@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Molecular Shape Gallery</title>
+  <style>
+    :root {
+      --bg: #060915;
+      --panel: #0f1426;
+      --panel-soft: rgba(255,255,255,0.04);
+      --ink: #e9edff;
+      --muted: #a5b0d2;
+      --accent: #7dc4ff;
+      --accent2: #6ee7b7;
+      --radius: 16px;
+      --shadow: 0 14px 38px rgba(0,0,0,0.38);
+      --sans: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(1000px 700px at 12% 8%, #131c3a 0%, #0b1020 45%, #050815 100%);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.6;
+      padding: clamp(18px, 4vw, 32px);
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: color-mix(in oklab, var(--panel) 88%, black 12%);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: clamp(16px, 3vw, 28px);
+      box-shadow: var(--shadow);
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(24px, 4vw, 36px);
+      letter-spacing: 0.3px;
+    }
+
+    .lede {
+      margin: 0;
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    figure {
+      margin: 0;
+      background: linear-gradient(145deg, var(--panel), color-mix(in oklab, var(--panel) 80%, #1a2340 20%));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 10px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      border-radius: calc(var(--radius) - 4px);
+      background: var(--panel-soft);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    figcaption {
+      font-size: 14px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(125,196,255,0.12);
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="eyebrow">VSEPR Quick Look</div>
+      <h1>Molecular Shape Gallery</h1>
+      <p class="lede">Parent shape reference appears first, followed by three example sets to help visualize common molecular geometries.</p>
+    </header>
+
+    <section class="gallery">
+      <figure>
+        <img src="parent_shape.jpg" alt="Table showing VSEPR parent shapes and 3D representations" />
+        <figcaption><span class="dot" aria-hidden="true"></span>Parent shapes overview (E+X counts and 3D models)</figcaption>
+      </figure>
+      <figure>
+        <img src="molecule_shape_1.jpg" alt="Molecular shape chart part 1" />
+        <figcaption><span class="dot" aria-hidden="true"></span>Molecular shapes set 1</figcaption>
+      </figure>
+      <figure>
+        <img src="molecule_shape_2.jpg" alt="Molecular shape chart part 2" />
+        <figcaption><span class="dot" aria-hidden="true"></span>Molecular shapes set 2</figcaption>
+      </figure>
+      <figure>
+        <img src="molecule_shape_3.jpg" alt="Molecular shape chart part 3" />
+        <figcaption><span class="dot" aria-hidden="true"></span>Molecular shapes set 3</figcaption>
+      </figure>
+    </section>
+  </div>
+</body>
+</html>
