@@ -48,6 +48,14 @@
       width: 100%;
     }
 
+    .app.sidebar-collapsed {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .app.sidebar-collapsed .sidebar {
+      display: none;
+    }
+
     @media (max-width: 840px) {
       .app {
         grid-template-columns: minmax(0, 1fr);
@@ -64,6 +72,10 @@
     }
 
     /* Sidebar */
+    .sidebar {
+      transition: opacity var(--transition-fast);
+    }
+
     .sidebar-header {
       display: flex;
       align-items: center;
@@ -238,11 +250,18 @@
     /* Main */
     .main-header {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       justify-content: space-between;
       gap: 10px;
       flex-wrap: wrap;
       margin-bottom: 10px;
+    }
+
+    .main-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .main-header h2 {
@@ -262,6 +281,40 @@
       border-radius: 999px;
       border: 1px solid rgba(255, 255, 255, 0.12);
       color: var(--muted);
+    }
+
+    .nav-toggle {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.04);
+      color: #e4e8ff;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--transition-fast), border var(--transition-fast),
+        transform var(--transition-fast), color var(--transition-fast);
+    }
+
+    .nav-toggle:hover {
+      background: rgba(79, 141, 255, 0.16);
+      border-color: rgba(79, 141, 255, 0.4);
+      color: #f1f4ff;
+      transform: translateY(-1px);
+    }
+
+    .nav-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 840px) {
+      .nav-toggle {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     .map-grid {
@@ -485,7 +538,7 @@
 <body>
   <div class="app">
     <!-- Sidebar -->
-    <aside class="panel">
+    <aside class="panel sidebar" id="sidebar">
       <div class="sidebar-header">
         <div>
           <div class="badge">Chem 11 – Unit 7</div>
@@ -560,11 +613,22 @@
     <!-- Main -->
     <main class="panel">
       <div class="main-header">
-        <h2>Concept Map</h2>
-        <div class="pill-row">
-          <div class="pill">Double-click formulas to copy</div>
-          <div class="pill">Click headers to collapse/expand nodes</div>
+        <div class="main-header-left">
+          <h2>Concept Map</h2>
+          <div class="pill-row">
+            <div class="pill">Double-click formulas to copy</div>
+            <div class="pill">Click headers to collapse/expand nodes</div>
+          </div>
         </div>
+        <button
+          class="nav-toggle"
+          id="sidebar-toggle"
+          type="button"
+          aria-expanded="true"
+          aria-controls="sidebar"
+        >
+          Hide navigation
+        </button>
       </div>
 
       <section class="map-grid">
@@ -1045,6 +1109,13 @@
   </div>
 
   <script>
+    const app = document.querySelector(".app");
+    const sidebar = document.getElementById("sidebar");
+    const sidebarToggle = document.getElementById("sidebar-toggle");
+    const searchInput = document.getElementById("search-input");
+    const clearBtn = document.getElementById("clear-search");
+    const cards = document.querySelectorAll(".card");
+
     // Expand all nodes initially and set max-heights
     document.querySelectorAll(".node").forEach((node) => {
       const body = node.querySelector(".node-body");
@@ -1093,6 +1164,38 @@
       });
     });
 
+    // Sidebar collapse/expand
+    function setSidebarCollapsed(shouldCollapse) {
+      if (!app || !sidebarToggle) return;
+      if (shouldCollapse) {
+        app.classList.add("sidebar-collapsed");
+        sidebarToggle.setAttribute("aria-expanded", "false");
+        sidebarToggle.textContent = "Show navigation";
+        if (sidebar) {
+          sidebar.setAttribute("aria-hidden", "true");
+        }
+      } else {
+        app.classList.remove("sidebar-collapsed");
+        sidebarToggle.setAttribute("aria-expanded", "true");
+        sidebarToggle.textContent = "Hide navigation";
+        if (sidebar) {
+          sidebar.setAttribute("aria-hidden", "false");
+        }
+        if (searchInput) {
+          searchInput.focus();
+        }
+      }
+    }
+
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener("click", () => {
+        const shouldCollapse = app ? !app.classList.contains("sidebar-collapsed") : false;
+        setSidebarCollapsed(shouldCollapse);
+      });
+      const initialCollapsed = app ? app.classList.contains("sidebar-collapsed") : false;
+      setSidebarCollapsed(initialCollapsed);
+    }
+
     // Copy buttons
     document.querySelectorAll(".copy-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
@@ -1125,9 +1228,6 @@
     });
 
     // Simple search/filter
-    const searchInput = document.getElementById("search-input");
-    const clearBtn = document.getElementById("clear-search");
-    const cards = document.querySelectorAll(".card");
 
     function clearHighlights() {
       document
@@ -1234,4 +1334,3 @@
   </script>
 </body>
 </html>
-
