@@ -212,6 +212,45 @@
     <div class="formula">
       \( IE(\text{B}) < IE(\text{Be}) \)
     </div>
+
+    <h3>🔍 Why Mg &gt; Al</h3>
+    <p><strong>Q:</strong> Why does the first ionization energy of Mg (7.61 eV) exceed that of Al (5.95 eV)?</p>
+    <p>
+      <strong>A:</strong> Removing Al’s 3p electron is easier than removing Mg’s 3s electron because the 3p
+      electron sits farther out, is more shielded, and is higher in energy, so its net Coulomb
+      attraction to the nucleus is weaker.
+    </p>
+    <p>Using the same Coulomb balance of attraction and repulsion:</p>
+    <div class="formula">
+      \( IE \propto \left( \dfrac{Ze^2}{4\pi \epsilon_0 r} \right) - \left( \sum \dfrac{e^2}{4\pi \epsilon_0 r_{ei}} \right) \)
+    </div>
+    <p>Summarize it with effective nuclear charge, where shielding reduces the attraction term:</p>
+    <div class="formula">
+      \( IE \propto \dfrac{Z_{\text{eff}}}{r} \quad\text{with}\quad Z_{\text{eff}} = Z - S \)
+    </div>
+    <p>Apply this to the electron being removed:</p>
+    <ul>
+      <li>
+        <strong>Mg (3s<sup>2</sup>)</strong>: remove a 3s electron. 3s penetrates more &rarr; smaller \(r\);
+        less shielding from same-shell electrons &rarr; larger \(Z_{\text{eff}}\); orbital energy is
+        lower (more negative, more stable). Together this makes \(Z_{\text{eff}}/r\) large and the
+        electron harder to pull off.
+      </li>
+      <li>
+        <strong>Al (3s<sup>2</sup> 3p<sup>1</sup>)</strong>: remove a 3p electron. 3p is less penetrating
+        &rarr; larger \(r\); stronger shielding from 3s and other 3p electrons &rarr; smaller
+        \(Z_{\text{eff}}\); orbital energy is higher (less negative, less stable). Together this makes
+        \(Z_{\text{eff}}/r\) smaller and the electron easier to remove.
+      </li>
+    </ul>
+    <div class="formula">
+      \( \dfrac{Z_{\text{eff}}}{r} \bigg|_{\text{Al, 3p}} < \dfrac{Z_{\text{eff}}}{r} \bigg|_{\text{Mg, 3s}} \;\Rightarrow\; IE(\text{Al}) < IE(\text{Mg}) \)
+    </div>
+    <p>
+      In one sentence: a 3p electron is farther away, more shielded, and higher in energy than a 3s
+      electron, so Al’s 3p electron feels less nuclear pull and needs less energy to remove than Mg’s
+      3s electron.
+    </p>
   </div>
   <script>
     window.MathJax = {
