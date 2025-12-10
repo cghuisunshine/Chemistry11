@@ -92,11 +92,45 @@
       color: var(--text-muted);
     }
 
+    .header-actions {
+      margin-top: 0.65rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .nav-toggle {
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-main);
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+        color var(--transition-fast), transform 0.12s ease;
+    }
+
+    .nav-toggle:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .nav-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
     .layout {
       display: flex;
       gap: 1.25rem;
       align-items: flex-start;
       margin-top: 1rem;
+    }
+
+    .layout.nav-collapsed .sidebar {
+      display: none;
     }
 
     /* Sidebar */
@@ -466,11 +500,22 @@
         <div class="badge">📋 Click buttons to copy formulas</div>
         <div class="badge">Dark theme • Mobile friendly</div>
       </div>
+      <div class="header-actions">
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+          aria-controls="sidebar"
+          aria-expanded="true"
+        >
+          Hide navigation
+        </button>
+      </div>
     </header>
 
     <div class="layout">
       <!-- Sidebar -->
-      <aside class="sidebar">
+      <aside class="sidebar" id="sidebar">
         <h2>Chapter Map</h2>
         <div class="search-box">
           <span class="search-icon">🔍</span>
@@ -1573,6 +1618,28 @@
   <div class="copy-toast" id="copyToast">Copied to clipboard ✅</div>
 
   <script>
+    const layout = document.querySelector(".layout");
+    const sidebar = document.getElementById("sidebar");
+    const navToggle = document.getElementById("navToggle");
+
+    function setNavCollapsed(shouldCollapse) {
+      if (!layout || !navToggle) return;
+      layout.classList.toggle("nav-collapsed", shouldCollapse);
+      navToggle.textContent = shouldCollapse ? "Show navigation" : "Hide navigation";
+      navToggle.setAttribute("aria-expanded", shouldCollapse ? "false" : "true");
+      if (sidebar) {
+        sidebar.setAttribute("aria-hidden", shouldCollapse ? "true" : "false");
+      }
+    }
+
+    if (navToggle) {
+      navToggle.addEventListener("click", () => {
+        const shouldCollapse = layout ? !layout.classList.contains("nav-collapsed") : false;
+        setNavCollapsed(shouldCollapse);
+      });
+      setNavCollapsed(layout ? layout.classList.contains("nav-collapsed") : false);
+    }
+
     // Collapsible nodes
     document.querySelectorAll(".node-header").forEach((header) => {
       header.addEventListener("click", () => {
@@ -1718,4 +1785,3 @@
   </script>
 </body>
 </html>
-

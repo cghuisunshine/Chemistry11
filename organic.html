@@ -16,6 +16,50 @@ body {
   display: flex;
 }
 
+body.nav-collapsed {
+  flex-direction: column;
+}
+
+body.nav-collapsed #sidebar {
+  display: none;
+}
+
+body.nav-collapsed #content {
+  margin-left: 0;
+  width: 100%;
+}
+
+.nav-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.nav-toggle {
+  border: 1px solid #303540;
+  background: #10131a;
+  color: #f1f1f1;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+}
+
+.nav-toggle:hover {
+  background: rgba(97, 168, 255, 0.12);
+  border-color: #61a8ff;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid #61a8ff;
+  outline-offset: 2px;
+}
+
 /* ===== SIDEBAR ===== */
 #sidebar {
   width: 270px;
@@ -246,6 +290,17 @@ ol {
 
 <!-- ========== MAIN CONTENT ========== -->
 <div id="content">
+  <div class="nav-toolbar">
+    <button
+      class="nav-toggle"
+      id="navToggle"
+      type="button"
+      aria-controls="sidebar"
+      aria-expanded="true"
+    >
+      Hide navigation
+    </button>
+  </div>
 
   <!-- INTRO -->
   <div class="intro-card">
@@ -910,6 +965,28 @@ ol {
 </div><!-- end content -->
 
 <script>
+const navToggle = document.getElementById('navToggle');
+const sidebar = document.getElementById('sidebar');
+
+function setNavCollapsed(shouldCollapse) {
+  document.body.classList.toggle('nav-collapsed', shouldCollapse);
+  if (navToggle) {
+    navToggle.textContent = shouldCollapse ? 'Show navigation' : 'Hide navigation';
+    navToggle.setAttribute('aria-expanded', shouldCollapse ? 'false' : 'true');
+  }
+  if (sidebar) {
+    sidebar.setAttribute('aria-hidden', shouldCollapse ? 'true' : 'false');
+  }
+}
+
+if (navToggle) {
+  navToggle.addEventListener('click', () => {
+    const shouldCollapse = !document.body.classList.contains('nav-collapsed');
+    setNavCollapsed(shouldCollapse);
+  });
+  setNavCollapsed(document.body.classList.contains('nav-collapsed'));
+}
+
 // ===== COLLAPSIBLE BEHAVIOR =====
 document.querySelectorAll('.node-header').forEach(header => {
   header.addEventListener('click', () => {
@@ -942,4 +1019,3 @@ document.getElementById('search').addEventListener('input', function () {
 
 </body>
 </html>
-

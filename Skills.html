@@ -66,10 +66,44 @@
       color: var(--text-muted);
     }
 
+    .header-actions {
+      margin-top: 0.75rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .nav-toggle {
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, 0.92);
+      color: var(--text-main);
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+        color var(--transition-fast), transform 0.12s ease;
+    }
+
+    .nav-toggle:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .nav-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
     .layout {
       display: flex;
       gap: 1.25rem;
       align-items: flex-start;
+    }
+
+    .layout.nav-collapsed .sidebar {
+      display: none;
     }
 
     /* Sidebar */
@@ -517,11 +551,22 @@
         Interactive concept map for: 1.1 Safety &amp; Equipment · 1.2 Lab &amp; Reporting Skills ·
         1.3 Measurement &amp; Significant Data · 1.4 Unit Analysis &amp; Conversions.
       </p>
+      <div class="header-actions">
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+          aria-controls="sidebar"
+          aria-expanded="true"
+        >
+          Hide navigation
+        </button>
+      </div>
     </header>
 
     <div class="layout">
       <!-- SIDEBAR -->
-      <aside class="sidebar">
+      <aside class="sidebar" id="sidebar">
         <div class="sidebar-title">
           <span class="emoji">🗺️</span>
           <span>Chapter 1 Map</span>
@@ -1871,6 +1916,9 @@
       const noResults = document.getElementById("noResults");
       const toast = document.getElementById("toast");
       const contentRoot = document.getElementById("contentRoot");
+      const layout = document.querySelector(".layout");
+      const sidebar = document.getElementById("sidebar");
+      const navToggle = document.getElementById("navToggle");
 
       function showToast(message) {
         if (!toast) return;
@@ -1880,6 +1928,24 @@
         showToast._timeoutId = setTimeout(() => {
           toast.classList.remove("show");
         }, 1100);
+      }
+
+      function setNavCollapsed(shouldCollapse) {
+        if (!layout || !navToggle) return;
+        layout.classList.toggle("nav-collapsed", shouldCollapse);
+        navToggle.textContent = shouldCollapse ? "Show navigation" : "Hide navigation";
+        navToggle.setAttribute("aria-expanded", shouldCollapse ? "false" : "true");
+        if (sidebar) {
+          sidebar.setAttribute("aria-hidden", shouldCollapse ? "true" : "false");
+        }
+      }
+
+      if (navToggle) {
+        navToggle.addEventListener("click", () => {
+          const shouldCollapse = layout ? !layout.classList.contains("nav-collapsed") : false;
+          setNavCollapsed(shouldCollapse);
+        });
+        setNavCollapsed(layout ? layout.classList.contains("nav-collapsed") : false);
       }
 
       // Sidebar smooth scroll
@@ -2004,4 +2070,3 @@
   </script>
 </body>
 </html>
-
