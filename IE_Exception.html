@@ -162,6 +162,44 @@
       \( IE(\text{O}) < IE(\text{N}) \)
     </div>
 
+    <h3>🔍 Why does electron–electron repulsion increase when electrons are paired in the same orbital?</h3>
+    <p>
+      Pauli exclusion forces a paired set into the same spatial orbital with opposite spins, so their
+      charge clouds overlap and the Coulomb repulsion term is maximized. Step-by-step:
+    </p>
+    <ol>
+      <li>
+        <strong>Coulomb repulsion (classical)</strong>:
+        <div class="formula">
+          \( F = \dfrac{e^2}{4\pi \epsilon_0 r^2} \), &nbsp; \( U_{\text{repulsion}} \propto \dfrac{1}{r} \)
+        </div>
+        Larger average separation \(r\) in different orbitals means weaker repulsion. Sharing one
+        orbital shrinks \(r\) (more overlap), so the repulsion energy rises.
+      </li>
+      <li>
+        <strong>Pauli + overlap (quantum)</strong>:
+        opposite spins are allowed only by occupying the <em>same</em> spatial orbital. The overlap
+        integral grows, boosting the electron–electron term:
+        <div class="formula">
+          \( U_{\text{repulsion}} \sim \int \dfrac{e^2}{4\pi \epsilon_0 r_{12}}
+          \left|\psi(r_1)\right|^2 \left|\psi(r_2)\right|^2 \, dr_1 dr_2 \)
+        </div>
+        Strong overlap \(\lvert \psi \rvert\) makes this integral large, so pairing costs energy.
+      </li>
+      <li>
+        <strong>Hund's rule consequence</strong>:
+        pairing is expensive, so electrons spread across degenerate orbitals first to minimize
+        \( U_{\text{repulsion}} \).
+      </li>
+      <li>
+        <strong>Applied to N vs O</strong>:
+        N (2p\(^3\)) has three unpaired electrons in three p orbitals &rarr; minimal repulsion. O
+        (2p\(^4\)) must pair one orbital, so \( U_{\text{repulsion}}(\text{O}) >
+        U_{\text{repulsion}}(\text{N}) \). Removing that paired electron relieves the repulsion, so
+        \( IE(\text{O}) < IE(\text{N}) \).
+      </li>
+    </ol>
+
     <h3>🔍 Why this explains Be &gt; B</h3>
     <ul>
       <li>B removes a 2p electron (higher energy, smaller \(Z_{\text{eff}}\)).</li>
