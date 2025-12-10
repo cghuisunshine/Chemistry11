@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ionization Energy – Mathematical Explanation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 2rem;
+      background-color: #fdfdfd;
+      color: #222;
+    }
+    h1, h2 {
+      color: #003366;
+    }
+    .question {
+      border-left: 4px solid #003366;
+      padding-left: 1rem;
+      margin-bottom: 1.5rem;
+      background-color: #f0f4ff;
+    }
+    .answer {
+      border: 1px solid #ccc;
+      padding: 1.5rem;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+    code {
+      background-color: #f3f3f3;
+      padding: 0.1rem 0.2rem;
+      border-radius: 4px;
+    }
+    .formula {
+      margin: 1rem 0;
+      padding: 0.7rem;
+      background-color: #f9f9f9;
+      border-left: 3px solid #999;
+      font-family: "Times New Roman", serif;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ionization Energy – Mathematical Explanation</h1>
+
+  <h2>Question</h2>
+  <div class="question">
+    Explain that mathematically: It is proportional to the magnitude of the electrostatic attraction between the electrons being removed and the nucleus, combined with the electrostatic repulsion from the remaining electrons.
+  </div>
+
+  <h2>Answer</h2>
+  <div class="answer">
+    <p>Here is the mathematical explanation of the sentence:</p>
+
+    <p><em>“Ionization energy is proportional to the magnitude of the electrostatic attraction between the electron being removed and the nucleus, combined with the electrostatic repulsion from the remaining electrons.”</em></p>
+
+    <p>We express both <strong>attraction</strong> and <strong>repulsion</strong> using Coulomb’s law.</p>
+
+    <h3>1. Electrostatic attraction (nucleus pulling the electron in)</h3>
+    <p>
+      The nucleus has charge \(+Ze\) and the electron has charge \(-e\).<br />
+      By Coulomb’s law, the force of attraction is
+    </p>
+    <div class="formula">
+      \( F_{\text{attract}} = \dfrac{Ze^2}{4\pi \epsilon_0 r^2} \)
+    </div>
+    <p>The associated potential energy is</p>
+    <div class="formula">
+      \( U_{\text{attract}} = - \dfrac{Ze^2}{4\pi \epsilon_0 r} \)
+    </div>
+    <p>
+      This term is negative because attraction stabilizes the electron. The ionization energy
+      contribution is proportional to the magnitude of this stabilization:
+    </p>
+    <div class="formula">
+      \( IE \propto \left|U_{\text{attract}}\right| = \dfrac{Ze^2}{4\pi \epsilon_0 r} \)
+    </div>
+    <p>
+      So:
+      <ul>
+        <li>Larger \(Z\) &rarr; stronger attraction &rarr; higher ionization energy.</li>
+        <li>Smaller radius \(r\) &rarr; electron closer to nucleus &rarr; higher ionization energy.</li>
+      </ul>
+    </p>
+
+    <h3>2. Electron–electron repulsion (other electrons pushing the electron out)</h3>
+    <p>
+      Each remaining electron has charge \(-e\). If there are \(n\) other electrons, their average
+      repulsive contribution to the potential energy for the electron being removed is
+    </p>
+    <div class="formula">
+      \( U_{\text{repulsion}} = \sum_{i=1}^{n} \dfrac{e^2}{4\pi \epsilon_0 r_{ei}} \)
+    </div>
+    <p>
+      This energy is positive because repulsion makes the electron easier to remove, so it <em>reduces</em>
+      the ionization energy.
+    </p>
+    <p>Altogether, a simple proportionality is</p>
+    <div class="formula">
+      \( IE \propto \dfrac{Ze^2}{4\pi \epsilon_0 r} - \sum_{i=1}^{n} \dfrac{e^2}{4\pi \epsilon_0 r_{ei}} \)
+    </div>
+
+    <h3>3. Combine attraction and repulsion: effective nuclear charge</h3>
+    <p>
+      We often summarize the effect of nuclear attraction and electron repulsion using the
+      <strong>effective nuclear charge</strong>:
+    </p>
+    <div class="formula">
+      \( Z_{\text{eff}} = Z - S \)
+    </div>
+    <p>
+      where \(Z\) is the actual nuclear charge and \(S\) is a shielding constant that represents
+      the average repulsion from other electrons.
+    </p>
+    <p>The electron then “feels” a net potential energy</p>
+    <div class="formula">
+      \( U_{\text{total}} = - \dfrac{Z_{\text{eff}} e^2}{4\pi \epsilon_0 r} \)
+    </div>
+    <p>
+      Since the ionization energy is proportional to the magnitude of this stabilization, we can write
+    </p>
+    <div class="formula">
+      \( IE \propto \dfrac{Z_{\text{eff}}}{r} \)
+    </div>
+    <p>
+      A more refined (quantum mechanical) expression for an electron in a shell with principal
+      quantum number \(n\) is
+    </p>
+    <div class="formula">
+      \( IE \propto \dfrac{(Z_{\text{eff}})^2}{n^2} \)
+    </div>
+
+    <h3>4. Final compact expression</h3>
+    <p>A compact way to express the original sentence mathematically is:</p>
+    <div class="formula">
+      \( \boxed{ \displaystyle
+      IE \;\propto\; \left( \dfrac{Ze^2}{4\pi \epsilon_0 r} \right)
+      \;-\;
+      \left( \sum_{i=1}^{n} \dfrac{e^2}{4\pi \epsilon_0 r_{ei}} \right)
+      } \)
+    </div>
+    <p>
+      The first term is the magnitude of the electrostatic attraction to the nucleus.
+      The second term represents the net electron–electron repulsion from the remaining electrons.
+      Together they determine how hard it is to remove the electron, i.e., the ionization energy.
+    </p>
+
+    <h3>Why this explains N vs O</h3>
+    <p>
+      Oxygen has a paired 2p electron. That pairing increases electron–electron repulsion, so the
+      repulsion term is larger for oxygen:
+    </p>
+    <div class="formula">
+      \( \sum \dfrac{e^2}{4\pi \epsilon_0 r_{ei}} \text{ is larger in O} \)
+    </div>
+    <p>This reduces the effective nuclear charge felt by that paired electron:</p>
+    <div class="formula">
+      \( Z_{\text{eff}}(\text{O, paired electron}) < Z_{\text{eff}}(\text{N}) \)
+    </div>
+    <p>Consequently:</p>
+    <div class="formula">
+      \( IE(\text{O}) < IE(\text{N}) \)
+    </div>
+
+    <h3>🔍 Why this explains Be &gt; B</h3>
+    <ul>
+      <li>B removes a 2p electron (higher energy, smaller \(Z_{\text{eff}}\)).</li>
+      <li>Be removes a 2s electron (lower energy, larger \(Z_{\text{eff}}\)).</li>
+    </ul>
+    <div class="formula">
+      \( Z_{\text{eff}}(2p \text{ in B}) < Z_{\text{eff}}(2s \text{ in Be}) \)
+    </div>
+    <p>So the ionization energy trend follows:</p>
+    <div class="formula">
+      \( IE(\text{B}) < IE(\text{Be}) \)
+    </div>
+  </div>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']]
+      },
+      options: { skipHtmlTags: ['script', 'style', 'textarea'] }
+    };
+  </script>
+  <script id="mathjax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</body>
+</html>
