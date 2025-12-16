@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chem 11 — Chapter 8: Organic Chemistry (Tutorial)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:rgba(255,255,255,.06);
+      --line:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --accent:#7dd3fc;
+      --accent2:#a7f3d0;
+      --warn:#fbbf24;
+      --danger:#fb7185;
+
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      --radius:18px;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(125,211,252,.18), transparent 60%),
+        radial-gradient(900px 600px at 90% 40%, rgba(167,243,208,.14), transparent 55%),
+        radial-gradient(1100px 900px at 60% 90%, rgba(251,191,36,.10), transparent 60%),
+        linear-gradient(180deg, #070a14, #0b1020 40%, #070a14);
+    }
+
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 22px 16px 40px;
+    }
+
+    header.hero{
+      border:1px solid var(--line);
+      background: var(--panel);
+      border-radius: 22px;
+      padding: 18px 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .kicker{
+      display:inline-block;
+      font-size: 12px;
+      color: rgba(255,255,255,.85);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    h1{
+      margin: 0;
+      font-size: 22px;
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    nav.toc{
+      margin-top: 14px;
+      border-top:1px solid var(--line);
+      padding-top: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    nav.toc a{
+      font-size: 13px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      padding: 8px 10px;
+      border-radius: 999px;
+      color: rgba(255,255,255,.9);
+    }
+    nav.toc a:hover{
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+    }
+
+    section.card{
+      margin-top: 16px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      border-radius: var(--radius);
+      padding: 16px 16px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.22);
+    }
+
+    h2{
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing:.2px;
+    }
+    h3{
+      margin: 14px 0 8px;
+      font-size: 15px;
+      letter-spacing:.15px;
+    }
+    p{
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    ul,ol{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+    li{ margin: 6px 0; }
+
+    .callout{
+      margin-top: 12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      padding: 12px 12px;
+      color: var(--muted);
+    }
+    .tag{
+      display:inline-block;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      color: rgba(255,255,255,.86);
+      background: rgba(0,0,0,.18);
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+    .tag.info{ border-color: rgba(125,211,252,.25); background: rgba(125,211,252,.08); }
+    .tag.good{ border-color: rgba(167,243,208,.25); background: rgba(167,243,208,.08); }
+    .tag.warn{ border-color: rgba(251,191,36,.25); background: rgba(251,191,36,.08); }
+
+    pre{
+      margin: 10px 0 0;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border:1px dashed rgba(255,255,255,.22);
+      background: rgba(0,0,0,.22);
+      color: rgba(255,255,255,.9);
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    table{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      border-radius: 14px;
+      overflow:hidden;
+      border:1px solid var(--line);
+    }
+    th, td{
+      padding: 10px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align: top;
+      font-size: 14px;
+    }
+    th{
+      text-align:left;
+      color: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.05);
+    }
+    tr:last-child td{ border-bottom:none; }
+
+    .mono{ font-family: var(--mono); color: rgba(255,255,255,.88); }
+    .muted{ color: var(--muted); }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="hero" id="top">
+      <span class="kicker">Chem 11 • Chapter 8</span>
+      <h1>Organic Chemistry — Detailed Tutorial</h1>
+      <p class="subtitle">
+        Goal: master <b>naming</b> hydrocarbons, identifying <b>functional groups</b>, and predicting organic <b>reactions</b>.
+      </p>
+
+      <nav class="toc" aria-label="Table of contents">
+        <a href="#bigidea">Big Idea</a>
+        <a href="#sec81">8.1 Hydrocarbons</a>
+        <a href="#sec82">8.2 Functional Groups</a>
+        <a href="#sec83">8.3 Reactions</a>
+        <a href="#summary">Master Summary</a>
+      </nav>
+    </header>
+
+    <!-- BIG IDEA -->
+    <section class="card" id="bigidea">
+      <h2>Big Idea</h2>
+      <p>
+        Organic chemistry is the study of <b>carbon-containing compounds</b>.
+        Carbon is unique because it forms <b>four strong covalent bonds</b>, allowing for infinite chains, rings, and complex structures.
+      </p>
+
+      <div class="callout">
+        <span class="tag info">Key Concept</span>
+        A single change in structure (isomerism) or functional group creates a completely new substance with different properties.
+      </div>
+    </section>
+
+    <!-- 8.1 -->
+    <section class="card" id="sec81">
+      <h2>8.1 Simple Hydrocarbons & Isomerism</h2>
+
+      <h3>Hydrocarbon Families</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Family</th>
+            <th>Type</th>
+            <th>Bonds</th>
+            <th>General Formula</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Alkane</b></td>
+            <td>Saturated</td>
+            <td>Single C–C</td>
+            <td>CₙH₂ₙ₊₂</td>
+          </tr>
+          <tr>
+            <td><b>Alkene</b></td>
+            <td>Unsaturated</td>
+            <td>Double C=C</td>
+            <td>CₙH₂ₙ</td>
+          </tr>
+          <tr>
+            <td><b>Alkyne</b></td>
+            <td>Unsaturated</td>
+            <td>Triple C≡C</td>
+            <td>CₙH₂ₙ₋₂</td>
+          </tr>
+          <tr>
+            <td><b>Aromatic</b></td>
+            <td>Unsaturated</td>
+            <td>Benzene Ring</td>
+            <td>(varies)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Naming Rules (IUPAC)</h3>
+      <ol>
+        <li>Find the <b>longest continuous carbon chain</b> (Parent).</li>
+        <li>Number the chain starting from the end <b>closest to a branch</b> (or double/triple bond).</li>
+        <li>Name branches as <b>alkyl groups</b> (methyl, ethyl, propyl).</li>
+        <li>List branches alphabetically. Use prefixes (di-, tri-) for duplicates.</li>
+      </ol>
+      <div class="callout">
+        <span class="tag good">Example</span>
+        <b>3-ethyl-2,3-dimethylhexane</b><br>
+        Parent: Hexane (6 carbons)<br>
+        Branches: Ethyl at C3, Methyls at C2 and C3.
+      </div>
+
+      <h3>Isomers</h3>
+      <p>
+        <b>Structural Isomers</b>: Same molecular formula, different connectivity.<br>
+        <b>Geometric Isomers</b> (Cis/Trans): Same connectivity, different shape around a double bond.
+      </p>
+    </section>
+
+    <!-- 8.2 -->
+    <section class="card" id="sec82">
+      <h2>8.2 Functional Groups</h2>
+      <p>
+        A functional group is a specific arrangement of atoms that defines the <b>chemical reactivity</b> of a molecule.
+      </p>
+
+      <h3>Oxygen-Containing Groups</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th>Structure</th>
+            <th>Recognition</th>
+            <th>Usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Alcohol</b></td>
+            <td class="mono">R–OH</td>
+            <td>-ol</td>
+            <td>Fuels, Beverages</td>
+          </tr>
+          <tr>
+            <td><b>Ether</b></td>
+            <td class="mono">R–O–R'</td>
+            <td>ether</td>
+            <td>Solvents</td>
+          </tr>
+          <tr>
+            <td><b>Aldehyde</b></td>
+            <td class="mono">R–CHO</td>
+            <td>C=O at <b>end</b></td>
+            <td>Preservatives</td>
+          </tr>
+          <tr>
+            <td><b>Ketone</b></td>
+            <td class="mono">R–CO–R'</td>
+            <td>C=O in <b>middle</b></td>
+            <td>Solvents (Acetone)</td>
+          </tr>
+          <tr>
+            <td><b>Carboxylic Acid</b></td>
+            <td class="mono">R–COOH</td>
+            <td>C=O and -OH</td>
+            <td>Weak Acids (Vinegar)</td>
+          </tr>
+          <tr>
+            <td><b>Ester</b></td>
+            <td class="mono">R–COO–R'</td>
+            <td>C=O and -O-C</td>
+            <td>Fragrances (Fruity)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Nitrogen-Containing Groups</h3>
+      <ul>
+        <li><b>Amine:</b> R–NH₂ (Simple nitrogen attachment).</li>
+        <li><b>Amide:</b> R–CONH₂ (Nitrogen attached to C=O). Found in proteins.</li>
+      </ul>
+    </section>
+
+    <!-- 8.3 -->
+    <section class="card" id="sec83">
+      <h2>8.3 Reactions of Organic Molecules</h2>
+
+      <h3>1. Combustion</h3>
+      <p>Burning in oxygen. Always produces CO₂, H₂O and energy (if complete).</p>
+      <pre>CH₄ + 2O₂ → CO₂ + 2H₂O</pre>
+
+      <h3>2. Substitution</h3>
+      <p>Replacing an atom (usually H) with another (usually Halogen).</p>
+      <pre>CH₄ + Cl₂ → CH₃Cl + HCl (Requires UV light)</pre>
+
+      <h3>3. Addition</h3>
+      <p>Breaking a double/triple bond to add atoms (Saturated product).</p>
+      <pre>C₂H₄ (ethene) + Cl₂ → C₂H₄Cl₂ (dichloroethane)</pre>
+
+      <h3>4. Elimination</h3>
+      <p>Removing atoms to create a double bond (Unsaturated product).</p>
+      <pre>C₂H₅OH (ethanol) → C₂H₄ (ethene) + H₂O</pre>
+
+      <h3>5. Esterification</h3>
+      <p>Acid + Alcohol → Ester + Water.</p>
+      <div class="callout">
+        <span class="tag warn">Critical Reaction</span>
+        Ethanoic Acid + Ethanol → Ethyl Ethanoate + Water
+      </div>
+
+      <h3>6. Polymerization</h3>
+      <ul>
+        <li><b>Addition Polymer:</b> Monomers with double bonds join (e.g., Polyethene).</li>
+        <li><b>Condensation Polymer:</b> Monomers join by releasing small molecules like water (e.g., Nylon, Polyester).</li>
+      </ul>
+    </section>
+
+    <!-- SUMMARY -->
+    <section class="card" id="summary">
+      <h2>Master Summary</h2>
+      <p>
+        Organic chemistry is about <b>patterns</b>.
+        Recognize the <b>Functional Group</b> → Predict the Property.
+        Recognize the <b>Bond Type</b> (Single vs Double) → Predict the Reaction (Substitution vs Addition).
+      </p>
+
+      <p class="muted" style="margin-top:14px;">
+        <a href="#top">Back to top ↑</a>
+      </p>
+    </section>
+
+  </div>
+</body>
+</html>

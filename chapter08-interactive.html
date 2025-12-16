@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chem 11 — Chapter 8: Organic Chemistry (Interactive Notes)</title>
+
+  <style>
+    /* Dark Theme Core */
+    :root{
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,.06);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --line: rgba(255,255,255,.12);
+      --accent: #7dd3fc;
+      --radius: 18px;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(125,211,252,.18), transparent 60%),
+        radial-gradient(900px 600px at 90% 40%, rgba(167,243,208,.14), transparent 55%),
+        linear-gradient(180deg, #070a14, #0b1020 40%, #070a14);
+    }
+
+    /* Layout */
+    .app{
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      gap: 18px;
+      padding: 18px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    @media (max-width: 980px){
+      .app{ grid-template-columns: 1fr; }
+      .sidebar{ position: static !important; }
+    }
+
+    /* Sidebar */
+    .sidebar{
+      position: sticky;
+      top: 14px;
+      align-self:start;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+    }
+    .brand h1{ font-size:14px; margin:0; }
+    .brand p{ font-size:12px; margin:2px 0 14px; color:var(--muted); }
+
+    .search{
+      width:100%;
+      padding:10px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.25);
+      color:white;
+      margin-bottom:14px;
+    }
+
+    .chipRow{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+    .chip{
+      font-size:11px;
+      padding:6px 10px;
+      border-radius:20px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.18);
+      cursor:pointer;
+      color:var(--muted);
+    }
+    .chip.on{ background:rgba(125,211,252,.15); border-color:rgba(125,211,252,.35); color:white; }
+
+    .navList a{
+      display:block;
+      padding:8px 10px;
+      margin-bottom:4px;
+      border-radius:8px;
+      color:var(--muted);
+      text-decoration:none;
+      font-size: 13px;
+    }
+    .navList a:hover, .navList a.active{
+      background: rgba(255,255,255,.05);
+      color: white;
+    }
+
+    /* Main */
+    .main{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      min-height: 70vh;
+    }
+
+    details.section{
+      margin-bottom:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      border-radius:12px;
+      overflow:hidden;
+    }
+    details.section[open]{ background:rgba(255,255,255,.05); border-color:rgba(125,211,252,.2); }
+    summary{
+      padding:14px;
+      cursor:pointer;
+      font-weight:600;
+      list-style:none;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    summary::-webkit-details-marker{ display:none; }
+
+    .pill{ font-size:10px; padding:4px 8px; border-radius:10px; background:rgba(0,0,0,.3); margin-right:8px; border:1px solid var(--line); vertical-align:middle; }
+
+    .content{ padding:0 14px 14px; border-top:1px solid var(--line); }
+
+    .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+    @media(max-width:700px){ .grid2{ grid-template-columns:1fr; } }
+
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:12px;
+    }
+    .h{ font-size:13px; color:white; margin-bottom:6px; font-weight:600; }
+    .p{ font-size:13px; color:var(--muted); line-height:1.5; margin:0; }
+
+    pre{
+      background:rgba(0,0,0,.3);
+      padding:10px;
+      border-radius:8px;
+      font-family:var(--mono);
+      font-size:12px;
+      white-space:pre-wrap;
+      margin:8px 0 0;
+      border:1px dashed var(--line);
+      cursor:copy;
+    }
+    pre:hover{ border-color:var(--accent); }
+
+    /* Tables */
+    table{ width:100%; border-collapse:collapse; font-size:13px; margin-top:8px; }
+    td,th{ padding:8px; border-bottom:1px solid var(--line); text-align:left; color:var(--muted); }
+    th{ color:white; }
+
+    /* Quiz */
+    .q{ border:1px solid var(--line); background:rgba(0,0,0,.18); border-radius:12px; padding:12px; margin-top:10px; }
+    .ans{ margin-top:10px; padding-top:10px; border-top:1px dashed var(--line); display:none; color:var(--muted); font-size:13px; }
+    .btn{
+      font-size:11px; padding:6px 12px; border-radius:8px; border:1px solid var(--line);
+      background:rgba(255,255,255,.05); color:white; cursor:pointer; margin-top:8px;
+    }
+    .btn:hover{ background:rgba(255,255,255,.1); }
+
+    /* Toast */
+    .toast{
+      position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+      background:black; border:1px solid var(--line); padding:8px 16px; border-radius:20px;
+      opacity:0; pointer-events:none; transition:opacity .2s; z-index:99; font-size:12px;
+    }
+    .toast.show{ opacity:1; }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>Chem 11 — Org Chem</h1>
+        <p>Interactive Study Notes</p>
+      </div>
+      <input class="search" id="search" placeholder="Search (e.g. ester, isomer)...">
+
+      <div class="chipRow">
+        <div class="chip" data-filter="name">Naming</div>
+        <div class="chip" data-filter="group">Groups</div>
+        <div class="chip" data-filter="rxn">Reactions</div>
+        <div class="chip" data-filter="quiz">Quiz</div>
+      </div>
+
+      <nav class="navList" id="navList">
+        <a href="#sec-intro" data-target="sec-intro">Intro</a>
+        <a href="#sec-81" data-target="sec-81">8.1 Hydrocarbons</a>
+        <a href="#sec-82" data-target="sec-82">8.2 Func. Groups</a>
+        <a href="#sec-83" data-target="sec-83">8.3 Reactions</a>
+        <a href="#sec-quiz" data-target="sec-quiz">Practice Quiz</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <!-- Intro -->
+      <details class="section" id="sec-intro" data-tags="name">
+        <summary>
+          <span><span class="pill">Intro</span>Carbon Basics</span>
+          <span>▾</span>
+        </summary>
+        <div class="content">
+          <div class="grid2">
+            <div class="card">
+              <div class="h">Core Rule</div>
+              <p class="p">Carbon forms <b>4 bonds</b>.</p>
+              <pre data-copy>C needs 4 lines attached to it.
+Always check your H count!</pre>
+            </div>
+            <div class="card">
+              <div class="h">Representations</div>
+              <ul style="margin:4px 0 0 14px; font-size:12px; color:var(--muted);">
+                <li><b>Structural:</b> Show every atom.</li>
+                <li><b>Condensed:</b> CH₃CH₂CH₃</li>
+                <li><b>Skeleton:</b> Zig-zag lines (corners are C).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 8.1 -->
+      <details class="section" id="sec-81" data-tags="name">
+        <summary>
+          <span><span class="pill">8.1</span>Hydrocarbons</span>
+          <span>▾</span>
+        </summary>
+        <div class="content">
+          <div class="card">
+            <div class="h">Families & Formulas</div>
+            <table>
+              <tr><th>Family</th><th>Bond</th><th>Formula</th></tr>
+              <tr><td>Alkane</td><td>Single</td><td>CₙH₂ₙ₊₂</td></tr>
+              <tr><td>Alkene</td><td>Double</td><td>CₙH₂ₙ</td></tr>
+              <tr><td>Alkyne</td><td>Triple</td><td>CₙH₂ₙ₋₂</td></tr>
+            </table>
+          </div>
+          <div class="card" style="margin-top:12px;">
+            <div class="h">Naming Cheat Sheet</div>
+            <pre data-copy>1. Longest Chain = Parent
+2. Number from end near branch/bond
+3. Branches alphabetically (ethyl before methyl)</pre>
+          </div>
+        </div>
+      </details>
+
+      <!-- 8.2 -->
+      <details class="section" id="sec-82" data-tags="group">
+        <summary>
+          <span><span class="pill">8.2</span>Functional Groups</span>
+          <span>▾</span>
+        </summary>
+        <div class="content">
+          <div class="grid2">
+            <div class="card">
+              <div class="h">Alcohol</div>
+              <p class="p">R–OH (End in -ol)</p>
+              <pre data-copy>Ethanol: CH₃CH₂OH</pre>
+            </div>
+            <div class="card">
+              <div class="h">Carboxylic Acid</div>
+              <p class="p">R–COOH (End in -oic acid)</p>
+              <pre data-copy>Ethanoic Acid: CH₃COOH</pre>
+            </div>
+            <div class="card">
+              <div class="h">Ester</div>
+              <p class="p">R–COO–R' (Fruity smell)</p>
+              <p class="p" style="font-size:11px; margin-top:4px;">Acid part + Alcohol part</p>
+            </div>
+            <div class="card">
+              <div class="h">Aldehyde vs Ketone</div>
+              <p class="p">C=O at end vs C=O in middle.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 8.3 -->
+      <details class="section" id="sec-83" data-tags="rxn">
+        <summary>
+          <span><span class="pill">8.3</span>Reactions</span>
+          <span>▾</span>
+        </summary>
+        <div class="content">
+          <div class="card">
+            <div class="h">Reaction Types</div>
+            <table>
+              <tr><th>Type</th><th>Key Feature</th></tr>
+              <tr><td><b>Combustion</b></td><td>+ O₂ → CO₂ + H₂O</td></tr>
+              <tr><td><b>Substitution</b></td><td>Swap H for Cl (needs UV)</td></tr>
+              <tr><td><b>Addition</b></td><td>Break C=C, add atoms (1 product)</td></tr>
+              <tr><td><b>Elimination</b></td><td>Remove atoms, make C=C</td></tr>
+              <tr><td><b>Esterification</b></td><td>Acid + Alc → Ester + Water</td></tr>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <!-- Quiz -->
+      <details class="section" id="sec-quiz" data-tags="quiz">
+        <summary>
+          <span><span class="pill">Quiz</span>Practice Questions</span>
+          <span>▾</span>
+        </summary>
+        <div class="content">
+          <div class="q">
+            <div class="h">Q1. Isomerism</div>
+            <p class="p">Pentane and 2-methylbutane are what type of isomers?</p>
+            <button class="btn" onclick="this.nextElementSibling.style.display='block'">Check</button>
+            <div class="ans"><b>Structural Isomers.</b> Same formula (C₅H₁₂), different connectivity.</div>
+          </div>
+
+          <div class="q">
+            <div class="h">Q2. Identification</div>
+            <p class="p">Which group contains a Nitrogen atom attached to a Carbonyl (C=O)?</p>
+            <button class="btn" onclick="this.nextElementSibling.style.display='block'">Check</button>
+            <div class="ans"><b>Amide.</b> (Not Amine, which has no C=O).</div>
+          </div>
+
+          <div class="q">
+            <div class="h">Q3. Prediction</div>
+            <p class="p">Product of: Ethene + Cl₂?</p>
+            <button class="btn" onclick="this.nextElementSibling.style.display='block'">Check</button>
+            <div class="ans"><b>1,2-dichloroethane.</b> An addition reaction breaks the double bond.</div>
+          </div>
+        </div>
+      </details>
+    </main>
+  </div>
+
+  <div class="toast" id="toast">Copied!</div>
+
+  <script>
+    // Search & Filter Logic
+    const sections = document.querySelectorAll('details.section');
+    const search = document.getElementById('search');
+    const chips = document.querySelectorAll('.chip');
+    let activeTags = new Set();
+
+    function update(){
+      const term = search.value.toLowerCase();
+      sections.forEach(sec => {
+        const text = sec.innerText.toLowerCase();
+        const tags = (sec.dataset.tags || "").split(" ");
+        const matchTerm = text.includes(term);
+        const matchTag = activeTags.size === 0 || tags.some(t => activeTags.has(t));
+
+        if(matchTerm && matchTag){
+          sec.style.display = "";
+          if(term.length > 2 || activeTags.size > 0) sec.open = true;
+        } else {
+          sec.style.display = "none";
+        }
+      });
+    }
+
+    search.addEventListener('input', update);
+
+    chips.forEach(c => c.addEventListener('click', () => {
+      const t = c.dataset.filter;
+      if(activeTags.has(t)){
+        activeTags.delete(t);
+        c.classList.remove('on');
+      } else {
+        activeTags.add(t);
+        c.classList.add('on');
+      }
+      update();
+    }));
+
+    // Copy Utility
+    document.querySelectorAll('[data-copy]').forEach(el => {
+      el.addEventListener('click', () => {
+        navigator.clipboard.writeText(el.innerText);
+        const t = document.getElementById('toast');
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 1000);
+      });
+    });
+  </script>
+</body>
+</html>

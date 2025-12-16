@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chem 11 — Chapter 6: Relationships & Patterns (Interactive Notes)</title>
+
+  <style>
+    :root{
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.09);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --line: rgba(255,255,255,.12);
+      --accent: #7dd3fc;
+      --accent2:#a7f3d0;
+      --warn:#fbbf24;
+      --danger:#fb7185;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 22px;
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(125,211,252,.18), transparent 60%),
+        radial-gradient(900px 600px at 90% 40%, rgba(167,243,208,.14), transparent 55%),
+        radial-gradient(1100px 900px at 60% 90%, rgba(251,191,36,.10), transparent 60%),
+        linear-gradient(180deg, #070a14, #0b1020 40%, #070a14);
+    }
+
+    a{ color: var(--accent); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    /* Layout */
+    .app{
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      gap: 18px;
+      padding: 18px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 980px){
+      .app{ grid-template-columns: 1fr; }
+      .sidebar{ position: static !important; }
+    }
+
+    .sidebar{
+      position: sticky;
+      top: 14px;
+      align-self:start;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .main{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      min-height: 70vh;
+    }
+
+    /* Sidebar */
+    .sideHeader{
+      padding: 16px 16px 10px;
+      border-bottom:1px solid var(--line);
+    }
+    .brand{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .logo{
+      width:40px;height:40px;border-radius:14px;
+      background: linear-gradient(135deg, rgba(125,211,252,.85), rgba(167,243,208,.75));
+      box-shadow: 0 12px 35px rgba(0,0,0,.28);
+    }
+    .titleBlock h1{
+      font-size: 14px;
+      margin:0;
+      letter-spacing: .3px;
+    }
+    .titleBlock p{
+      margin:2px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .searchWrap{
+      padding: 10px 16px 16px;
+      display:flex;
+      gap:10px;
+    }
+    .searchWrap input{
+      width:100%;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      padding: 10px 12px;
+      outline: none;
+    }
+    .btn{
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      color: var(--text);
+      padding: 10px 12px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{ background: rgba(255,255,255,.06); }
+
+    .sideBody{
+      padding: 12px 8px 14px;
+      max-height: calc(100vh - 140px);
+      overflow:auto;
+    }
+
+    .navGroup{
+      margin: 8px;
+      padding: 10px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+    }
+    .navGroup h3{
+      margin: 0 0 8px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing:.3px;
+      text-transform: uppercase;
+    }
+    .navList{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      padding:0;
+      margin:0;
+      list-style:none;
+    }
+    .navList a{
+      display:block;
+      padding:10px 10px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      color: var(--text);
+      background: rgba(255,255,255,.04);
+    }
+    .navList a:hover{
+      border-color: var(--line);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+    }
+    .navList a.active{
+      border-color: rgba(125,211,252,.35);
+      background: rgba(125,211,252,.12);
+    }
+
+    .chipRow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      padding: 0 10px 4px;
+    }
+    .chip{
+      font-size: 11px;
+      color: var(--muted);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      padding:6px 10px;
+      border-radius: 999px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .chip:hover{ background: rgba(255,255,255,.06); }
+    .chip.on{
+      color: rgba(255,255,255,.9);
+      border-color: rgba(167,243,208,.35);
+      background: rgba(167,243,208,.10);
+    }
+
+    /* Main */
+    .mainHeader{
+      padding: 18px 18px 12px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), transparent);
+    }
+    .mainHeader h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.2px;
+    }
+    .mainHeader p{
+      margin: 6px 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 13px;
+    }
+
+    .mainBody{
+      padding: 16px 18px 22px;
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      border-radius: var(--radius);
+      padding: 14px 14px;
+      margin: 14px 0;
+      box-shadow: 0 14px 40px rgba(0,0,0,.22);
+    }
+
+    details.section{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      margin: 14px 0;
+      overflow:hidden;
+    }
+    details.section[open]{
+      background: rgba(255,255,255,.05);
+      border-color: rgba(125,211,252,.20);
+    }
+    details.section summary{
+      list-style:none;
+      cursor:pointer;
+      user-select:none;
+      padding: 14px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-weight: 650;
+      letter-spacing:.15px;
+    }
+    details.section summary::-webkit-details-marker{ display:none; }
+
+    .sumLeft{
+      display:flex; align-items:center; gap:10px;
+    }
+    .pill{
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      color: var(--muted);
+      background: rgba(0,0,0,.18);
+      white-space:nowrap;
+    }
+    details.section[open] .pill{
+      border-color: rgba(125,211,252,.25);
+      background: rgba(125,211,252,.10);
+      color: rgba(255,255,255,.85);
+    }
+
+    .sumRight{
+      display:flex; gap:8px; align-items:center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .sectionContent{
+      padding: 0 14px 14px;
+      border-top:1px solid var(--line);
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 900px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+
+    .h{
+      margin: 12px 0 6px;
+      font-size: 13px;
+      color: rgba(255,255,255,.9);
+      letter-spacing:.15px;
+    }
+    .p{
+      margin: 6px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    .bullets{
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height:1.55;
+      font-size: 13px;
+    }
+    .bullets li{ margin: 6px 0; }
+
+    /* Copy blocks */
+    .copyBlock{
+      position:relative;
+      border:1px dashed rgba(255,255,255,.22);
+      background: rgba(0,0,0,.22);
+      border-radius: 16px;
+      padding: 12px 12px;
+      margin-top: 10px;
+      cursor: copy;
+    }
+    .copyBlock:hover{
+      border-color: rgba(125,211,252,.35);
+      background: rgba(125,211,252,.06);
+    }
+    .copyHint{
+      position:absolute;
+      top:10px; right:10px;
+      font-size: 11px;
+      color: var(--muted);
+      padding: 4px 8px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+    }
+    pre{
+      margin:0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: rgba(255,255,255,.9);
+    }
+
+    /* Callouts */
+    .callout{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      padding: 12px 12px;
+      margin-top: 10px;
+    }
+    .callout strong{ color: rgba(255,255,255,.92); }
+    .tag{
+      display:inline-block;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      color: var(--muted);
+      background: rgba(0,0,0,.18);
+      margin-right: 6px;
+    }
+    .tag.good{ border-color: rgba(167,243,208,.25); background: rgba(167,243,208,.08); color: rgba(255,255,255,.85); }
+    .tag.info{ border-color: rgba(125,211,252,.25); background: rgba(125,211,252,.08); color: rgba(255,255,255,.85); }
+    .tag.warn{ border-color: rgba(251,191,36,.25); background: rgba(251,191,36,.08); color: rgba(255,255,255,.85); }
+    .tag.bad{ border-color: rgba(251,113,133,.25); background: rgba(251,113,133,.08); color: rgba(255,255,255,.85); }
+
+    /* Tables */
+    table{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      overflow:hidden;
+      border-radius: 14px;
+      border:1px solid var(--line);
+    }
+    th, td{
+      padding: 10px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align: top;
+      font-size: 13px;
+      color: rgba(255,255,255,.86);
+    }
+    th{
+      text-align:left;
+      color: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.05);
+    }
+    tr:last-child td{ border-bottom: none; }
+
+    /* Quiz */
+    .q{
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(0,0,0,.18);
+      padding: 12px 12px;
+      margin-top: 10px;
+    }
+    .qHead{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .qTitle{
+      font-weight:650;
+      font-size: 13px;
+      margin:0;
+    }
+    .q .p{ margin-top:6px; }
+    .reveal{
+      margin-top:10px;
+      display:none;
+      border-top:1px dashed rgba(255,255,255,.18);
+      padding-top:10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .qActions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.75);
+      border:1px solid rgba(255,255,255,.16);
+      color: rgba(255,255,255,.92);
+      padding: 10px 12px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      font-size: 13px;
+      opacity: 0;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 9999;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    .muted{ color: var(--muted); }
+    .kbd{
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 8px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      color: rgba(255,255,255,.85);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sideHeader">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div class="titleBlock">
+            <h1>Chem 11 — Chapter 6</h1>
+            <p>Relationships & Patterns • Interactive Notes</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="searchWrap">
+        <input id="search" placeholder="Search notes (e.g., ionization, EN, VSEPR)..." />
+        <button class="btn" id="clearBtn" title="Clear search">✕</button>
+      </div>
+
+      <div class="sideBody">
+        <div class="navGroup">
+          <h3>Quick Filters</h3>
+          <div class="chipRow">
+            <div class="chip" data-filter="def">Definitions</div>
+            <div class="chip" data-filter="trend">Trends</div>
+            <div class="chip" data-filter="bond">Bonding</div>
+            <div class="chip" data-filter="lewis">Lewis</div>
+            <div class="chip" data-filter="vsepr">VSEPR</div>
+            <div class="chip" data-filter="imf">IMF</div>
+            <div class="chip" data-filter="quiz">Quiz</div>
+          </div>
+          <p class="p" style="margin:10px 10px 0;">
+            Tip: Double-click any formula box to copy.
+          </p>
+        </div>
+
+        <div class="navGroup">
+          <h3>Sections</h3>
+          <ul class="navList" id="navList">
+            <li><a href="#sec-bigidea" data-target="sec-bigidea">Big Idea</a></li>
+            <li><a href="#sec-6-1" data-target="sec-6-1">6.1 Periodic Table Development</a></li>
+            <li><a href="#sec-6-2" data-target="sec-6-2">6.2 Periodic Trends</a></li>
+            <li><a href="#sec-6-3" data-target="sec-6-3">6.3 Bonding Types</a></li>
+            <li><a href="#sec-6-4" data-target="sec-6-4">6.4 Lewis Structures</a></li>
+            <li><a href="#sec-6-5" data-target="sec-6-5">6.5 VSEPR & Polarity</a></li>
+            <li><a href="#sec-imf" data-target="sec-imf">Intermolecular Forces</a></li>
+            <li><a href="#sec-practice" data-target="sec-practice">Practice (Mini Quiz)</a></li>
+          </ul>
+        </div>
+
+        <div class="navGroup">
+          <h3>Study Workflow</h3>
+          <ol class="bullets" style="margin:8px 0 0;">
+            <li>Open each section (tap the header).</li>
+            <li>Copy key rules/formulas (double-click).</li>
+            <li>Answer the quiz; reveal solutions.</li>
+          </ol>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main" id="main">
+      <header class="mainHeader">
+        <h2>Chapter 6 Interactive Notes</h2>
+        <p>
+          This page is organized as collapsible sections. Use the search bar or filters to find what you need fast.
+          Keyboard tip: press <span class="kbd">Ctrl</span> / <span class="kbd">⌘</span> + <span class="kbd">F</span> for browser search too.
+        </p>
+      </header>
+
+      <section class="mainBody" id="content">
+        <!-- BIG IDEA -->
+        <details class="section" id="sec-bigidea" data-tags="def">
+          <summary>
+            <span class="sumLeft">
+              <span class="pill">Big Idea</span>
+              Periodic table = predictive map
+            </span>
+            <span class="sumRight">tap to open ▾</span>
+          </summary>
+          <div class="sectionContent">
+            <div class="grid2">
+              <div class="card">
+                <div class="h">The causal chain (the “why” of the chapter)</div>
+                <div class="copyBlock" data-copy>
+                  <span class="copyHint">double-click to copy</span>
+                  <pre>electron configuration → periodic trends → bonding → shape → polarity → IMF → observable properties</pre>
+                </div>
+                <p class="p">
+                  If you can explain <b>each arrow</b> in that chain, you can explain almost any Chem 11 periodic-trends question.
+                </p>
+              </div>
+
+              <div class="card">
+                <div class="h">What “periodic” means</div>
+                <ul class="bullets">
+                  <li><b>Periodic</b> = properties repeat in a regular pattern.</li>
+                  <li><b>Groups (columns)</b> share similar chemistry because they have similar <b>valence electrons</b>.</li>
+                  <li><b>Periods (rows)</b> relate to number of occupied energy levels (principal energy levels).</li>
+                </ul>
+                <div class="callout">
+                  <span class="tag info">Exam mindset</span>
+                  <strong>Don’t memorize trends blindly.</strong> Always justify using:
+                  <span class="tag">shielding</span>
+                  <span class="tag">Zeff</span>
+                  <span class="tag">distance</span>
+                  <span class="tag">electron repulsion</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 6.1 -->
+        <details class="section" id="sec-6-1" data-tags="def">
+          <summary>
+            <span class="sumLeft">
+              <span class="pill">6.1</span>
+              Development of the Periodic Table
+            </span>
+            <span class="sumRight">tap to open ▾</span>
+          </summary>
+          <div class="sectionContent">
+            <div class="grid2">
+              <div class="card">
+                <div class="h">Key historical milestones</div>
+                <ul class="bullets">
+                  <li><b>Dobereiner (Triads):</b> sets of 3 elements with similar properties.</li>
+                  <li><b>Newlands (Octaves):</b> properties repeat every 8 elements (early pattern idea).</li>
+                  <li><b>Mendeleev:</b> organized by mass + behavior, left gaps, predicted unknown elements.</li>
+                  <li><b>Moseley:</b> modern table organized by <b>atomic number (Z)</b> (protons).</li>
+                </ul>
+              </div>
+
+              <div class="card">
+                <div class="h">Why atomic number is the “correct” key</div>
+                <p class="p">
+                  Atomic number determines electron count (for neutral atoms), which determines
+                  <b>electron configuration</b> and therefore chemical behavior.
+                </p>
+                <div class="copyBlock" data-copy>
+                  <span class="copyHint">double-click to copy</span>
+                  <pre>Modern Periodic Law:
+When elements are arranged by increasing atomic number,
+their properties recur periodically.</pre>
+                </div>
+                <div class="callout">
+                  <span class="tag good">Core idea</span>
+                  Similar chemistry in a group is mainly explained by <b>same valence-electron pattern</b>.
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 6.2 -->
+        <details class="section" id="sec-6-2" data-tags="trend def">
+          <summary>
+            <span class="sumLeft">
+              <span class="pill">6.2</span>
+              Periodic Trends (Size, IE, EN)
+            </span>
+            <span class="sumRight">tap to open ▾</span>
+          </summary>
+          <div class="sectionContent">
+
+            <div class="card">
+              <div class="h">Two forces that explain almost every trend</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Factor</th>
+                    <th>What it is</th>
+                    <th>Effect</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Shielding</b></td>
+                    <td class="muted">Inner electrons block nuclear pull on valence electrons</td>
+                    <td>More shielding → outer electrons held less tightly</td>
+                  </tr>
+                  <tr>
+                    <td><b>Effective nuclear charge (Z<sub>eff</sub>)</b></td>
+                    <td class="muted">Net pull felt by valence electrons</td>
+                    <td>Higher Z<sub>eff</sub> → smaller radius, higher IE, higher EN</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="copyBlock" data-copy>
+                <span class="copyHint">double-click to copy</span>
+                <pre>Across a period: Zeff ↑ (shielding ~ constant) → radius ↓, IE ↑, EN ↑
+Down a group: n ↑ + shielding ↑ → radius ↑, IE ↓, EN ↓</pre>
+              </div>
+            </div>
+
+            <details class="section" data-tags="trend">
+              <summary>
+                <span class="sumLeft">
+                  <span class="pill">Trend</span>
+                  Atomic Radius (size)
+                </span>
+                <span class="sumRight">tap ▾</span>
+              </summary>
+              <div class="sectionContent">
+                <div class="grid2">
+                  <div class="card">
+                    <div class="h">Trend directions</div>
+                    <ul class="bullets">
+                      <li>Down a group: <b>radius increases</b> (more energy levels, bigger electron cloud).</li>
+                      <li>Across a period: <b>radius decreases</b> (Z<sub>eff</sub> increases, pulls electrons inward).</li>
+                    </ul>
+                    <div class="callout">
+                      <span class="tag info">Reasoning sentence</span>
+                      “Across a period, protons increase but shielding is similar, so Z<sub>eff</sub> increases and electrons are pulled closer.”
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="h">Ion size rules</div>
+                    <ul class="bullets">
+                      <li><b>Cations</b> are smaller than parent atoms (loss of e⁻ → less repulsion, tighter hold).</li>
+                      <li><b>Anions</b> are larger than parent atoms (gain e⁻ → more repulsion, expanded cloud).</li>
+                      <li><b>Isoelectronic series:</b> same electrons → more protons = smaller ion.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details class="section" data-tags="trend def">
+              <summary>
+                <span class="sumLeft">
+                  <span class="pill">Trend</span>
+                  Ionization Energy (IE)
+                </span>
+                <span class="sumRight">tap ▾</span>
+              </summary>
+              <div class="sectionContent">
+                <div class="grid2">
+                  <div class="card">
+                    <div class="h">Definition</div>
+                    <div class="copyBlock" data-copy>
+                      <span class="copyHint">double-click to copy</span>
+                      <pre>Ionization Energy (IE):
+Energy required to remove one electron from a gaseous atom.</pre>
+                    </div>
+                    <p class="p">
+                      High IE means the atom holds its electrons tightly.
+                      Low IE means it loses electrons easily (metal behavior).
+                    </p>
+                  </div>
+
+                  <div class="card">
+                    <div class="h">Trend directions</div>
+                    <ul class="bullets">
+                      <li>Down a group: IE <b>decreases</b> (outer e⁻ farther, more shielding).</li>
+                      <li>Across a period: IE <b>increases</b> (Z<sub>eff</sub> increases).</li>
+                    </ul>
+                    <div class="callout">
+                      <span class="tag warn">Common exceptions</span>
+                      Small “dips” happen due to <b>subshell structure</b> and <b>pairing repulsion</b>
+                      (e.g., oxygen vs nitrogen).
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details class="section" data-tags="trend def">
+              <summary>
+                <span class="sumLeft">
+                  <span class="pill">Trend</span>
+                  Electronegativity (EN)
+                </span>
+                <span class="sumRight">tap ▾</span>
+              </summary>
+              <div class="sectionContent">
+                <div class="grid2">
+                  <div class="card">
+                    <div class="h">Definition</div>
+                    <div class="copyBlock" data-copy>
+                      <span class="copyHint">double-click to copy</span>
+                      <pre>Electronegativity (EN):
+Ability of a bonded atom to attract shared electrons.</pre>
+                    </div>
+                    <p class="p">
+                      EN is about <b>bonding</b> (shared electrons), not isolated atoms.
+                    </p>
+                  </div>
+
+                  <div class="card">
+                    <div class="h">Trend directions</div>
+                    <ul class="bullets">
+                      <li>Across a period: EN <b>increases</b> (Z<sub>eff</sub> ↑, radius ↓).</li>
+                      <li>Down a group: EN <b>decreases</b> (bonding electrons farther away).</li>
+                      <li>Highest: <b>F</b> (fluorine).</li>
+                    </ul>
+                    <div class="callout">
+                      <span class="tag info">Interpretation</span>
+                      Larger EN difference → bond is more polar → more ionic character.
+                    </div>
+                  </div>
+                </div>
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ΔEN (rough guideline)</th>
+                      <th>Bond type</th>
+                      <th>What it means</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>≈ 0</td>
+                      <td>Non-polar covalent</td>
+                      <td class="muted">Equal sharing</td>
+                    </tr>
+                    <tr>
+                      <td>0.4 – 1.7</td>
+                      <td>Polar covalent</td>
+                      <td class="muted">Unequal sharing</td>
+                    </tr>
+                    <tr>
+                      <td>&gt; 1.7</td>
+                      <td>Ionic (mostly)</td>
+                      <td class="muted">Electron transfer dominates</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </details>
+
+          </div>
+        </details>
+
+        <!-- 6.3 -->
+        <details class="section" id="sec-6-3" data-tags="bond def">
+          <summary>
+            <span class="sumLeft">
+              <span class="pill">6.3</span>
+              Bonding Types (Ionic / Covalent / Metallic)
+            </span>
+            <span class="sumRight">tap to open ▾</span>
+          </summary>
+          <div class="sectionContent">
+            <div class="card">
+              <div class="h">At-a-glance bonding map</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Elements involved</th>
+                    <th>Bond type</th>
+                    <th>Main idea</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Metal + non-metal</td>
+                    <td><b>Ionic</b></td>
+                    <td class="muted">Electron transfer → ions attract in a lattice</td>
+                  </tr>
+                  <tr>
+                    <td>Non-metal + non-metal</td>
+                    <td><b>Covalent</b></td>
+                    <td class="muted">Shared electron pairs between nuclei</td>
+                  </tr>
+                  <tr>
+                    <td>Metal + metal</td>
+                    <td><b>Metallic</b></td>
+                    <td class="muted">“Sea of electrons” around positive metal ions</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="grid2">
+              <div class="card">
+                <div class="h">Ionic bonding: what to say on tests</div>
+                <ul class="bullets">
+                  <li>Large ΔEN → electron transfer likely.</li>
+                  <li>Forms cations + anions → electrostatic attraction.</li>
+                  <li>Solid structure = <b>crystal lattice</b>.</li>
+                  <li>Formula is simplest whole-number ratio (formula unit).</li>
+                </ul>
+                <div class="callout">
+                  <span class="tag warn">Common pitfall</span>
+                  Ionic compounds do not form “molecules” in the solid state; they form a lattice.
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="h">Covalent bonding: polarity + bond order</div>
+                <ul class="bullets">
+                  <li>Shared electrons; bond is between nuclei.</li>
+                  <li>ΔEN controls polarity (dipole).</li>
+                  <li>Single / double / triple bonds: more shared pairs → shorter + stronger bonds.</li>
+                </ul>
+                <div class="copyBlock" data-copy>
+                  <span class="copyHint">double-click to copy</span>
+                  <pre>Bond order ↑ → bond length ↓ and bond energy ↑</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 6.4 -->
+        <details class="section" id="sec-6-4" data-tags="lewis def">
+          <summary>
+            <span class="sumLeft">
+              <span class="pill">6.4</span>
+              Lewis Structures (Rules + Resonance)
+            </span>
+            <span class="sumRight">tap to open ▾</span>
+          </summary>
+          <div class="sectionContent">
+            <div class="grid2">
+              <div class="card">
+                <div class="h">Lewis structure algorithm (copy-ready)</div>
+                <div class="copyBlock" data-copy>
+                  <span class="copyHint">double-click to copy</span>
+                  <pre>Lewis Steps:
+1) Count total valence e− (add for negative charge, subtract for positive)
+2) Choose skeleton (least EN usually central; H never central)
+3) Connect atoms with single bonds (2 e− each)
+4) Complete octets for outer atoms
+5) Put leftover e− on central atom
+6) If central lacks octet, create multiple bonds
+7) Check total e− count + formal charges</pre>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="h">Octet rule exceptions</div>
+                <ul class="bullets">
+                  <li><b>Incomplete octet:</b> Be (4), B/Al (6) common</li>
+                  <li><b>Expanded octet:</b> period 3+ atoms (can exceed 8)</li>
+                  <li><b>Odd-electron:</b> radicals (rare in Chem 11)</li>
+                </ul>
+                <div class="callout">
+                  <span class="tag info">Teacher line</span>
+                  “Lewis structures track electrons; VSEPR tracks electron groups.”
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="h">Resonance (delocalization)</div>
+              <p class="p">
+                Resonance means one Lewis structure is not enough. The real structure is a
+                <b>hybrid</b> where electrons are spread out (delocalized).
+              </p>
+              <div class="copyBlock" data-copy>
+                <span class="copyHint">double-click to copy</span>
+                <pre>Resonance rules:
+• Only electrons move (π bonds/lone pairs), not atoms
+• Resonance structures must keep the same total valence electrons
+• The real molecule is NOT “switching”; it’s an average (hybrid)</pre>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 6.5 -->
+        <details class="section" id="sec-6-5" data-tags="vsepr def">
+          <summary>
+            <span class="sumLeft">
+              <span class="pill">6.5</span>
+              VSEPR, Shape, and Molecular Polarity
+            </span>
+            <span class="sumRight">tap to open ▾</span>
+          </summary>
+          <div class="sectionContent">
+            <div class="card">
+              <div class="h">VSEPR core rule</div>
+              <div class="copyBlock" data-copy>
+                <span class="copyHint">double-click to copy</span>
+                <pre>VSEPR:
+Electron groups repel and arrange to minimize repulsion.
+(Lone pairs repel more than bonding pairs.)</pre>
+              </div>
+              <p class="p">
+                Count <b>electron groups</b> around the central atom:
+                each bond (single/double/triple) counts as 1 group; each lone pair counts as 1 group.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="h">Common VSEPR shapes (Chem 11 essential set)</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Electron Groups</th>
+                    <th>Typical Formula</th>
+                    <th>Shape</th>
+                    <th>Example</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2</td>
+                    <td>AX₂</td>
+                    <td>Linear (180°)</td>
+                    <td>CO₂</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>AX₃ / AX₂E</td>
+                    <td>Trigonal planar / Bent</td>
+                    <td>BF₃ / SO₂</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>AX₄ / AX₃E / AX₂E₂</td>
+                    <td>Tetrahedral / Trig pyramidal / Bent</td>
+                    <td>CH₄ / NH₃ / H₂O</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>AX₅</td>
+                    <td>Trigonal bipyramidal</td>
+                    <td>PCl₅</td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>AX₆</td>
+                    <td>Octahedral</td>
+                    <td>SF₆</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="grid2">
+              <div class="card">
+                <div class="h">Bond polarity vs molecular polarity</div>
+                <ul class="bullets">
+                  <li><b>Bond polarity</b> depends on ΔEN (dipole on a bond).</li>
+                  <li><b>Molecular polarity</b> depends on both bond polarity AND shape.</li>
+                  <li>If dipoles cancel (symmetry) → molecule can be non-polar.</li>
+                </ul>
+              </div>
+
+              <div class="card">
+                <div class="h">Fast polarity checklist</div>
+                <div class="copyBlock" data-copy>
+                  <span class="copyHint">double-click to copy</span>
+                  <pre>Polarity checklist:
+1) Are there polar bonds? (ΔEN > ~0.4)
+2) Is the geometry symmetric?
+→ If not symmetric, dipoles don’t cancel → polar molecule</pre>
+                </div>
+                <div class="callout">
+                  <span class="tag info">Example</span>
+                  CO₂ has polar C=O bonds, but it’s linear and symmetric → non-polar overall.
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- IMF -->
+        <details class="section" id="sec-imf" data-tags="imf def">
+          <summary>
+            <span class="sumLeft">
+              <span class="pill">IMF</span>
+              Intermolecular Forces (Dispersion, Dipole, H-bond, Ion-dipole)
+            </span>
+            <span class="sumRight">tap to open ▾</span>
+          </summary>
+          <div class="sectionContent">
+            <div class="card">
+              <div class="h">IMF strength ladder (copy-ready)</div>
+              <div class="copyBlock" data-copy>
+                <span class="copyHint">double-click to copy</span>
+                <pre>IMF strength (typical):
+Dispersion < Dipole–dipole < Hydrogen bonding < Ion–dipole</pre>
+              </div>
+              <p class="p">
+                Stronger IMFs usually mean higher boiling point, higher melting point, higher viscosity, and lower volatility.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="h">IMF table</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Force</th>
+                    <th>Applies to</th>
+                    <th>What causes it</th>
+                    <th>Common effect</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Dispersion (London)</b></td>
+                    <td>All particles</td>
+                    <td class="muted">Temporary induced dipoles</td>
+                    <td class="muted">Increases with molar mass / surface area</td>
+                  </tr>
+                  <tr>
+                    <td><b>Dipole–dipole</b></td>
+                    <td>Polar molecules</td>
+                    <td class="muted">Permanent dipoles align</td>
+                    <td class="muted">Raises bp compared to similar non-polar</td>
+                  </tr>
+                  <tr>
+                    <td><b>Hydrogen bonding</b></td>
+                    <td>H–N, H–O, H–F</td>
+                    <td class="muted">Strong dipole–dipole with H attached to N/O/F</td>
+                    <td class="muted">High bp (water), strong cohesion</td>
+                  </tr>
+                  <tr>
+                    <td><b>Ion–dipole</b></td>
+                    <td>Ions + polar solvent</td>
+                    <td class="muted">Ion attracts dipole end of molecule</td>
+                    <td class="muted">Explains dissolving salts in water</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="callout">
+                <span class="tag good">Solubility rule</span>
+                “Like dissolves like”: polar with polar (or ionic), non-polar with non-polar.
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- PRACTICE -->
+        <details class="section" id="sec-practice" data-tags="quiz">
+          <summary>
+            <span class="sumLeft">
+              <span class="pill">Practice</span>
+              Mini Quiz (click to reveal answers)
+            </span>
+            <span class="sumRight">tap to open ▾</span>
+          </summary>
+          <div class="sectionContent">
+            <div class="q" data-quiz>
+              <div class="qHead">
+                <p class="qTitle">Q1. Why does atomic radius decrease across a period?</p>
+              </div>
+              <p class="p">Write one sentence using shielding and effective nuclear charge (Zeff).</p>
+              <div class="qActions">
+                <button class="btn" data-reveal>Reveal answer</button>
+                <button class="btn" data-hide>Hide</button>
+              </div>
+              <div class="reveal">
+                Across a period, proton number increases while shielding changes little, so Z<sub>eff</sub> increases and pulls valence electrons closer, decreasing radius.
+              </div>
+            </div>
+
+            <div class="q" data-quiz>
+              <div class="qHead">
+                <p class="qTitle">Q2. Which is larger: Na or Na⁺? Why?</p>
+              </div>
+              <div class="qActions">
+                <button class="btn" data-reveal>Reveal answer</button>
+                <button class="btn" data-hide>Hide</button>
+              </div>
+              <div class="reveal">
+                Na is larger. Na⁺ has lost its outer valence electron shell and has reduced electron–electron repulsion; remaining electrons feel stronger attraction to the nucleus.
+              </div>
+            </div>
+
+            <div class="q" data-quiz>
+              <div class="qHead">
+                <p class="qTitle">Q3. Decide bond type by ΔEN: ΔEN = 1.2</p>
+              </div>
+              <p class="p">Is it non-polar covalent, polar covalent, or ionic?</p>
+              <div class="qActions">
+                <button class="btn" data-reveal>Reveal answer</button>
+                <button class="btn" data-hide>Hide</button>
+              </div>
+              <div class="reveal">
+                Polar covalent. A ΔEN around 0.4–1.7 usually indicates unequal sharing (polar covalent).
+              </div>
+            </div>
+
+            <div class="q" data-quiz>
+              <div class="qHead">
+                <p class="qTitle">Q4. Use VSEPR: What is the shape of NH₃?</p>
+              </div>
+              <p class="p">Count electron groups and give the molecular shape name.</p>
+              <div class="qActions">
+                <button class="btn" data-reveal>Reveal answer</button>
+                <button class="btn" data-hide>Hide</button>
+              </div>
+              <div class="reveal">
+                NH₃ has 4 electron groups around N (3 bonds + 1 lone pair). Electron geometry is tetrahedral; molecular shape is trigonal pyramidal.
+              </div>
+            </div>
+
+            <div class="q" data-quiz>
+              <div class="qHead">
+                <p class="qTitle">Q5. Which has higher boiling point: CH₄ or CH₃OH? Why?</p>
+              </div>
+              <div class="qActions">
+                <button class="btn" data-reveal>Reveal answer</button>
+                <button class="btn" data-hide>Hide</button>
+              </div>
+              <div class="reveal">
+                CH₃OH. It can hydrogen bond (O–H), which is much stronger than the dispersion forces in non-polar CH₄.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="h">Optional: “One-liner” answers practice</div>
+              <p class="p">
+                If you want, paste your answers to Q1–Q5 and I’ll rewrite them into
+                perfect exam-style one-sentence explanations.
+              </p>
+            </div>
+          </div>
+        </details>
+
+        <div class="card">
+          <div class="h">Export / Reuse</div>
+          <p class="p">
+            This is a single-file note page. Save it as:
+            <span class="kbd">chem11-ch6-notes.html</span> and open in any browser.
+          </p>
+          <div class="copyBlock" data-copy>
+            <span class="copyHint">double-click to copy</span>
+            <pre>Suggested repo path:
+Chemistry11/notes/ch06-relationships-patterns/chem11-ch6-notes.html</pre>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast">Copied!</div>
+
+  <script>
+    // ---------- Utilities ----------
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    // ---------- Toast ----------
+    const toast = $("#toast");
+    let toastTimer = null;
+    function showToast(msg="Copied!"){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=>toast.classList.remove("show"), 900);
+    }
+
+    // ---------- Copy on Double Click ----------
+    function getCopyText(el){
+      const pre = el.querySelector("pre");
+      return (pre ? pre.innerText : el.innerText).trim();
+    }
+    $$("[data-copy]").forEach(block=>{
+      block.addEventListener("dblclick", async (e)=>{
+        const text = getCopyText(block);
+        try{
+          await navigator.clipboard.writeText(text);
+          showToast("Copied to clipboard");
+        }catch(err){
+          // Fallback
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+          showToast("Copied (fallback)");
+        }
+      });
+    });
+
+    // ---------- Quiz Reveal ----------
+    $$("[data-quiz]").forEach(q=>{
+      const reveal = $(".reveal", q);
+      const btnReveal = $("[data-reveal]", q);
+      const btnHide = $("[data-hide]", q);
+      btnReveal?.addEventListener("click", ()=>{ reveal.style.display = "block"; });
+      btnHide?.addEventListener("click", ()=>{ reveal.style.display = "none"; });
+    });
+
+    // ---------- Search + Filters ----------
+    const search = $("#search");
+    const clearBtn = $("#clearBtn");
+    const chips = $$(".chip");
+    const sections = $$("details.section");
+    const navLinks = $$("#navList a");
+
+    let activeFilters = new Set();
+
+    function sectionText(sec){
+      // include summary + content text
+      return (sec.innerText || "").toLowerCase();
+    }
+
+    function applyVisibility(){
+      const q = (search.value || "").trim().toLowerCase();
+
+      sections.forEach(sec=>{
+        const tags = (sec.getAttribute("data-tags") || "").split(/\s+/).filter(Boolean);
+        const tagOk = activeFilters.size === 0 || tags.some(t=>activeFilters.has(t));
+        const searchOk = q === "" || sectionText(sec).includes(q);
+
+        // show/hide
+        sec.style.display = (tagOk && searchOk) ? "" : "none";
+      });
+
+      // If user is filtering/searching, expand matching sections for convenience
+      const isFiltering = activeFilters.size > 0 || (search.value || "").trim() !== "";
+      if(isFiltering){
+        sections.forEach(sec=>{
+          if(sec.style.display !== "none") sec.open = true;
+        });
+      }
+    }
+
+    chips.forEach(chip=>{
+      chip.addEventListener("click", ()=>{
+        const f = chip.getAttribute("data-filter");
+        if(!f) return;
+        if(activeFilters.has(f)){
+          activeFilters.delete(f);
+          chip.classList.remove("on");
+        }else{
+          activeFilters.add(f);
+          chip.classList.add("on");
+        }
+        applyVisibility();
+      });
+    });
+
+    search.addEventListener("input", applyVisibility);
+    clearBtn.addEventListener("click", ()=>{
+      search.value = "";
+      applyVisibility();
+      search.focus();
+    });
+
+    // ---------- Active nav link on scroll ----------
+    const idToLink = new Map(navLinks.map(a => [a.getAttribute("data-target"), a]));
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        const id = entry.target.id;
+        const link = idToLink.get(id);
+        if(!link) return;
+        if(entry.isIntersecting){
+          navLinks.forEach(a=>a.classList.remove("active"));
+          link.classList.add("active");
+        }
+      });
+    }, { root: null, threshold: 0.28 });
+
+    sections.forEach(sec=>observer.observe(sec));
+
+    // Close sidebar focus loops on mobile? Not needed; keep simple.
+
+    // ---------- Smooth scroll ----------
+    navLinks.forEach(a=>{
+      a.addEventListener("click",(e)=>{
+        const href = a.getAttribute("href");
+        if(!href?.startsWith("#")) return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if(target){
+          target.scrollIntoView({ behavior:"smooth", block:"start" });
+          history.replaceState(null, "", href);
+        }
+      });
+    });
+
+    // Initial state
+    applyVisibility();
+  </script>
+</body>
+</html>
+

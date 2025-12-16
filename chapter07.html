@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chem 11 — Chapter 7: Solution Chemistry (Tutorial)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:rgba(255,255,255,.06);
+      --line:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --accent:#7dd3fc;
+      --accent2:#a7f3d0;
+      --warn:#fbbf24;
+      --danger:#fb7185;
+
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      --radius:18px;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(125,211,252,.18), transparent 60%),
+        radial-gradient(900px 600px at 90% 40%, rgba(167,243,208,.14), transparent 55%),
+        radial-gradient(1100px 900px at 60% 90%, rgba(251,191,36,.10), transparent 60%),
+        linear-gradient(180deg, #070a14, #0b1020 40%, #070a14);
+    }
+
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 22px 16px 40px;
+    }
+
+    header.hero{
+      border:1px solid var(--line);
+      background: var(--panel);
+      border-radius: 22px;
+      padding: 18px 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .kicker{
+      display:inline-block;
+      font-size: 12px;
+      color: rgba(255,255,255,.85);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    h1{
+      margin: 0;
+      font-size: 22px;
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    nav.toc{
+      margin-top: 14px;
+      border-top:1px solid var(--line);
+      padding-top: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    nav.toc a{
+      font-size: 13px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      padding: 8px 10px;
+      border-radius: 999px;
+      color: rgba(255,255,255,.9);
+    }
+    nav.toc a:hover{
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+    }
+
+    section.card{
+      margin-top: 16px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      border-radius: var(--radius);
+      padding: 16px 16px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.22);
+    }
+
+    h2{
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing:.2px;
+    }
+    h3{
+      margin: 14px 0 8px;
+      font-size: 15px;
+      letter-spacing:.15px;
+    }
+    p{
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    ul,ol{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+    li{ margin: 6px 0; }
+
+    .callout{
+      margin-top: 12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      padding: 12px 12px;
+      color: var(--muted);
+    }
+    .tag{
+      display:inline-block;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      color: rgba(255,255,255,.86);
+      background: rgba(0,0,0,.18);
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+    .tag.info{ border-color: rgba(125,211,252,.25); background: rgba(125,211,252,.08); }
+    .tag.good{ border-color: rgba(167,243,208,.25); background: rgba(167,243,208,.08); }
+    .tag.warn{ border-color: rgba(251,191,36,.25); background: rgba(251,191,36,.08); }
+
+    pre{
+      margin: 10px 0 0;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border:1px dashed rgba(255,255,255,.22);
+      background: rgba(0,0,0,.22);
+      color: rgba(255,255,255,.9);
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    table{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      border-radius: 14px;
+      overflow:hidden;
+      border:1px solid var(--line);
+    }
+    th, td{
+      padding: 10px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align: top;
+      font-size: 14px;
+    }
+    th{
+      text-align:left;
+      color: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.05);
+    }
+    tr:last-child td{ border-bottom:none; }
+
+    .mono{ font-family: var(--mono); color: rgba(255,255,255,.88); }
+    .muted{ color: var(--muted); }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="hero" id="top">
+      <span class="kicker">Chem 11 • Chapter 7</span>
+      <h1>Solution Chemistry — Detailed Tutorial</h1>
+      <p class="subtitle">
+        Goal: understand <b>solubility</b>, predict <b>“like dissolves like”</b>, calculate <b>dilutions</b> and <b>ion concentrations</b>, and perform <b>titrations</b> to find unknown concentrations.
+      </p>
+
+      <nav class="toc" aria-label="Table of contents">
+        <a href="#bigidea">Big Idea</a>
+        <a href="#sec71">7.1 Nature of Solutions</a>
+        <a href="#sec72">7.2 Like Dissolves Like</a>
+        <a href="#sec73">7.3 Dissociation & Conductivity</a>
+        <a href="#sec74">7.4 Titrations</a>
+        <a href="#summary">Master Summary</a>
+      </nav>
+    </header>
+
+    <!-- BIG IDEA -->
+    <section class="card" id="bigidea">
+      <h2>Big Idea</h2>
+      <p>
+        Most chemical reactions important to life and industry happen in solution.
+        A solution is a <b>homogeneous mixture</b> where one substance (solute) is dissolved in another (solvent).
+        The properties of the solution depend on the <b>intermolecular forces</b> between the particles.
+      </p>
+
+      <div class="callout">
+        <span class="tag info">Key Concept</span>
+        Understanding solutions tells us why oil and water don't mix, how soap works, and how to measure the exact concentration of an acid.
+      </div>
+    </section>
+
+    <!-- 7.1 -->
+    <section class="card" id="sec71">
+      <h2>7.1 The Nature of Solutions</h2>
+
+      <h3>Core Definitions</h3>
+      <ul>
+        <li><b>Solution</b>: A homogeneous mixture (looks uniform throughout, single phase). Can be solid, liquid, or gas.</li>
+        <li><b>Solute</b>: The substance being dissolved (usually the smaller amount).</li>
+        <li><b>Solvent</b>: The substance doing the dissolving (usually the larger amount).</li>
+        <li><b>Miscible</b>: Two liquids that mix in <b>any</b> proportion (e.g., ethanol & water).</li>
+        <li><b>Immiscible</b>: Two liquids that do <b>not</b> mix (e.g., oil & water).</li>
+        <li><b>Aqueous</b>: A solution where the solvent is water.</li>
+      </ul>
+
+      <h3>Solubility</h3>
+      <p>
+        <b>Solubility</b> is the maximum amount of solute that can dissolve in a given amount of solvent at a specific temperature.
+      </p>
+      <pre>Common units:
+• Molarity (M): mol/L (Molar Solubility)
+• g/L: grams per litre
+• ppm: parts per million</pre>
+
+      <div class="callout">
+        <span class="tag good">Calculation Tip</span>
+        To convert <b>Solubility (g/L)</b> ↔ <b>Molar Solubility (mol/L)</b>, use the <b>Molar Mass</b> of the solute.
+        <br>
+        <code>mol/L = (g/L) ÷ (g/mol)</code>
+      </div>
+
+      <h3>Saturation Levels</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Unsaturated</b></td>
+            <td class="muted">Solvent can dissolve more solute.</td>
+          </tr>
+          <tr>
+            <td><b>Saturated</b></td>
+            <td class="muted">Solvent holds the maximum amount of solute possible. Any extra solid remains undissolved.</td>
+          </tr>
+          <tr>
+            <td><b>Supersaturated</b></td>
+            <td class="muted">Holds <i>more</i> than the normal maximum (unstable condition, usually achieved by heating then cooling).</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 7.2 -->
+    <section class="card" id="sec72">
+      <h2>7.2 Like Dissolves Like</h2>
+      <p>
+        This simple rule predicts solubility:
+        <b>“Polar dissolves polar (and ionic); Non-polar dissolves non-polar.”</b>
+      </p>
+
+      <h3>The Mechanism (Intermolecular Forces)</h3>
+      <p>
+        For a solute to dissolve:
+        1. Solute particles separate (requires energy).
+        2. Solvent particles separate (requires energy).
+        3. Solute and solvent attract each other (releases energy).
+      </p>
+      <p>
+        Dissolving happens when the new solute-solvent attraction is <b>similar in strength and type</b> to the original attractions.
+      </p>
+
+      <h3>Common Interactions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Solute Type</th>
+            <th>Solvent Type</th>
+            <th>Force Involved</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Ionic</b> (e.g., NaCl)</td>
+            <td><b>Polar</b> (Water)</td>
+            <td><b>Ion-Dipole</b></td>
+            <td><b>Soluble</b> (Water molecules hydrate the ions)</td>
+          </tr>
+          <tr>
+            <td><b>Polar</b> (e.g., Ethanol, Sugar)</td>
+            <td><b>Polar</b> (Water)</td>
+            <td><b>Hydrogen Bonding</b> or Dipole-Dipole</td>
+            <td><b>Soluble</b> (Miscible)</td>
+          </tr>
+          <tr>
+            <td><b>Non-polar</b> (e.g., Iodine I₂)</td>
+            <td><b>Non-polar</b> (e.g., CCl₄, Paint Thinner)</td>
+            <td><b>London Dispersion</b></td>
+            <td><b>Soluble</b></td>
+          </tr>
+          <tr>
+            <td><b>Non-polar</b> (e.g., Grease)</td>
+            <td><b>Polar</b> (Water)</td>
+            <td>(None / Mismatch)</td>
+            <td><b>Insoluble</b></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Applications</h3>
+      <ul>
+        <li><b>Vitamins:</b> Vitamin A (non-polar hydrocarbon chain) is fat-soluble (stored in body fat). Vitamin C (many -OH groups, polar) is water-soluble (needs daily intake).</li>
+        <li><b>Soaps:</b> Soap molecules have a <b>polar head</b> (hydrophilic) and a <b>non-polar tail</b> (hydrophobic). They form <b>micelles</b> to trap grease (non-polar) inside while the outside interacts with water, allowing grease to be washed away.</li>
+      </ul>
+    </section>
+
+    <!-- 7.3 -->
+    <section class="card" id="sec73">
+      <h2>7.3 Dissociation & Conductivity</h2>
+
+      <h3>Dilution</h3>
+      <p>
+        Adding water lowers concentration but the <b>moles of solute</b> stay the same.
+      </p>
+      <pre>M₁V₁ = M₂V₂
+Where:
+• M₁ = initial concentration
+• V₁ = initial volume
+• M₂ = final concentration
+• V₂ = final volume (V₁ + added water)</pre>
+
+      <h3>Dissociation Equations</h3>
+      <p>
+        Ionic compounds break into ions in water. Check formulas and balance charges!
+      </p>
+      <div class="callout">
+        <span class="tag info">Example</span>
+        <b>CaCl₂(aq) → Ca²⁺(aq) + 2Cl⁻(aq)</b>
+        <br>
+        If [CaCl₂] = 1.0 M, then:
+        <br>
+        [Ca²⁺] = 1.0 M
+        <br>
+        [Cl⁻] = 2.0 M (twice the concentration because of the coefficient 2)
+      </div>
+
+      <h3>Conductivity</h3>
+      <p>
+        For a solution to conduct electricity, it must contain <b>mobile ions</b>.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Examples</th>
+            <th>Conductivity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Strong Electrolyte</b></td>
+            <td>Soluble salts, Strong Acids (HCl), Strong Bases (NaOH)</td>
+            <td><b>High</b> (Many ions)</td>
+          </tr>
+          <tr>
+            <td><b>Weak Electrolyte</b></td>
+            <td>Weak Acids (Vinegar/CH₃COOH), Weak Bases (NH₃)</td>
+            <td><b>Low</b> (Few ions, mostly molecules)</td>
+          </tr>
+          <tr>
+            <td><b>Nonelectrolyte</b></td>
+            <td>Molecular compounds (Sugar, Alcohol)</td>
+            <td><b>None</b> (No ions)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 7.4 -->
+    <section class="card" id="sec74">
+      <h2>7.4 Titrations</h2>
+      <p>
+        Titration is a technique to determine the <b>unknown concentration</b> of a solution by reacting it with a solution of <b>known concentration</b> (standard solution).
+      </p>
+
+      <h3>The Setup</h3>
+      <ul>
+        <li><b>Burette</b>: Vertical tube with a tap. Holds the <b>standard solution</b> (titrant). Measures volume added precisely.</li>
+        <li><b>Pipette</b>: Used to measure a precise volume of the <b>unknown solution</b> into the flask.</li>
+        <li><b>Erlenmeyer Flask</b>: Contains the unknown + <b>Indicator</b>.</li>
+      </ul>
+
+      <h3>Key Terms</h3>
+      <ul>
+        <li><b>Equivalence Point</b>: When moles of H⁺ exactly equal moles of OH⁻. (Stoichiometric match).</li>
+        <li><b>Endpoint</b>: When the <b>indicator changes color</b> (experimental estimate of equivalence).</li>
+      </ul>
+
+      <h3>Calculation Steps</h3>
+      <ol>
+        <li>Write the <b>balanced neutralization equation</b> (Acid + Base → Salt + Water).</li>
+        <li>Calculate <b>moles</b> of the known substance: <code>n = M × V</code>.</li>
+        <li>Use the <b>mole ratio</b> from the equation to find moles of the unknown.</li>
+        <li>Calculate <b>concentration</b> of the unknown: <code>M = n / V</code>.</li>
+      </ol>
+
+      <div class="callout">
+        <span class="tag warn">Common Mistake</span>
+        Don't forget the mole ratio! If the reaction is <b>H₂SO₄ + 2NaOH</b>, you need 2 moles of base for every 1 mole of acid.
+      </div>
+    </section>
+
+    <!-- SUMMARY -->
+    <section class="card" id="summary">
+      <h2>Master Summary</h2>
+      <p>
+        Solution chemistry connects the <b>microscopic</b> (intermolecular forces, ions) to the <b>macroscopic</b> (solubility, conductivity, titration results).
+      </p>
+      <pre>Key Logic Chain:
+• Molecular Polarity → Solubility (Like Dissolves Like)
+• Dissociation → Ions → Conductivity
+• Moles & Stoichiometry → Titration Calculations</pre>
+
+      <p class="muted" style="margin-top:14px;">
+        <a href="#top">Back to top ↑</a>
+      </p>
+    </section>
+
+  </div>
+</body>
+</html>
