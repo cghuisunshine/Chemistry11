@@ -1,620 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chem 11 — Chapter 6: Relationships & Patterns in Chemistry (Tutorial)</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 6 Tutorial — Patterns in Chemistry</title>
   <style>
-    :root{
-      --bg:#0b1020;
-      --panel:rgba(255,255,255,.06);
-      --line:rgba(255,255,255,.12);
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.72);
-      --accent:#7dd3fc;
-      --accent2:#a7f3d0;
-      --warn:#fbbf24;
-      --danger:#fb7185;
-
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-
-      --radius:18px;
-      --shadow: 0 18px 60px rgba(0,0,0,.35);
-    }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family:var(--sans);
-      color:var(--text);
-      background:
-        radial-gradient(900px 600px at 20% 10%, rgba(125,211,252,.18), transparent 60%),
-        radial-gradient(900px 600px at 90% 40%, rgba(167,243,208,.14), transparent 55%),
-        radial-gradient(1100px 900px at 60% 90%, rgba(251,191,36,.10), transparent 60%),
-        linear-gradient(180deg, #070a14, #0b1020 40%, #070a14);
-    }
-
-    a{ color:var(--accent); text-decoration:none; }
-    a:hover{ text-decoration:underline; }
-
-    .wrap{
-      max-width: 980px;
+    /* Book Mode Minimal Style - Compatible with Template Structure */
+    body {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      line-height: 1.6;
+      max-width: 46em;
       margin: 0 auto;
-      padding: 22px 16px 40px;
+      padding: 2rem 1.5rem;
+      background-color: #ffffff;
+      color: #1a1a1a;
     }
 
-    header.hero{
-      border:1px solid var(--line);
-      background: var(--panel);
-      border-radius: 22px;
-      padding: 18px 18px;
-      box-shadow: var(--shadow);
+    h1 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      margin-top: 0;
+      font-size: 2.2rem;
+      text-align: center;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.5em;
+      color: #000;
     }
 
-    .kicker{
-      display:inline-block;
-      font-size: 12px;
-      color: rgba(255,255,255,.85);
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.18);
-      padding: 6px 10px;
-      border-radius: 999px;
-      margin-bottom: 10px;
+    h2 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 1.6rem;
+      margin-top: 2.5em;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.3em;
+      color: #000;
+      letter-spacing: -0.01em;
     }
 
-    h1{
-      margin: 0;
-      font-size: 22px;
-      letter-spacing:.2px;
-    }
-    .subtitle{
-      margin: 8px 0 0;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 14px;
-    }
-
-    nav.toc{
-      margin-top: 14px;
-      border-top:1px solid var(--line);
-      padding-top: 12px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-    nav.toc a{
-      font-size: 13px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.18);
-      padding: 8px 10px;
-      border-radius: 999px;
-      color: rgba(255,255,255,.9);
-    }
-    nav.toc a:hover{
-      background: rgba(255,255,255,.06);
-      text-decoration:none;
+    h3 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 1.25rem;
+      margin-top: 2em;
+      margin-bottom: 0.8em;
+      color: #444;
+      font-weight: 600;
+      text-transform: uppercase; /* Match section style if desired, or keep simple */
+      letter-spacing: 0.05em;
     }
 
-    section.card{
-      margin-top: 16px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.18);
-      border-radius: var(--radius);
-      padding: 16px 16px;
-      box-shadow: 0 14px 40px rgba(0,0,0,.22);
+    /* Template Specific Sub-headers */
+    h4 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 1.05rem;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+      color: #0056b3; /* Highlight Key Ideas/Formulas headers slightly */
+      font-weight: 600;
     }
 
-    h2{
-      margin: 0 0 10px;
-      font-size: 18px;
-      letter-spacing:.2px;
-    }
-    h3{
-      margin: 14px 0 8px;
-      font-size: 15px;
-      letter-spacing:.15px;
-    }
-    p{
-      margin: 8px 0 0;
-      color: var(--muted);
-      line-height: 1.65;
-      font-size: 14px;
+    p, ul, ol { margin-bottom: 1.2em; }
+    
+    ul { list-style-type: disc; padding-left: 1.5em; }
+    li { margin-bottom: 0.5em; }
+
+    code {
+      font-family: Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.9em;
+      background-color: #f7f7f7;
+      padding: 0.1em 0.3em;
+      border-radius: 3px;
     }
 
-    ul,ol{
-      margin: 10px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-      line-height: 1.65;
-      font-size: 14px;
+    .toc {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      padding: 1.5em;
+      border: 1px solid #eee;
+      margin-bottom: 3em;
+      font-size: 0.95rem;
     }
-    li{ margin: 6px 0; }
-
-    .callout{
-      margin-top: 12px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      border-radius: 16px;
-      padding: 12px 12px;
-      color: var(--muted);
+    .toc a {
+      display: inline-block;
+      margin-right: 1.5em;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
     }
-    .tag{
-      display:inline-block;
-      font-size: 11px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border:1px solid var(--line);
-      color: rgba(255,255,255,.86);
-      background: rgba(0,0,0,.18);
-      margin-right: 6px;
-      margin-bottom: 6px;
-    }
-    .tag.info{ border-color: rgba(125,211,252,.25); background: rgba(125,211,252,.08); }
-    .tag.good{ border-color: rgba(167,243,208,.25); background: rgba(167,243,208,.08); }
-    .tag.warn{ border-color: rgba(251,191,36,.25); background: rgba(251,191,36,.08); }
-
-    pre{
-      margin: 10px 0 0;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border:1px dashed rgba(255,255,255,.22);
-      background: rgba(0,0,0,.22);
-      color: rgba(255,255,255,.9);
-      font-family: var(--mono);
-      font-size: 13px;
-      line-height: 1.55;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    table{
-      width:100%;
-      border-collapse: collapse;
-      margin-top: 12px;
-      border-radius: 14px;
-      overflow:hidden;
-      border:1px solid var(--line);
-    }
-    th, td{
-      padding: 10px 10px;
-      border-bottom:1px solid var(--line);
-      vertical-align: top;
-      font-size: 14px;
-    }
-    th{
-      text-align:left;
-      color: rgba(255,255,255,.92);
-      background: rgba(255,255,255,.05);
-    }
-    tr:last-child td{ border-bottom:none; }
-
-    .mono{ font-family: var(--mono); color: rgba(255,255,255,.88); }
-    .muted{ color: var(--muted); }
+    .toc a:hover { text-decoration: underline; color: #0056b3; }
   </style>
 </head>
-
 <body>
-  <div class="wrap">
-    <header class="hero" id="top">
-      <span class="kicker">Chem 11 • Chapter 6</span>
-      <h1>Relationships & Patterns in Chemistry — Detailed Tutorial</h1>
-      <p class="subtitle">
-        Goal: explain how the periodic table predicts properties using <b>electron configuration</b>,
-        <b>periodic trends</b>, <b>bonding</b>, <b>shape</b>, <b>polarity</b>, and <b>intermolecular forces</b>.
-      </p>
 
-      <nav class="toc" aria-label="Table of contents">
-        <a href="#bigidea">Big Idea</a>
-        <a href="#sec61">6.1 Periodic Table</a>
-        <a href="#sec62">6.2 Trends</a>
-        <a href="#sec63">6.3 Bonding</a>
-        <a href="#sec64">6.4 Lewis</a>
-        <a href="#sec65">6.5 VSEPR & Polarity</a>
-        <a href="#imf">IMF</a>
-        <a href="#summary">Master Summary</a>
-      </nav>
-    </header>
+<h1>Chapter 6 Tutorial — Patterns in Chemistry</h1>
 
-    <!-- BIG IDEA -->
-    <section class="card" id="bigidea">
-      <h2>Big Idea</h2>
-      <p>
-        The periodic table is a <b>predictive map</b>. Patterns exist because electron structures repeat in a regular way.
-        If you know an element’s position, you can predict its behavior.
-      </p>
+<nav class="toc">
+  <a href="#sec61">6.1 Periodic Trends</a>
+  <a href="#sec62">6.2 Chemical Bonding</a>
+  <a href="#sec63">6.3 Lewis Structures</a>
+</nav>
 
-      <h3>The causal chain (memorize this)</h3>
-      <pre>electron configuration → periodic trends → bonding → shape → polarity → intermolecular forces → observable properties</pre>
+<h2 id="sec61">6.1 Periodic Trends & Properties</h2>
 
-      <div class="callout">
-        <span class="tag info">Exam mindset</span>
-        Don’t memorize arrows. Justify each step using:
-        <span class="tag">shielding</span>
-        <span class="tag">Zeff</span>
-        <span class="tag">distance</span>
-        <span class="tag">electron repulsion</span>
-      </div>
-    </section>
+<h3>Key ideas</h3>
+<ul>
+  <li><b>Periodic Law:</b> Properties of elements recur periodically when arranged by atomic number.</li>
+  <li><b>Atomic Radius:</b> Increases down a group (more shells) and decreases across a period (stronger nuclear pull).</li>
+  <li><b>Ionization Energy (IE):</b> Energy to remove an electron. Increases across a period (harder to remove) and decreases down a group (easier to remove due to shielding).</li>
+  <li><b>Electronegativity (EN):</b> Attraction for shared electrons. Fluorine is the highest (4.0). Noble gases are excluded.</li>
+</ul>
 
-    <!-- 6.1 -->
-    <section class="card" id="sec61">
-      <h2>6.1 Development of the Periodic Table</h2>
+<h3>Important formulas & their meaning</h3>
+<ul>
+  <li><b>Effective Nuclear Charge:</b> <code>Z_eff = Z - S</code>.
+  <br>Explains why pull increases across a period. <i>Z</i> is protons, <i>S</i> is shielding electrons.</li>
+</ul>
 
-      <h3>What “periodic” means</h3>
-      <p>
-        <b>Periodic</b> means chemical/physical properties repeat in a regular pattern.
-        Elements with similar properties cluster into <b>groups</b> (columns).
-      </p>
+<h3>Short example(s)</h3>
+<ul>
+  <li><b>Radius:</b> K &gt; Na &gt; Li (Size increases down).</li>
+  <li><b>Reactivity:</b> Alkali metals (Group 1) get <i>more</i> reactive down the group (easier to lose e⁻). Halogens (Group 17) get <i>less</i> reactive down the group (harder to gain e⁻).</li>
+</ul>
 
-      <h3>Historical milestones (why the modern table exists)</h3>
-      <ul>
-        <li><b>Dobereiner’s triads</b>: sets of 3 elements with similar properties (early grouping idea).</li>
-        <li><b>Newlands’ law of octaves</b>: repeating pattern every 8 elements (pattern noticed, not perfect).</li>
-        <li><b>Mendeleev</b>: arranged by mass + properties; left gaps; predicted unknown elements accurately.</li>
-        <li><b>Moseley</b>: corrected the “key” to <b>atomic number</b> (protons), creating the modern table.</li>
-      </ul>
+<h2 id="sec62">6.2 Chemical Bonding</h2>
 
-      <h3>Modern Periodic Law</h3>
-      <pre>When elements are arranged by increasing atomic number (Z),
-their properties recur periodically.</pre>
+<h3>Key ideas</h3>
+<ul>
+  <li><b>Ionic Bond:</b> Transfer of electrons from Metal to Non-metal. Held by electrostatic attraction.</li>
+  <li><b>Covalent Bond:</b> Sharing of electrons between Non-metals.</li>
+  <li><b>Polar Covalent:</b> Unequal sharing due to electronegativity difference. Creates dipoles (δ+ / δ-).</li>
+</ul>
 
-      <p>
-        <b>Why atomic number matters:</b> atomic number fixes electron count (for neutral atoms), which fixes electron configuration,
-        which explains chemical behavior. That’s why chemistry repeats in patterns.
-      </p>
+<h3>Important formulas & their meaning</h3>
+<ul>
+  <li><b>Bond Type by ΔEN:</b>
+    <ul>
+      <li><code>0.0 - 0.4</code>: Non-polar Covalent</li>
+      <li><code>0.4 - 1.7</code>: Polar Covalent</li>
+      <li><code>&gt; 1.7</code>: Ionic</li>
+    </ul>
+  </li>
+</ul>
 
-      <div class="callout">
-        <span class="tag good">Core rule</span>
-        Elements in the same group have similar chemistry mainly because they have similar <b>valence-electron structures</b>.
-      </div>
-    </section>
+<h3>Short example(s)</h3>
+<ul>
+  <li><b>NaCl:</b> ΔEN = |3.0 - 0.9| = 2.1 (Ionic).</li>
+  <li><b>H-Cl:</b> ΔEN = |3.0 - 2.1| = 0.9 (Polar Covalent).</li>
+  <li><b>Cl-Cl:</b> ΔEN = 0 (Non-polar Covalent).</li>
+</ul>
 
-    <!-- 6.2 -->
-    <section class="card" id="sec62">
-      <h2>6.2 Periodic Trends</h2>
-      <p>
-        Periodic trends are not random. They follow from how strongly the nucleus attracts valence electrons and how electrons shield each other.
-      </p>
+<h2 id="sec63">6.3 Lewis Structures & Molecular Shape</h2>
 
-      <h3>The two master factors</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Factor</th>
-            <th>Meaning</th>
-            <th>What it changes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><b>Shielding</b></td>
-            <td class="muted">Inner electrons reduce nuclear attraction felt by valence electrons</td>
-            <td class="muted">More shielding → outer electrons held less tightly</td>
-          </tr>
-          <tr>
-            <td><b>Effective nuclear charge (Z<sub>eff</sub>)</b></td>
-            <td class="muted">Net pull on valence electrons</td>
-            <td class="muted">Higher Z<sub>eff</sub> → smaller radius, higher IE, higher EN</td>
-          </tr>
-        </tbody>
-      </table>
+<h3>Key ideas</h3>
+<ul>
+  <li><b>Octet Rule:</b> Atoms bond to achieve 8 valence electrons (Stable noble gas configuration).</li>
+  <li><b>VSEPR Theory:</b> Valence Shell Electron Pair Repulsion. Electron groups repel to be as far apart as possible, determining geometry.</li>
+  <li><b>Resonance:</b> When multiple valid structures produce a hybrid average (e.g., Ozone, Benzene).</li>
+</ul>
 
-      <pre>Across a period: Zeff ↑ (shielding ~ constant) → radius ↓, IE ↑, EN ↑
-Down a group: n ↑ + shielding ↑ → radius ↑, IE ↓, EN ↓</pre>
+<h3>Important formulas & their meaning</h3>
+<ul>
+  <li><b>AXE Notation:</b> <code>A</code> = Central Atom, <code>X</code> = Bonding Atoms, <code>E</code> = Lone Pairs.
+  <br>Determines shape (e.g., AX4 is Tetrahedral, AX2E2 is Bent).</li>
+</ul>
 
-      <h3>Atomic radius (size)</h3>
-      <ul>
-        <li><b>Down a group:</b> radius increases (more energy levels, bigger electron cloud).</li>
-        <li><b>Across a period:</b> radius decreases (Z<sub>eff</sub> increases, electrons pulled closer).</li>
-      </ul>
+<h3>Short example(s)</h3>
+<ul>
+  <li><b>Methane (CH₄):</b> 4 bonds, 0 lone pairs. <b>Tetrahedral</b> (109.5°).</li>
+  <li><b>Ammonia (NH₃):</b> 3 bonds, 1 lone pair. <b>Trigonal Pyramidal</b> (107°).</li>
+  <li><b>Water (H₂O):</b> 2 bonds, 2 lone pairs. <b>Bent</b> (104.5°).</li>
+</ul>
 
-      <h3>Ion size</h3>
-      <ul>
-        <li><b>Cations</b> are smaller than their atoms (loss of e⁻ → less repulsion; stronger pull per electron).</li>
-        <li><b>Anions</b> are larger than their atoms (gain of e⁻ → more repulsion; expanded cloud).</li>
-        <li><b>Isoelectronic series:</b> same electrons → more protons = smaller ion.</li>
-      </ul>
-
-      <h3>Ionization energy (IE)</h3>
-      <pre>Ionization energy:
-Energy required to remove one electron from a gaseous atom.</pre>
-
-      <ul>
-        <li><b>Across a period:</b> IE increases (Z<sub>eff</sub> increases).</li>
-        <li><b>Down a group:</b> IE decreases (valence electrons farther + more shielding).</li>
-      </ul>
-
-      <div class="callout">
-        <span class="tag warn">Important nuance</span>
-        Small “exceptions” to the smooth IE trend happen due to subshell stability and electron pairing repulsion (e.g., N vs O).
-      </div>
-
-      <h3>Electronegativity (EN)</h3>
-      <pre>Electronegativity:
-Ability of a bonded atom to attract shared electrons.</pre>
-
-      <ul>
-        <li><b>Across a period:</b> EN increases (Z<sub>eff</sub> ↑, radius ↓).</li>
-        <li><b>Down a group:</b> EN decreases (bonding electrons farther away).</li>
-        <li><b>Highest EN:</b> Fluorine.</li>
-      </ul>
-
-      <h3>ΔEN and bond character (guideline)</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>ΔEN</th>
-            <th>Bond type (mostly)</th>
-            <th>Meaning</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>≈ 0</td>
-            <td>Non-polar covalent</td>
-            <td class="muted">Equal sharing</td>
-          </tr>
-          <tr>
-            <td>0.4 – 1.7</td>
-            <td>Polar covalent</td>
-            <td class="muted">Unequal sharing</td>
-          </tr>
-          <tr>
-            <td>&gt; 1.7</td>
-            <td>Ionic (dominant)</td>
-            <td class="muted">Transfer dominates</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- 6.3 -->
-    <section class="card" id="sec63">
-      <h2>6.3 Describing Chemical Bonding</h2>
-
-      <h3>Bond types (fast classification)</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Elements involved</th>
-            <th>Bond type</th>
-            <th>Main idea</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Metal + non-metal</td>
-            <td><b>Ionic</b></td>
-            <td class="muted">Electron transfer → ions attract in a lattice</td>
-          </tr>
-          <tr>
-            <td>Non-metal + non-metal</td>
-            <td><b>Covalent</b></td>
-            <td class="muted">Shared electron pairs between nuclei</td>
-          </tr>
-          <tr>
-            <td>Metal + metal</td>
-            <td><b>Metallic</b></td>
-            <td class="muted">“Sea of electrons” around positive metal ions</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Ionic bonding</h3>
-      <p>
-        An ionic bond is electrostatic attraction between a cation and an anion formed by electron transfer.
-        Ionic solids form a <b>crystal lattice</b>, not individual molecules.
-      </p>
-
-      <h3>Covalent bonding</h3>
-      <p>
-        A covalent bond is attraction between shared electron pairs and the nuclei of the bonded atoms.
-        Sharing may be equal (non-polar) or unequal (polar), depending on ΔEN.
-      </p>
-
-      <h3>Bond order and bond strength</h3>
-      <pre>Bond order ↑ → bond length ↓ and bond energy ↑</pre>
-    </section>
-
-    <!-- 6.4 -->
-    <section class="card" id="sec64">
-      <h2>6.4 Lewis Structure Diagrams</h2>
-
-      <h3>What Lewis structures show</h3>
-      <ul>
-        <li>Valence electrons</li>
-        <li>Bonds (shared pairs) and lone pairs</li>
-        <li>Electron “accounting” (not 3D shape)</li>
-      </ul>
-
-      <h3>Lewis algorithm (step-by-step)</h3>
-      <pre>1) Count total valence e− (add for − charge, subtract for + charge)
-2) Choose skeleton (least EN usually central; H never central)
-3) Connect atoms with single bonds (2 e− each)
-4) Complete octets for outer atoms
-5) Put leftover e− on central atom
-6) If central lacks octet, create multiple bonds
-7) Check total e− count + formal charges</pre>
-
-      <h3>Octet rule exceptions</h3>
-      <ul>
-        <li><b>Incomplete octet:</b> Be (4), B/Al (6) common</li>
-        <li><b>Expanded octet:</b> period 3+ atoms can exceed 8</li>
-        <li><b>Odd-electron species:</b> radicals (rare at this level)</li>
-      </ul>
-
-      <h3>Resonance</h3>
-      <p>
-        Resonance occurs when more than one valid Lewis structure exists. The real molecule is a
-        <b>resonance hybrid</b> with delocalized electrons.
-      </p>
-      <pre>Resonance rules:
-• Only electrons move (π bonds/lone pairs), not atoms
-• Total valence electrons stay the same
-• The real structure is an average (hybrid), not “switching” back and forth</pre>
-    </section>
-
-    <!-- 6.5 -->
-    <section class="card" id="sec65">
-      <h2>6.5 Molecular Shape and Polarity (VSEPR)</h2>
-
-      <h3>Core principle</h3>
-      <pre>VSEPR:
-Electron groups repel and arrange themselves to minimize repulsion.
-Lone pairs repel more than bonding pairs.</pre>
-
-      <h3>Counting electron groups (the key skill)</h3>
-      <ul>
-        <li>Each bond (single/double/triple) counts as <b>one</b> electron group.</li>
-        <li>Each lone pair counts as <b>one</b> electron group.</li>
-        <li>Electron-group count determines geometry; lone pairs affect the final molecular shape.</li>
-      </ul>
-
-      <h3>Common shapes (Chem 11 essentials)</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Electron groups</th>
-            <th>Typical notation</th>
-            <th>Shape</th>
-            <th>Example</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>2</td>
-            <td>AX₂</td>
-            <td>Linear</td>
-            <td>CO₂</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>AX₃ / AX₂E</td>
-            <td>Trigonal planar / Bent</td>
-            <td>BF₃ / SO₂</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>AX₄ / AX₃E / AX₂E₂</td>
-            <td>Tetrahedral / Trig pyramidal / Bent</td>
-            <td>CH₄ / NH₃ / H₂O</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>AX₅</td>
-            <td>Trigonal bipyramidal</td>
-            <td>PCl₅</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>AX₆</td>
-            <td>Octahedral</td>
-            <td>SF₆</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Molecular polarity</h3>
-      <p>
-        A molecule is polar if it has polar bonds and the bond dipoles do not cancel.
-        Symmetric molecules may be non-polar even if bonds are polar.
-      </p>
-
-      <pre>Polarity checklist:
-1) Are there polar bonds? (ΔEN > ~0.4)
-2) Is the shape symmetric?
-→ If not symmetric, dipoles don’t cancel → polar molecule</pre>
-
-      <div class="callout">
-        <span class="tag info">Example</span>
-        CO₂ has polar C=O bonds, but it is linear and symmetric, so it is non-polar overall.
-      </div>
-    </section>
-
-    <!-- IMF -->
-    <section class="card" id="imf">
-      <h2>Intermolecular Forces (IMF)</h2>
-
-      <h3>What IMFs control</h3>
-      <ul>
-        <li>Boiling point / melting point</li>
-        <li>Viscosity (thickness)</li>
-        <li>Volatility (evaporates easily)</li>
-        <li>Solubility (“like dissolves like”)</li>
-      </ul>
-
-      <h3>Strength ladder</h3>
-      <pre>Dispersion < Dipole–dipole < Hydrogen bonding < Ion–dipole</pre>
-
-      <h3>IMF types</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Force</th>
-            <th>Applies to</th>
-            <th>Cause</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><b>Dispersion (London)</b></td>
-            <td>All molecules/atoms</td>
-            <td class="muted">Temporary induced dipoles (more with larger molar mass / surface area)</td>
-          </tr>
-          <tr>
-            <td><b>Dipole–dipole</b></td>
-            <td>Polar molecules</td>
-            <td class="muted">Permanent dipole attraction</td>
-          </tr>
-          <tr>
-            <td><b>Hydrogen bonding</b></td>
-            <td>H–N, H–O, H–F</td>
-            <td class="muted">Very strong dipole–dipole (H attached to N/O/F)</td>
-          </tr>
-          <tr>
-            <td><b>Ion–dipole</b></td>
-            <td>Ions + polar solvent</td>
-            <td class="muted">Ion attracts partial charges on a polar molecule</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="callout">
-        <span class="tag good">Solubility rule</span>
-        Polar dissolves polar; non-polar dissolves non-polar. Ionic compounds often dissolve in polar solvents because of ion–dipole forces.
-      </div>
-    </section>
-
-    <!-- SUMMARY -->
-    <section class="card" id="summary">
-      <h2>Master Summary (Exam-Level)</h2>
-      <p>
-        If you get stuck, return to the chain and explain each link:
-      </p>
-      <pre>electron configuration → periodic trends → bonding → shape → polarity → IMF → properties</pre>
-
-      <h3>One-sentence “big takeaway”</h3>
-      <p>
-        The periodic table works because atomic number determines electron arrangement, and electron arrangement determines the forces that control chemistry.
-      </p>
-
-      <div class="callout">
-        <span class="tag info">Next step (if you want)</span>
-        I can convert this exact tutorial into:
-        <span class="tag">flashcards (JSON)</span>
-        <span class="tag">worksheet (PDF)</span>
-        <span class="tag">slide deck outline</span>
-        <span class="tag">practice test + solutions</span>
-      </div>
-
-      <p class="muted" style="margin-top:14px;">
-        <a href="#top">Back to top ↑</a>
-      </p>
-    </section>
-
-  </div>
 </body>
 </html>
-

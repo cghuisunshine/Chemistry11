@@ -212,10 +212,19 @@ body.nav-collapsed #content {
 }
 .node-content {
   padding: 10px 12px 10px;
-  display: none;
+  display: block;
   background: #141820;
   font-size: 0.95rem;
   line-height: 1.5;
+}
+
+.node.is-collapsed .node-content {
+  display: none;
+}
+
+.node-header:focus-visible {
+  outline: 2px solid #61a8ff;
+  outline-offset: 2px;
 }
 
 /* ===== COPY BUTTONS ===== */
@@ -988,10 +997,38 @@ if (navToggle) {
 }
 
 // ===== COLLAPSIBLE BEHAVIOR =====
+function setNodeCollapsed(node, shouldCollapse) {
+  node.classList.toggle('is-collapsed', shouldCollapse);
+  const header = node.querySelector('.node-header');
+  if (!header) return;
+
+  const toggleText = header.querySelector('span:not(.label)');
+  if (toggleText) {
+    toggleText.textContent = shouldCollapse ? 'click to expand' : 'click to collapse';
+  }
+  header.setAttribute('aria-expanded', shouldCollapse ? 'false' : 'true');
+}
+
+document.querySelectorAll('.node').forEach(node => {
+  setNodeCollapsed(node, false);
+});
+
 document.querySelectorAll('.node-header').forEach(header => {
-  header.addEventListener('click', () => {
-    const content = header.nextElementSibling;
-    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+  header.setAttribute('role', 'button');
+  header.setAttribute('tabindex', '0');
+
+  const toggle = () => {
+    const node = header.closest('.node');
+    if (!node) return;
+    setNodeCollapsed(node, !node.classList.contains('is-collapsed'));
+  };
+
+  header.addEventListener('click', toggle);
+  header.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggle();
+    }
   });
 });
 
