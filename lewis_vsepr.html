@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chemistry 11 — Lewis Structures & VSEPR</title>
+  <style>
+    :root {
+      --bg: #060915;
+      --panel: #0f1426;
+      --panel-2: rgba(255, 255, 255, 0.04);
+      --ink: #e9edff;
+      --muted: #a5b0d2;
+      --accent: #7dc4ff;
+      --accent2: #6ee7b7;
+      --danger: #ff7d7d;
+      --warn: #ffd479;
+      --radius: 16px;
+      --shadow: 0 14px 38px rgba(0, 0, 0, 0.38);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: radial-gradient(1000px 700px at 12% 8%, #131c3a 0%, #0b1020 45%, #050815 100%);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.6;
+      padding: clamp(18px, 4vw, 32px);
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: color-mix(in oklab, var(--panel) 88%, black 12%);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: clamp(16px, 3vw, 28px);
+      box-shadow: var(--shadow);
+    }
+
+    header {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(24px, 4vw, 38px);
+      letter-spacing: 0.3px;
+    }
+
+    .lede {
+      margin: 0;
+      color: var(--muted);
+      max-width: 78ch;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 12px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(125, 196, 255, 0.10);
+      border: 1px solid rgba(125, 196, 255, 0.25);
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .chip:hover {
+      background: rgba(125, 196, 255, 0.16);
+      border-color: rgba(125, 196, 255, 0.35);
+      text-decoration: none;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    section {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    section + section { margin-top: 14px; }
+
+    h2 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      letter-spacing: 0.2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h3 {
+      margin: 12px 0 6px;
+      font-size: 16px;
+      color: var(--ink);
+    }
+
+    p { margin: 0.3rem 0; }
+    ul { margin: 0.3rem 0 0.4rem 1.1rem; padding: 0; }
+    li { margin: 0.2rem 0; }
+
+    .note {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(110, 231, 183, 0.10);
+      border: 1px solid rgba(110, 231, 183, 0.25);
+      color: color-mix(in oklab, var(--ink) 92%, var(--accent2) 8%);
+    }
+
+    .warn {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(255, 212, 121, 0.10);
+      border: 1px solid rgba(255, 212, 121, 0.25);
+      color: color-mix(in oklab, var(--ink) 92%, var(--warn) 8%);
+    }
+
+    .danger {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(255, 125, 125, 0.10);
+      border: 1px solid rgba(255, 125, 125, 0.25);
+      color: color-mix(in oklab, var(--ink) 92%, var(--danger) 8%);
+    }
+
+    code, pre {
+      font-family: var(--mono);
+      font-size: 13px;
+    }
+
+    pre {
+      margin: 10px 0 0;
+      padding: 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+      margin-top: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    th {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    details {
+      margin-top: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(255, 255, 255, 0.02);
+      padding: 10px;
+    }
+
+    summary {
+      cursor: pointer;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 700px) {
+      .row { grid-template-columns: 1fr; }
+    }
+
+    .control {
+      display: grid;
+      gap: 6px;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    input, select, button {
+      font: inherit;
+      color: var(--ink);
+      background: rgba(15, 20, 38, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    button {
+      cursor: pointer;
+      background: rgba(125, 196, 255, 0.14);
+      border-color: rgba(125, 196, 255, 0.28);
+      font-weight: 700;
+    }
+
+    button:hover {
+      background: rgba(125, 196, 255, 0.20);
+      border-color: rgba(125, 196, 255, 0.35);
+    }
+
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(110, 231, 183, 0.20);
+      background: rgba(110, 231, 183, 0.08);
+    }
+
+    .tiny {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .kbd {
+      font: 12px/1 var(--mono);
+      padding: 2px 6px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    footer {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 14px;
+    }
+
+    .back {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--ink);
+    }
+
+    .back:hover {
+      text-decoration: none;
+      border-color: rgba(125, 196, 255, 0.35);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="eyebrow">Chemistry 11 • Molecular structure</div>
+      <h1>Lewis Structures & VSEPR (Step-by-Step)</h1>
+      <p class="lede">
+        Use Lewis structures to show <strong>electron placement</strong> (bonding + lone pairs), then use VSEPR to predict <strong>3D shape</strong>
+        and <strong>bond angles</strong>.
+      </p>
+      <nav class="nav" aria-label="Page sections">
+        <a class="chip" href="#lewis">Lewis Structures</a>
+        <a class="chip" href="#formal">Formal Charge</a>
+        <a class="chip" href="#resonance">Resonance</a>
+        <a class="chip" href="#exceptions">Octet Exceptions</a>
+        <a class="chip" href="#vsepr">VSEPR Shapes</a>
+        <a class="chip" href="#examples">Worked Examples</a>
+        <a class="chip" href="#practice">Practice</a>
+      </nav>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section id="lewis">
+          <h2>1) Lewis Structures</h2>
+          <p><strong>Goal:</strong> place valence electrons to make the most stable arrangement (usually full octets, minimal formal charge).</p>
+
+          <h3>The 7-step method</h3>
+          <ol>
+            <li><strong>Count total valence electrons.</strong> Add 1 for each negative charge, subtract 1 for each positive charge.</li>
+            <li><strong>Choose a skeleton.</strong> Put the <em>least electronegative</em> atom in the center (never H). Halogens are usually terminal.</li>
+            <li><strong>Connect atoms with single bonds.</strong> Each bond = 2 electrons.</li>
+            <li><strong>Complete octets on terminal atoms.</strong> (H needs 2, not 8.)</li>
+            <li><strong>Place leftover electrons on the central atom.</strong></li>
+            <li><strong>If the center still lacks an octet</strong>, convert lone pairs from adjacent atoms into multiple bonds.</li>
+            <li><strong>Check formal charges</strong> and choose the best structure(s).</li>
+          </ol>
+
+          <div class="note">
+            <strong>VSEPR connection:</strong> after you finish the Lewis structure, count electron groups around the central atom.
+            Single/double/triple bonds each count as <strong>one</strong> electron group.
+          </div>
+
+          <details>
+            <summary>Quick valence electron reminders</summary>
+            <ul>
+              <li>Group 1 → 1 e⁻, Group 2 → 2 e⁻</li>
+              <li>Group 13 → 3 e⁻, Group 14 → 4 e⁻, Group 15 → 5 e⁻, Group 16 → 6 e⁻, Group 17 → 7 e⁻</li>
+              <li>Common: H = 1, C = 4, N = 5, O = 6, F/Cl/Br/I = 7</li>
+            </ul>
+          </details>
+        </section>
+
+        <section id="formal">
+          <h2>2) Formal Charge (FC)</h2>
+          <p>Formal charge helps you decide which Lewis structure is most reasonable.</p>
+          <pre>Formal Charge (for an atom) = valence e⁻ − [ nonbonding e⁻ + (bonding e⁻ ÷ 2) ]</pre>
+          <div class="warn">
+            <strong>Best Lewis structure usually has:</strong>
+            <ul>
+              <li>formal charges as close to 0 as possible</li>
+              <li>negative formal charge on the more electronegative atom (if any)</li>
+              <li>the smallest magnitude of charges overall</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="resonance">
+          <h2>3) Resonance</h2>
+          <p>
+            Sometimes multiple valid Lewis structures exist with the same atom placement but different bond placement.
+            The actual molecule/ion is a <strong>resonance hybrid</strong>.
+          </p>
+          <pre>Resonance tip:
+- Move electrons (lone pairs / π bonds), not atoms.
+- Keep total electrons and overall charge the same.</pre>
+
+          <details>
+            <summary>Example: nitrate, NO₃⁻ (why resonance matters)</summary>
+            <p class="tiny">All three N–O bonds are equivalent in the real ion.</p>
+            <pre>Total valence e⁻ = 5 (N) + 3×6 (O) + 1 (charge) = 24
+Skeleton: O–N–O with a third O attached
+To give N an octet, make one N=O (double bond).
+But any O can be the double bond → 3 resonance structures.</pre>
+          </details>
+        </section>
+
+        <section id="exceptions">
+          <h2>4) Octet Rule Exceptions (Chem 11 focus)</h2>
+          <div class="row">
+            <div>
+              <h3>Incomplete octet</h3>
+              <ul>
+                <li><strong>Be</strong> often has 4 e⁻ (2 bonds): BeCl₂</li>
+                <li><strong>B</strong> often has 6 e⁻ (3 bonds): BF₃</li>
+              </ul>
+              <div class="warn"><strong>Don’t “force” an octet</strong> on Be/B by adding extra bonds if it creates unrealistic charges.</div>
+            </div>
+            <div>
+              <h3>Expanded octet</h3>
+              <ul>
+                <li>Elements in period 3+ can sometimes exceed 8 e⁻: P, S, Cl, Xe…</li>
+                <li>Common examples: PCl₅, SF₆, XeF₄</li>
+              </ul>
+              <div class="note">When expanded octets happen, VSEPR often gives 5 or 6 electron groups around the center.</div>
+            </div>
+          </div>
+
+          <details>
+            <summary>What about odd-electron (radical) structures?</summary>
+            <p class="tiny">Not usually a major Chem 11 focus, but good to recognize.</p>
+            <pre>Example: NO has 11 valence e⁻.
+You can draw a structure with one unpaired electron.
+Radicals often violate the octet rule on one atom.</pre>
+          </details>
+        </section>
+
+        <section id="vsepr">
+          <h2>5) VSEPR (3D Shapes)</h2>
+          <p><strong>VSEPR idea:</strong> electron groups repel and spread out to minimize repulsion.</p>
+
+          <h3>Step-by-step</h3>
+          <ol>
+            <li>From the Lewis structure, pick the <strong>central atom</strong>.</li>
+            <li>Count <strong>electron groups</strong> around it = bonds + lone pairs (double/triple bonds count as 1 group).</li>
+            <li>Find the <strong>electron geometry</strong> (parent shape).</li>
+            <li>Ignore lone pairs to name the <strong>molecular geometry</strong> (actual shape of atoms).</li>
+            <li>Estimate bond angles (lone pairs shrink angles slightly).</li>
+          </ol>
+
+          <table aria-label="VSEPR parent shapes">
+            <thead>
+              <tr>
+                <th>Electron Groups</th>
+                <th>Electron Geometry</th>
+                <th>Ideal Angles</th>
+                <th>Common Molecular Shapes (examples)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2</td>
+                <td>Linear</td>
+                <td>180°</td>
+                <td>AX₂ linear (CO₂)</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Trigonal planar</td>
+                <td>120°</td>
+                <td>AX₃ trigonal planar (BF₃), AX₂E bent (SO₂)</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Tetrahedral</td>
+                <td>109.5°</td>
+                <td>AX₄ tetrahedral (CH₄), AX₃E trigonal pyramidal (NH₃), AX₂E₂ bent (H₂O)</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Trigonal bipyramidal</td>
+                <td>90°, 120°, 180°</td>
+                <td>AX₅ TBP (PCl₅), AX₄E seesaw, AX₃E₂ T-shaped, AX₂E₃ linear</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>Octahedral</td>
+                <td>90°, 180°</td>
+                <td>AX₆ octahedral (SF₆), AX₅E square pyramidal, AX₄E₂ square planar (XeF₄)</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="row">
+            <div class="control">
+              <h3 style="margin: 0;">Shape Finder (AX<sub>m</sub>E<sub>n</sub>)</h3>
+              <p class="tiny">Pick electron groups and lone pairs on the <strong>central atom</strong>.</p>
+              <label for="eg">Electron groups (2–6)</label>
+              <select id="eg" aria-label="Electron groups">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4" selected>4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+              <label for="lp">Lone pairs on central atom (0–4)</label>
+              <select id="lp" aria-label="Lone pairs">
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+              <button id="solve" type="button">Find shape</button>
+              <div id="shapeResult" class="result" role="status" aria-live="polite">
+                Choose values, then press <span class="kbd">Find shape</span>.
+              </div>
+            </div>
+
+            <div>
+              <h3>Lone pair repulsion order</h3>
+              <pre>Repulsion strength (largest → smallest)
+LP–LP  >  LP–BP  >  BP–BP
+
+So lone pairs:
+- push bonds closer together
+- make angles slightly smaller than ideal</pre>
+              <div class="danger">
+                <strong>Common mistake:</strong> counting a double bond as 2 electron groups.
+                In VSEPR it still counts as <strong>1</strong> region of electron density.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="examples">
+          <h2>6) Worked Examples</h2>
+
+          <details>
+            <summary>CO₂ (linear)</summary>
+            <pre>Valence e⁻: C(4) + 2×O(6) = 16
+Skeleton: O–C–O
+After octets: C is short → make two double bonds
+Lewis: O=C=O
+VSEPR: 2 electron groups on C → linear, 180°</pre>
+          </details>
+
+          <details>
+            <summary>H₂O (bent)</summary>
+            <pre>Valence e⁻: 2×H(1) + O(6) = 8
+Skeleton: H–O–H
+After bonds: 4 e⁻ used; 4 e⁻ left as 2 lone pairs on O
+Lewis: 2 bonds + 2 lone pairs on O
+VSEPR: 4 groups (AX₂E₂) → bent, ~104.5°</pre>
+          </details>
+
+          <details>
+            <summary>NH₃ (trigonal pyramidal)</summary>
+            <pre>Valence e⁻: N(5) + 3×H(1) = 8
+Skeleton: H–N–H (3 H around N)
+After bonds: 6 e⁻ used; 2 e⁻ left = 1 lone pair on N
+VSEPR: 4 groups (AX₃E) → trigonal pyramidal, ~107°</pre>
+          </details>
+
+          <details>
+            <summary>SO₂ (bent, resonance)</summary>
+            <pre>Valence e⁻: S(6) + 2×O(6) = 18
+Skeleton: O–S–O
+You can draw resonance with one S=O and one S–O⁻ (and S⁺), or expanded-octet versions.
+VSEPR (central S): 3 electron groups (2 bonds + 1 lone pair) → AX₂E → bent (~120°)</pre>
+          </details>
+
+          <details>
+            <summary>XeF₄ (square planar)</summary>
+            <pre>Valence e⁻: Xe(8) + 4×F(7) = 36
+Skeleton: 4 F around Xe
+After octets on F, Xe has 2 lone pairs remaining
+VSEPR: 6 electron groups (4 bonds + 2 lone pairs) → AX₄E₂ → square planar, 90°</pre>
+          </details>
+        </section>
+
+        <section id="practice">
+          <h2>7) Practice (with answers)</h2>
+          <p>Try these without looking, then open the answer.</p>
+
+          <details>
+            <summary>1) Draw a Lewis structure for NO₃⁻ and name the shape around N</summary>
+            <pre>NO₃⁻
+Valence e⁻ = 24
+Resonance: 3 equivalent structures (one N=O each time)
+Central N has 3 electron groups → trigonal planar (AX₃), ~120°</pre>
+          </details>
+
+          <details>
+            <summary>2) Lewis + VSEPR for CH₄</summary>
+            <pre>CH₄
+Lewis: 4 single bonds, no lone pairs on C
+VSEPR: 4 groups → tetrahedral (AX₄), 109.5°</pre>
+          </details>
+
+          <details>
+            <summary>3) Lewis + VSEPR for BF₃ (octet exception)</summary>
+            <pre>BF₃
+Valence e⁻ = 3 + 3×7 = 24
+B forms 3 single bonds, no lone pairs (B has 6 e⁻)
+VSEPR: 3 groups → trigonal planar (AX₃), 120°</pre>
+          </details>
+
+          <details>
+            <summary>4) Lewis + VSEPR for NH₄⁺</summary>
+            <pre>NH₄⁺
+Valence e⁻ = 5 + 4×1 − 1 = 8
+Lewis: 4 N–H bonds, no lone pairs on N
+VSEPR: 4 groups → tetrahedral (AX₄), 109.5°</pre>
+          </details>
+
+          <details>
+            <summary>5) Lewis + VSEPR for SF₆ (expanded octet)</summary>
+            <pre>SF₆
+Valence e⁻ = 6 + 6×7 = 48
+Lewis: 6 S–F bonds, no lone pairs on S
+VSEPR: 6 groups → octahedral (AX₆), 90°</pre>
+          </details>
+
+          <div class="note">
+            Want more practice? Use the existing gallery: <a href="molecular_shape.html">molecular_shape.html</a>
+          </div>
+        </section>
+      </main>
+
+      <aside>
+        <section>
+          <h2>Checklist</h2>
+          <ul>
+            <li>Count valence electrons (adjust for charge)</li>
+            <li>Choose skeleton (least EN center; H never center)</li>
+            <li>Octets first on outside atoms</li>
+            <li>Fix center with double/triple bonds if needed</li>
+            <li>Check formal charges</li>
+            <li>Count electron groups for VSEPR</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Fast VSEPR Tips</h2>
+          <ul>
+            <li>Double/triple bond = 1 electron group</li>
+            <li>More lone pairs → smaller bond angles</li>
+            <li>For 5 groups, lone pairs prefer <strong>equatorial</strong> positions</li>
+            <li>For 6 groups, 2 lone pairs opposite → <strong>square planar</strong></li>
+          </ul>
+          <details>
+            <summary>Mini angle memory</summary>
+            <pre>Linear: 180°
+Trigonal planar: 120°
+Tetrahedral: 109.5°
+TBP: 90°, 120°, 180°
+Octahedral: 90°, 180°</pre>
+          </details>
+        </section>
+
+        <section>
+          <h2>Common Mistakes</h2>
+          <ul>
+            <li>Using subscripts as electron counts (use periodic table groups)</li>
+            <li>Forgetting to add/subtract electrons for ionic charge</li>
+            <li>Choosing F or O as the central atom (usually not)</li>
+            <li>Counting a double bond as 2 groups in VSEPR</li>
+            <li>Ignoring formal charge when multiple Lewis structures exist</li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+
+    <footer>
+      <span>Tip: bookmark this page and use the Shape Finder for quick checks.</span>
+      <a class="back" href="index.html" aria-label="Back to Chemistry 11 index">← Back to index</a>
+    </footer>
+  </div>
+
+  <script>
+    const VSEPR = {
+      "2-0": { ax: "AX2", electron: "Linear", molecular: "Linear", angles: "180°", note: "2 electron groups" },
+      "3-0": { ax: "AX3", electron: "Trigonal planar", molecular: "Trigonal planar", angles: "~120°", note: "3 bonding groups" },
+      "3-1": { ax: "AX2E", electron: "Trigonal planar", molecular: "Bent", angles: "< 120°", note: "1 lone pair" },
+      "4-0": { ax: "AX4", electron: "Tetrahedral", molecular: "Tetrahedral", angles: "109.5°", note: "4 bonding groups" },
+      "4-1": { ax: "AX3E", electron: "Tetrahedral", molecular: "Trigonal pyramidal", angles: "~107°", note: "1 lone pair" },
+      "4-2": { ax: "AX2E2", electron: "Tetrahedral", molecular: "Bent", angles: "~104.5°", note: "2 lone pairs" },
+      "5-0": { ax: "AX5", electron: "Trigonal bipyramidal", molecular: "Trigonal bipyramidal", angles: "90°, 120°, 180°", note: "5 bonding groups" },
+      "5-1": { ax: "AX4E", electron: "Trigonal bipyramidal", molecular: "Seesaw", angles: "< 90°, < 120°", note: "LP prefers equatorial" },
+      "5-2": { ax: "AX3E2", electron: "Trigonal bipyramidal", molecular: "T-shaped", angles: "~90°, 180°", note: "2 LP equatorial" },
+      "5-3": { ax: "AX2E3", electron: "Trigonal bipyramidal", molecular: "Linear", angles: "180°", note: "3 LP equatorial" },
+      "6-0": { ax: "AX6", electron: "Octahedral", molecular: "Octahedral", angles: "90°, 180°", note: "6 bonding groups" },
+      "6-1": { ax: "AX5E", electron: "Octahedral", molecular: "Square pyramidal", angles: "~90°", note: "1 lone pair" },
+      "6-2": { ax: "AX4E2", electron: "Octahedral", molecular: "Square planar", angles: "90°, 180°", note: "LP opposite" },
+      "6-3": { ax: "AX3E3", electron: "Octahedral", molecular: "T-shaped (rare)", angles: "~90°, 180°", note: "Less common in Chem 11" },
+      "6-4": { ax: "AX2E4", electron: "Octahedral", molecular: "Linear (rare)", angles: "180°", note: "Less common in Chem 11" }
+    };
+
+    function clampLonePairs(electronGroups, lonePairs) {
+      const maxLonePairs = Math.max(0, electronGroups - 2);
+      return Math.min(lonePairs, maxLonePairs);
+    }
+
+    function renderResult(message, isOk) {
+      const el = document.getElementById("shapeResult");
+      el.textContent = message;
+      el.style.borderColor = isOk ? "rgba(110, 231, 183, 0.20)" : "rgba(255, 212, 121, 0.25)";
+      el.style.background = isOk ? "rgba(110, 231, 183, 0.08)" : "rgba(255, 212, 121, 0.10)";
+    }
+
+    function solve() {
+      const eg = Number(document.getElementById("eg").value);
+      let lp = Number(document.getElementById("lp").value);
+      const originalLp = lp;
+      lp = clampLonePairs(eg, lp);
+
+      if (lp !== originalLp) {
+        document.getElementById("lp").value = String(lp);
+      }
+
+      const key = `${eg}-${lp}`;
+      const entry = VSEPR[key];
+      if (!entry) {
+        renderResult("That combination isn’t in the built-in map. Try a common AXmEn case (2–6 electron groups).", false);
+        return;
+      }
+
+      const bonds = eg - lp;
+      renderResult(
+        `${entry.ax} (m = ${bonds}, n = ${lp}) → electron geometry: ${entry.electron}; molecular geometry: ${entry.molecular}; angles: ${entry.angles}.`,
+        true
+      );
+    }
+
+    document.getElementById("solve").addEventListener("click", solve);
+  </script>
+</body>
+</html>
