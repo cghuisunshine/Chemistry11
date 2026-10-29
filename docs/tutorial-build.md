@@ -42,3 +42,7 @@ Printing expands lesson details and restores the previous state afterward; the p
 ## University extension verification
 
 Checked the added foundation and derivation fragment links, advanced-topic search, open/close controls for all 42 notes, formula copying, and a 390 px mobile viewport. Wide diagrams scroll inside their own containers. All 317 local PDF links resolve to existing files; there are no duplicate IDs or broken internal targets. Recalculated representative uncertainty, gas-density, heating, mixing, hydrogen-spectrum, dipole-vector, calorimetry, titration, and solubility examples independently. Student lesson text, quizzes, and model data were retained.
+
+## Lesson illustrations
+
+The page embeds 28 original SVG teaching diagrams from `scripts/tutorial_figures.py`, spanning all eight chapters and all five atomic lessons. Captions identify particle keys, model limits, omitted details, and wavefunction phase conventions. Figures are placed in the student lesson before its formula and remain available offline. At phone widths, each diagram scrolls within a keyboard-focusable frame to keep labels readable. Print styles fit figures to the page.

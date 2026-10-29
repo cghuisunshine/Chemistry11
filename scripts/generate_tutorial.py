@@ -6,6 +6,7 @@ from urllib.parse import quote
 import json
 from tutorial_content import UNITS, SOURCES, FORMULAS
 from tutorial_models import MODELS
+from tutorial_figures import render_figure
 from tutorial_university import NOTES, FOUNDATIONS
 from tutorial_university_render import render_guide, render_tutor, render_reading_map, university_outline
 ROOT = Path(__file__).resolve().parent.parent
@@ -38,7 +39,7 @@ for i,u in enumerate(UNITS,1):
         lid=f'{uid}-{j}'
         tutor=render_tutor(lid,l,f'{i}.{j}',e,paragraphs,eq,pdf,link)
         lecture_refs=lesson_refs(uid,lid)
-        section+=f'<details class="lesson" id="{lid}"'+(' open' if j==1 else '')+f'><summary><span class="lesson-index">{i}.{j}</span>{e(l["title"])}</summary><div class="lesson-body">{paragraphs(l["idea"])}{eq(l["equation"])}<div class="trap"><strong>Common trap</strong>{e(l["trap"])}</div>{tutor}<p class="source-links">{pdf("chem11.pdf",f"Textbook · PDF {l["page"]}",l["page"])}'+(' · '+lecture_refs if lecture_refs else '')+'</p></div></details>'
+        section+=f'<details class="lesson" id="{lid}"'+(' open' if j==1 else '')+f'><summary><span class="lesson-index">{i}.{j}</span>{e(l["title"])}</summary><div class="lesson-body">{paragraphs(l["idea"])}{render_figure(lid)}{eq(l["equation"])}<div class="trap"><strong>Common trap</strong>{e(l["trap"])}</div>{tutor}<p class="source-links">{pdf("chem11.pdf",f"Textbook · PDF {l["page"]}",l["page"])}'+(' · '+lecture_refs if lecture_refs else '')+'</p></div></details>'
 
     section+=MODELS[uid]+'<h3 class="mini-title">Put the ideas to work</h3><div class="example-grid">'
     for j,(title,prompt,steps) in enumerate(u['examples'],1):
